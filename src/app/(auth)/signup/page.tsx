@@ -23,7 +23,7 @@ export default function SignupPage() {
 
     try {
       await signUp(email, password, name);
-      router.push("/");
+      router.push("/spin");
     } catch (err: any) {
       setError(formatAuthError(err));
     } finally {
@@ -144,6 +144,16 @@ export default function SignupPage() {
             Sign in
           </Link>
         </p>
+
+        <div className="text-center pt-6 border-t border-dashed border-[#8B6B42]/20">
+          <Link
+            href="/bakery"
+            className="text-xs font-semibold hover:opacity-80 transition-opacity"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            Own a bakery? Partner with us
+          </Link>
+        </div>
       </motion.div>
     </div>
   );

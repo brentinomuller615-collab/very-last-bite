@@ -1,19 +1,18 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp, getApps } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  apiKey: "AIzaSyDuyBYgwA7910NdA8GRI0P6ujq0_Wny4vc",
+  authDomain: "the-last-bite-a4807.firebaseapp.com",
+  projectId: "the-last-bite-a4807",
+  storageBucket: "the-last-bite-a4807.appspot.com",
+  messagingSenderId: "339216300951",
+  appId: "1:339216300951:web:50c27ed6c4abbdd4f062d2",
 };
 
-// Prevent duplicate app initialization in Next.js dev (hot reload)
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 
-export const db = getFirestore(app);
+// 👇 THIS is what you're missing
 export const auth = getAuth(app);
+
 export default app;
