@@ -35,13 +35,20 @@ export default function LoginPage() {
         claimRole === "restaurant" ? "/bakery/dashboard" :
         "/spin";
 
-      console.group("[Login] Sign-in successful");
-      console.log("  uid:          ", auth.currentUser?.uid);
-      console.log("  email:        ", auth.currentUser?.email);
-      console.log("  custom claims:", tokenResult.claims);
-      console.log("  role:         ", claimRole ?? "(none — defaulting to customer)");
-      console.log("  admin access: ", claimRole === "admin");
-      console.log("  redirect to:  ", destination);
+      const reason =
+        claimRole === "admin"
+          ? "role claim is 'admin'"
+          : claimRole === "restaurant"
+            ? "role claim is 'restaurant'"
+            : "no matching role claim found (defaulting to customer)";
+
+      console.group("[DEBUG] Auth State & Routing Audit");
+      console.log("- user.email:", auth.currentUser?.email);
+      console.log("- user.uid:", auth.currentUser?.uid);
+      console.log("- tokenResult.claims:", tokenResult.claims);
+      console.log("- tokenResult.claims.role:", claimRole);
+      console.log("- the route the application chooses:", destination);
+      console.log("- the reason for that route:", reason);
       console.groupEnd();
 
       router.push(destination);
