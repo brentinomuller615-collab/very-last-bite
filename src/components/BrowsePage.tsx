@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, SlidersHorizontal } from "lucide-react";
-import { deals, Deal, DealCategory } from "@/lib/data";
+import { Deal, DealCategory } from "@/lib/data";
+import { useMarketplaceDeals } from "@/lib/marketplace";
 import DealCard from "./DealCard";
 
 const categories: { id: DealCategory | "all"; label: string; emoji: string }[] = [
@@ -21,6 +22,7 @@ interface BrowsePageProps {
 export default function BrowsePage({ onReserve }: BrowsePageProps) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<DealCategory | "all">("all");
+  const { deals, loading } = useMarketplaceDeals();
 
   const filtered = deals.filter((d) => {
     const matchesCategory = activeCategory === "all" || d.category === activeCategory;
@@ -97,22 +99,35 @@ export default function BrowsePage({ onReserve }: BrowsePageProps) {
 
       {/* Deal list */}
       <div className="px-4 flex flex-col gap-3">
-        {filtered.map((deal, i) => (
-          <motion.div
-            key={deal.id}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-          >
-            <DealCard deal={deal} compact onReserve={onReserve} />
-          </motion.div>
-        ))}
-        {filtered.length === 0 && (
-          <div className="text-center py-16" style={{ color: "var(--text-muted)" }}>
-            <p className="text-4xl mb-3">🔍</p>
-            <p className="font-semibold">No deals found</p>
-            <p className="text-sm">Try a different search or category</p>
+        {loading ? (
+          <div className="flex flex-col items-center justify-center py-20">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
+              className="w-8 h-8 rounded-full border-2 border-orange-100 border-t-[var(--accent-orange)]"
+            />
+            <p className="mt-3 text-xs font-semibold" style={{ color: "var(--text-muted)" }}>Finding active deals...</p>
           </div>
+        ) : (
+          <>
+            {filtered.map((deal, i) => (
+              <motion.div
+                key={deal.id}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05 }}
+              >
+                <DealCard deal={deal} compact onReserve={onReserve} />
+              </motion.div>
+            ))}
+            {filtered.length === 0 && (
+              <div className="text-center py-16" style={{ color: "var(--text-muted)" }}>
+                <p className="text-4xl mb-3">🔍</p>
+                <p className="font-semibold">No deals found</p>
+                <p className="text-sm">Try a different search or category</p>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

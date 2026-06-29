@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useAnimationControls } from "framer-motion";
 import { Zap, Clock, MapPin, CheckCircle2, X } from "lucide-react";
-import { deals, Deal } from "@/lib/data";
+import { Deal } from "@/lib/data";
+import { useMarketplaceDeals } from "@/lib/marketplace";
 
 interface SpinMachineProps {
   onSpinComplete: (deal: Deal) => void;
@@ -217,7 +218,8 @@ function ReserveModal({
 
 export default function SpinMachine({ onSpinComplete, onAddToHistory }: SpinMachineProps) {
   const [isSpinning, setIsSpinning] = useState(false);
-  const [currentDisplayDeal, setCurrentDisplayDeal] = useState<Deal | null>(deals[0]);
+  const { deals, loading } = useMarketplaceDeals();
+  const [currentDisplayDeal, setCurrentDisplayDeal] = useState<Deal | null>(null);
   const [resultDeal, setResultDeal] = useState<Deal | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [showReserveModal, setShowReserveModal] = useState(false);
@@ -225,8 +227,15 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory }: SpinMach
   const spinInterval = useRef<ReturnType<typeof setInterval> | null>(null);
   const controls = useAnimationControls();
 
+  // Set initial display deal once deals are loaded
+  useEffect(() => {
+    if (!loading && deals.length > 0 && !currentDisplayDeal && !isSpinning && !resultDeal) {
+      setCurrentDisplayDeal(deals[0]);
+    }
+  }, [deals, loading, currentDisplayDeal, isSpinning, resultDeal]);
+
   const handleSpin = async () => {
-    if (isSpinning) return;
+    if (isSpinning || loading || deals.length === 0) return;
 
     setIsSpinning(true);
     setShowResult(false);

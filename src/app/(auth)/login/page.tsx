@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useAuth, formatAuthError } from "@/contexts/AuthContext";
+import { auth } from "@/lib/firebase";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -23,10 +24,29 @@ export default function LoginPage() {
 
     try {
       await signIn(email, password);
-      router.push("/spin");
+
+      // Firebase has verified the credentials. Now force-refresh the ID token
+      // to read the latest custom claims — role comes from the JWT, not the email.
+      const tokenResult = await auth.currentUser!.getIdTokenResult(/* forceRefresh */ true);
+      const claimRole = tokenResult.claims["role"] as string | undefined;
+
+      const destination =
+        claimRole === "admin"      ? "/admin" :
+        claimRole === "restaurant" ? "/bakery/dashboard" :
+        "/spin";
+
+      console.group("[Login] Sign-in successful");
+      console.log("  uid:          ", auth.currentUser?.uid);
+      console.log("  email:        ", auth.currentUser?.email);
+      console.log("  custom claims:", tokenResult.claims);
+      console.log("  role:         ", claimRole ?? "(none — defaulting to customer)");
+      console.log("  admin access: ", claimRole === "admin");
+      console.log("  redirect to:  ", destination);
+      console.groupEnd();
+
+      router.push(destination);
     } catch (err: any) {
       setError(formatAuthError(err));
-    } finally {
       setLoading(false);
     }
   };
@@ -145,12 +165,12 @@ export default function LoginPage() {
               boxShadow: "var(--glow-orange)",
             }}
           >
-            {loading ? "Signing In..." : "Sign In"}
+            {loading ? "Signing In…" : "Sign In"}
           </motion.button>
         </form>
 
         <p className="text-center text-sm" style={{ color: "var(--text-secondary)" }}>
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link
             href="/signup"
             className="font-bold transition-colors hover:opacity-80"

@@ -6,10 +6,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function LandingPage() {
-  const { user } = useAuth();
+  const { user, isAdminUser } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+
+  // Auth Button details - TODO: Add analytics or tracking trigger if needed
+  const authButtonText = user ? "Open App" : "Get Started";
+  const authButtonLink = user ? (isAdminUser ? "/admin" : "/spin") : "/signup";
 
   // Handle header scroll shadow
   useEffect(() => {
@@ -39,9 +43,7 @@ export default function LandingPage() {
     setTimeout(() => setFormSubmitted(false), 5000);
   };
 
-  // Auth Button details - TODO: Add analytics or tracking trigger if needed
-  const authButtonText = user ? "Open App" : "Get Started";
-  const authButtonLink = user ? "/spin" : "/signup";
+
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#3E2723] font-body selection:bg-[#FCD34D] selection:text-[#5D4037]">

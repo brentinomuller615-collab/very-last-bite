@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useAuth, formatAuthError } from "@/contexts/AuthContext";
+import { createUserRoleIfMissing } from "@/lib/userRoles";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
@@ -23,6 +24,11 @@ export default function SignupPage() {
 
     try {
       await signUp(email, password, name);
+      // Write the customer role document (fires once; AuthContext bootstrap won't override it)
+      const currentUser = (await import("@/lib/firebase")).auth.currentUser;
+      if (currentUser) {
+        await createUserRoleIfMissing(currentUser.uid, email, "customer");
+      }
       router.push("/spin");
     } catch (err: any) {
       setError(formatAuthError(err));

@@ -7,18 +7,52 @@ import Button from "@/components/bakery/Button";
 import Input from "@/components/bakery/Input";
 import { BundleType } from "@/lib/bakeryMockData";
 
+import { db, auth } from "@/lib/firebase";
+import { collection, addDoc, doc, getDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+
 const BUNDLE_TYPES: BundleType[] = ["Bread Bundle", "Sweet Bundle", "Mixed Bundle", "Family Bundle", "Mystery Box"];
 
 export default function AddBundlePage() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [isPublishing, setIsPublishing] = useState(false);
+  const [isCheckingStatus, setIsCheckingStatus] = useState(true);
+  const [error, setError] = useState("");
 
   // Form State
   const [type, setType] = useState<BundleType | "">("");
   const [quantity, setQuantity] = useState(1);
   const [retailValue, setRetailValue] = useState("");
   const [sellingPrice, setSellingPrice] = useState("");
+
+  // Verify status on mount
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        router.replace("/bakery");
+        return;
+      }
+      try {
+        const bakerySnap = await getDoc(doc(db, "bakeries", user.uid));
+        if (bakerySnap.exists()) {
+          const data = bakerySnap.data();
+          if (data.status !== "approved") {
+            setError("Your account is not approved to create listings.");
+          }
+        } else {
+          setError("Bakery profile not found.");
+        }
+      } catch (err) {
+        console.error("Error verifying status:", err);
+        setError("Failed to verify account status.");
+      } finally {
+        setIsCheckingStatus(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
 
   // Calculate recommended price and discount when retail value changes
   useEffect(() => {
@@ -41,15 +75,73 @@ export default function AddBundlePage() {
   const nextStep = () => setStep(s => Math.min(s + 1, 5));
   const prevStep = () => setStep(s => Math.max(s - 1, 1));
 
-  const handlePublish = () => {
+  const handlePublish = async () => {
     setIsPublishing(true);
-    setTimeout(() => {
-      setIsPublishing(false);
+    setError("");
+    try {
+      const user = auth.currentUser;
+      if (!user) throw new Error("No authenticated user session.");
+
+      // Re-verify status before publish
+      const bakerySnap = await getDoc(doc(db, "bakeries", user.uid));
+      if (!bakerySnap.exists() || bakerySnap.data().status !== "approved") {
+        throw new Error("Listing creation blocked: account is not approved.");
+      }
+
+      const bakeryData = bakerySnap.data();
+
+      // Save to Firestore listings collection
+      await addDoc(collection(db, "listings"), {
+        bakeryId: user.uid,
+        businessName: bakeryData.businessName || "Unknown Bakery",
+        type,
+        quantity,
+        retailValue: Number(retailValue),
+        sellingPrice: Number(sellingPrice),
+        status: "Active",
+        active: true,
+        createdAt: new Date().toISOString(),
+        category: "bakery"
+      });
+
       router.push("/bakery/dashboard");
-    }, 1000);
+    } catch (err: any) {
+      console.error("Publish listing error:", err);
+      setError(err.message || "Failed to publish listing.");
+    } finally {
+      setIsPublishing(false);
+    }
   };
 
   const isPriceValid = discountPercentage >= 60 && discountPercentage <= 80;
+
+  if (isCheckingStatus) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[calc(100dvh-90px)] p-6 bg-[var(--bakery-bg)]">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
+          className="w-10 h-10 rounded-full border-4 border-amber-100 border-t-[var(--bakery-gold)]"
+        />
+        <p className="mt-4 text-sm font-semibold text-[#6B7280]">Verifying account details...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-6 pt-10 flex flex-col min-h-[calc(100dvh-90px)] justify-center items-center text-center space-y-6">
+        <div className="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center text-3xl">
+          ⚠️
+        </div>
+        <h2 className="text-xl font-black font-display text-[var(--bakery-text)]">Listing Creation Blocked</h2>
+        <p className="text-sm font-semibold text-[#6B7280] max-w-xs">{error}</p>
+        <Button onClick={() => router.push("/bakery/dashboard")} className="w-full max-w-xs">
+          Back to Dashboard
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 pt-10 flex flex-col min-h-[calc(100dvh-90px)]">
