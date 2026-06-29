@@ -31,25 +31,10 @@ export default function LoginPage() {
       const claimRole = tokenResult.claims["role"] as string | undefined;
 
       const destination =
-        claimRole === "admin"      ? "/admin" :
-        claimRole === "restaurant" ? "/bakery/dashboard" :
-        "/spin";
+        claimRole === "admin" ? "/admin" :
+          claimRole === "restaurant" ? "/bakery/dashboard" :
+            "/spin";
 
-      const reason =
-        claimRole === "admin"
-          ? "role claim is 'admin'"
-          : claimRole === "restaurant"
-            ? "role claim is 'restaurant'"
-            : "no matching role claim found (defaulting to customer)";
-
-      console.group("[DEBUG] Auth State & Routing Audit");
-      console.log("- user.email:", auth.currentUser?.email);
-      console.log("- user.uid:", auth.currentUser?.uid);
-      console.log("- tokenResult.claims:", tokenResult.claims);
-      console.log("- tokenResult.claims.role:", claimRole);
-      console.log("- the route the application chooses:", destination);
-      console.log("- the reason for that route:", reason);
-      console.groupEnd();
 
       router.push(destination);
     } catch (err: any) {

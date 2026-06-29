@@ -243,6 +243,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const isAdminUser = role === "admin";
 
+
+
   return (
     <AuthContext.Provider
       value={{
