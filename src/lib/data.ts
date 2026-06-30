@@ -9,14 +9,21 @@ export interface Deal {
   originalPrice: number;
   discountedPrice: number;
   discountPercent: number;
-  pickupTime: string;
-  pickupEndTime: string;
+  pickupTime?: string;
+  pickupEndTime?: string;
   distance: number;
   description: string;
   tags: string[];
   rating: number;
   reviewCount: number;
   bgColor: string;
+  bakeryAddress?: string;
+  bakeryPhone?: string;
+  bakeryId?: string;
+  pickupCode?: string;
+  pickupCodeUsed?: boolean;
+  status?: string;
+  collectedAt?: any;
 }
 
 export const deals: Deal[] = [

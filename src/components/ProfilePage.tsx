@@ -3,22 +3,24 @@
 import { motion } from "framer-motion";
 import { ChevronRight, Heart, Bell, Shield, HelpCircle, Star, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 const menuItems = [
-  { icon: Heart, label: "Favourite Stores", badge: "3" },
   { icon: Bell, label: "Notifications", badge: "On" },
   { icon: Shield, label: "Privacy & Security", badge: null },
-  { icon: Star, label: "Rate the App", badge: null },
   { icon: HelpCircle, label: "Help & Support", badge: null },
   { icon: LogOut, label: "Sign Out", badge: null, danger: true },
 ];
 
 export default function ProfilePage() {
   const { user, signOut } = useAuth();
+  const router = useRouter();
 
   const handleMenuClick = (label: string) => {
     if (label === "Sign Out") {
       signOut();
+    } else if (label === "Privacy & Security") {
+      router.push("/privacy");
     }
   };
 
@@ -54,7 +56,7 @@ export default function ProfilePage() {
           {user?.displayName || "Foodie"}
         </h2>
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-          Stellenbosch · Member since 2024
+          Stellenbosch · Member since {user?.metadata?.creationTime ? new Date(user.metadata.creationTime).getFullYear() : 2024}
         </p>
 
         {/* Impact summary */}

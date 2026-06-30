@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Home, Search, Ticket, User } from "lucide-react";
 
-export type TabId = "spin" | "browse" | "reserved" | "profile";
+export type TabId = "spin" | "reserved" | "profile";
 
 interface BottomNavProps {
   activeTab: TabId;
@@ -12,7 +12,6 @@ interface BottomNavProps {
 
 const tabs: { id: TabId; label: string; Icon: React.FC<{ size?: number; strokeWidth?: number }> }[] = [
   { id: "spin", label: "Spin", Icon: Home },
-  { id: "browse", label: "Browse", Icon: Search },
   { id: "reserved", label: "Reserved", Icon: Ticket },
   { id: "profile", label: "Profile", Icon: User },
 ];

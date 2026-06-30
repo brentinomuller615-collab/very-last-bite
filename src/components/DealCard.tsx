@@ -47,7 +47,7 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
           <div className="flex items-center gap-3 mt-1">
             <span className="flex items-center gap-1 text-xs" style={{ color: "var(--text-muted)" }}>
               <Clock size={10} />
-              {deal.pickupTime}
+              {deal.pickupTime && deal.pickupEndTime ? `${deal.pickupTime} – ${deal.pickupEndTime}` : "Confirmed by bakery"}
             </span>
             <span className="flex items-center gap-1 text-xs" style={{ color: "var(--text-muted)" }}>
               <MapPin size={10} />
@@ -137,7 +137,7 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
         <div className="flex items-center gap-1.5 text-sm" style={{ color: "var(--text-secondary)" }}>
           <Clock size={14} className="text-amber-400" />
           <span>
-            {deal.pickupTime} – {deal.pickupEndTime}
+            {deal.pickupTime && deal.pickupEndTime ? `${deal.pickupTime} – ${deal.pickupEndTime}` : "Pickup time to be confirmed by the bakery."}
           </span>
         </div>
         <div className="flex items-center gap-1.5 text-sm" style={{ color: "var(--text-secondary)" }}>

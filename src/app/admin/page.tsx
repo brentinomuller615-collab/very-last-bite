@@ -77,7 +77,7 @@ function StatusBadge({ status }: { status: Bakery["status"] }) {
 // ─── Page component ───────────────────────────────────────────────────────────
 
 export default function AdminDashboardPage() {
-  const { user, loading: authLoading, isAdminUser, roleLoading } = useAuth();
+  const { user, loading: authLoading, isAdminUser, roleLoading, signOut } = useAuth();
   const router = useRouter();
 
   // Combined loading: wait for both Firebase Auth AND the Firestore role to resolve
@@ -283,9 +283,17 @@ export default function AdminDashboardPage() {
               Admin
             </span>
           </Link>
-          <span className="hidden sm:block text-xs font-semibold text-[#8D6E63]">
-            {user?.email}
-          </span>
+          <div className="flex items-center gap-4">
+            <span className="hidden sm:block text-xs font-semibold text-[#8D6E63]">
+              {user?.email}
+            </span>
+            <button
+              onClick={() => signOut()}
+              className="text-xs font-bold bg-[#5D4037] text-white px-3 py-1.5 rounded-lg hover:bg-[#4E342E] transition-all cursor-pointer"
+            >
+              Sign Out
+            </button>
+          </div>
         </div>
       </header>
 

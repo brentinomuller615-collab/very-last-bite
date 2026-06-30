@@ -4,44 +4,65 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { LayoutDashboard, ClipboardList, PlusCircle, Settings } from "lucide-react";
 
 const tabs = [
-  { id: "dashboard", label: "Dashboard", path: "/bakery/dashboard", icon: "📊" },
-  { id: "orders", label: "Orders", path: "/bakery/dashboard/orders", icon: "🧾" },
-  { id: "add-bundle", label: "Add Bundle", path: "/bakery/dashboard/add-bundle", icon: "➕" },
-  { id: "settings", label: "Settings", path: "/bakery/dashboard/settings", icon: "⚙️" },
+  { id: "dashboard", label: "Dashboard", path: "/bakery/dashboard", icon: LayoutDashboard },
+  { id: "orders", label: "Orders", path: "/bakery/dashboard/orders", icon: ClipboardList },
+  { id: "add-bundle", label: "Add Bundle", path: "/bakery/dashboard/add-bundle", icon: PlusCircle },
+  { id: "settings", label: "Settings", path: "/bakery/dashboard/settings", icon: Settings },
 ];
 
 export default function BakeryBottomNav() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-6 pt-4 bg-white/80 backdrop-blur-xl border-t border-[#F3F4F6] max-mobile mx-auto">
+    <div
+      className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-6 pt-3 max-mobile mx-auto"
+      style={{
+        background: "linear-gradient(0deg, var(--bg-primary) 0%, rgba(26,10,0,0.96) 100%)",
+        borderTop: "1px solid var(--border-subtle)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+      }}
+    >
       <div className="flex justify-between items-center px-2">
         {tabs.map((tab) => {
-          const isActive = pathname === tab.path || (tab.id === 'dashboard' && pathname === '/bakery/dashboard');
-          
-          // Special case for dashboard root path vs other paths
-          const isReallyActive = tab.id === 'dashboard' 
-            ? pathname === '/bakery/dashboard'
-            : pathname.includes(tab.path);
+          const Icon = tab.icon;
+          const isActive =
+            tab.id === "dashboard"
+              ? pathname === "/bakery/dashboard"
+              : pathname.startsWith(tab.path);
 
           return (
-            <Link key={tab.id} href={tab.path} className="relative flex flex-col items-center p-2 w-16">
-              <span className={`text-2xl mb-1 transition-transform ${isReallyActive ? "scale-110" : "grayscale opacity-50"}`}>
-                {tab.icon}
-              </span>
-              <span className={`text-[10px] font-semibold transition-colors ${
-                isReallyActive ? "text-[#D97706]" : "text-[#9CA3AF]"
-              }`}>
+            <Link
+              key={tab.id}
+              href={tab.path}
+              className="relative flex flex-col items-center gap-1 py-1 w-16"
+            >
+              <motion.div
+                animate={{
+                  color: isActive ? "var(--accent-orange)" : "var(--text-muted)",
+                  scale: isActive ? 1 : 0.9,
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <Icon size={22} strokeWidth={isActive ? 2.5 : 1.8} />
+              </motion.div>
+
+              <span
+                className="text-[10px] font-semibold transition-colors"
+                style={{ color: isActive ? "var(--accent-orange)" : "var(--text-muted)" }}
+              >
                 {tab.label}
               </span>
-              
-              {isReallyActive && (
+
+              {isActive && (
                 <motion.div
-                  layoutId="bakery-bottom-nav-indicator"
-                  className="absolute -top-4 w-8 h-1 rounded-full bg-[#F59E0B]"
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  layoutId="bakery-nav-indicator"
+                  className="absolute -top-3 w-8 h-0.5 rounded-full"
+                  style={{ background: "var(--accent-orange)" }}
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                 />
               )}
             </Link>

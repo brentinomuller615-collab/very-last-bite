@@ -45,15 +45,13 @@ export default function SignupPage() {
         className="w-full max-w-sm space-y-8"
       >
         <div className="text-center space-y-2">
-          <div
-            className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6"
-            style={{
-              background: "linear-gradient(135deg, var(--accent-orange-dark), var(--accent-orange))",
-              boxShadow: "var(--glow-orange-strong)",
-            }}
+          <Link
+            href="/"
+            className="inline-block text-2xl font-black tracking-tight mb-4"
+            style={{ fontFamily: "var(--font-display)", color: "var(--text-secondary)" }}
           >
-            🍱
-          </div>
+            Very Last Bite
+          </Link>
           <h1
             className="text-3xl font-black"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}

@@ -82,23 +82,36 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
                     >
                       {deal.title}
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-emerald-400">
-                      <CheckCircle2 size={11} />
-                      Reserved
-                    </span>
+                    {deal.status === "collected" ? (
+                      <span className="flex items-center gap-1 text-xs text-blue-400">
+                        <CheckCircle2 size={11} />
+                        Collected
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-1 text-xs text-emerald-400">
+                        <CheckCircle2 size={11} />
+                        Reserved
+                      </span>
+                    )}
                   </div>
                   <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
                     {deal.businessName}
                   </p>
-                  <div className="flex items-center gap-3 mt-1.5">
-                    <span className="flex items-center gap-1 text-xs" style={{ color: "var(--text-muted)" }}>
-                      <Clock size={10} />
-                      {deal.pickupTime}–{deal.pickupEndTime}
-                    </span>
-                    <span className="flex items-center gap-1 text-xs" style={{ color: "var(--text-muted)" }}>
-                      <MapPin size={10} />
-                      {deal.distance} km
-                    </span>
+                  <div className="flex flex-col gap-1 mt-2">
+                    <div className="flex items-center gap-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
+                      <Clock size={11} className="text-amber-400" />
+                      {deal.pickupTime && deal.pickupEndTime ? (
+                        <span>Pickup: {deal.pickupTime} – {deal.pickupEndTime}</span>
+                      ) : (
+                        <span className="italic" style={{ color: "var(--text-muted)" }}>
+                          Pickup time to be confirmed by the bakery
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
+                      <MapPin size={11} className="text-amber-400" />
+                      <span>{deal.bakeryAddress || "Stellenbosch"} ({deal.distance} km)</span>
+                    </div>
                   </div>
                 </div>
                 <div className="text-right flex-shrink-0">
@@ -108,32 +121,59 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
                   >
                     R{deal.discountedPrice}
                   </div>
-                  <button
-                    onClick={() => setCancelling(deal.id)}
-                    className="text-xs mt-1"
-                    style={{ color: "var(--text-muted)" }}
-                  >
-                    Cancel
-                  </button>
+                  {deal.status !== "collected" && (
+                    <button
+                      onClick={() => setCancelling(deal.id)}
+                      className="text-xs mt-1"
+                      style={{ color: "var(--text-muted)" }}
+                    >
+                      Cancel
+                    </button>
+                  )}
                 </div>
               </div>
 
-              {/* Progress bar showing time to pickup */}
-              <div
-                className="mt-3 h-1 rounded-full overflow-hidden"
-                style={{ background: "var(--bg-surface)" }}
-              >
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: "65%" }}
-                  transition={{ duration: 1, delay: 0.3 }}
-                  className="h-full rounded-full"
-                  style={{ background: "var(--accent-orange)" }}
-                />
-              </div>
-              <p className="text-xs mt-1.5" style={{ color: "var(--text-muted)" }}>
-                Pickup window opens soon
-              </p>
+              {deal.status === "collected" ? (
+                <div
+                  className="mt-4 p-3 rounded-xl flex items-center justify-between"
+                  style={{ background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.2)" }}
+                >
+                  <span className="text-sm font-semibold text-blue-400">Collected</span>
+                  <span className="text-xs text-blue-400/80">
+                    {deal.collectedAt ? new Date(deal.collectedAt).toLocaleString() : "Recently"}
+                  </span>
+                </div>
+              ) : (
+                <>
+                  <div
+                    className="mt-4 p-3 rounded-xl flex flex-col items-center justify-center text-center gap-1"
+                    style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)" }}
+                  >
+                    <p className="text-xs mb-1" style={{ color: "var(--text-muted)" }}>
+                      Show this code to the bakery when collecting:
+                    </p>
+                    <div className="text-3xl tracking-widest font-black" style={{ color: "var(--accent-orange)" }}>
+                      {deal.pickupCode}
+                    </div>
+                  </div>
+                  {/* Progress bar */}
+                  <div
+                    className="mt-3 h-1 rounded-full overflow-hidden"
+                    style={{ background: "var(--bg-surface)" }}
+                  >
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: "65%" }}
+                      transition={{ duration: 1, delay: 0.3 }}
+                      className="h-full rounded-full"
+                      style={{ background: "var(--accent-orange)" }}
+                    />
+                  </div>
+                  <p className="text-xs mt-1.5" style={{ color: "var(--text-muted)" }}>
+                    {deal.pickupTime ? "Pickup window approaching" : "Awaiting pickup confirmation"}
+                  </p>
+                </>
+              )}
             </motion.div>
           ))}
         </AnimatePresence>

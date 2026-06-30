@@ -2,7 +2,7 @@ import React from "react";
 import { motion, HTMLMotionProps } from "framer-motion";
 
 interface ButtonProps extends HTMLMotionProps<"button"> {
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "secondary" | "ghost";
   isLoading?: boolean;
 }
 
@@ -14,20 +14,40 @@ export default function Button({
   disabled,
   ...props
 }: ButtonProps) {
-  const baseStyles = "w-full py-3.5 px-6 rounded-2xl font-bold font-display transition-all flex items-center justify-center";
-  
-  const variants = {
-    primary: "bg-[#F59E0B] text-white hover:bg-[#D97706] shadow-[0_4px_14px_rgba(245,158,11,0.3)] hover:shadow-[0_6px_20px_rgba(245,158,11,0.4)]",
-    secondary: "bg-[#FFFDF8] text-[#1F2937] hover:bg-[#F3F4F6] border border-[#F3F4F6] shadow-sm",
-    outline: "bg-transparent text-[#F59E0B] border-2 border-[#F59E0B] hover:bg-[#FFFDF8]",
+  const base =
+    "w-full py-3.5 px-6 rounded-2xl font-bold font-display transition-all flex items-center justify-center gap-2 text-sm";
+
+  const variants: Record<string, string> = {
+    primary:
+      "text-white",
+    secondary:
+      "text-[var(--text-secondary)] border border-[var(--border-subtle)]",
+    ghost:
+      "text-[var(--accent-orange)] border border-[var(--border-subtle)]",
   };
+
+  const primaryStyle =
+    variant === "primary"
+      ? {
+          background: "linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-orange-dark) 100%)",
+          boxShadow: "0 4px 14px rgba(245,158,11,0.35)",
+        }
+      : variant === "secondary"
+      ? {
+          background: "var(--bg-secondary)",
+        }
+      : {
+          background: "transparent",
+        };
 
   return (
     <motion.button
-      whileTap={{ scale: 0.98 }}
-      className={`${baseStyles} ${variants[variant]} ${
-        disabled || isLoading ? "opacity-60 cursor-not-allowed" : ""
+      whileTap={{ scale: 0.97 }}
+      whileHover={!disabled && !isLoading ? { scale: 1.01 } : undefined}
+      className={`${base} ${variants[variant]} ${
+        disabled || isLoading ? "opacity-50 cursor-not-allowed" : ""
       } ${className}`}
+      style={primaryStyle}
       disabled={disabled || isLoading}
       {...props}
     >

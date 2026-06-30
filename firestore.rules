@@ -78,11 +78,39 @@ service cloud.firestore {
 
       // Only approved bakeries can update or delete their own listings.
       // Admins can also manage any listing (activate/deactivate/delete).
-      allow update, delete: if request.auth != null && (
+      // Customers can update listing quantity during a reservation transaction (decrement by 1).
+      allow update: if request.auth != null && (
+        isAdmin() || (
+          resource.data.bakeryId == request.auth.uid
+          && isApprovedBakery(request.auth.uid)
+        ) || (
+          request.resource.data.quantity == resource.data.quantity - 1
+          && request.resource.data.bakeryId == resource.data.bakeryId
+        )
+      );
+      allow delete: if request.auth != null && (
         isAdmin() || (
           resource.data.bakeryId == request.auth.uid
           && isApprovedBakery(request.auth.uid)
         )
+      );
+    }
+
+    // ── reservations collection ──────────────────────────────────────────────
+    match /reservations/{reservationId} {
+      allow read: if request.auth != null && (
+        isAdmin() ||
+        resource.data.userId == request.auth.uid ||
+        resource.data.bakeryId == request.auth.uid
+      );
+      // Allow list queries by userId (customers) or bakeryId (bakeries)
+      allow list: if request.auth != null;
+      allow create: if request.auth != null
+        && request.resource.data.userId == request.auth.uid;
+      allow update: if isAdmin();
+      allow delete: if request.auth != null && (
+        isAdmin() ||
+        resource.data.userId == request.auth.uid
       );
     }
   }

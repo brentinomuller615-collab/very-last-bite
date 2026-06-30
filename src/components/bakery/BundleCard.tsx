@@ -1,44 +1,139 @@
 import React from "react";
 import { Bundle } from "@/lib/bakeryMockData";
-import Button from "./Button";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { Pencil, Clock } from "lucide-react";
 
 interface BundleCardProps {
   bundle: Bundle;
-  onEdit?: (id: string) => void;
 }
 
-export default function BundleCard({ bundle, onEdit }: BundleCardProps) {
+const STATUS_STYLES: Record<string, { color: string; bg: string; border: string }> = {
+  Active: {
+    color: "var(--accent-orange)",
+    bg: "rgba(245,158,11,0.1)",
+    border: "rgba(245,158,11,0.3)",
+  },
+  "Sold Out": {
+    color: "var(--text-muted)",
+    bg: "rgba(255,255,255,0.05)",
+    border: "var(--border-subtle)",
+  },
+  Expired: {
+    color: "#EF4444",
+    bg: "rgba(239,68,68,0.1)",
+    border: "rgba(239,68,68,0.3)",
+  },
+};
+
+export default function BundleCard({ bundle }: BundleCardProps) {
+  const router = useRouter();
+  const status = STATUS_STYLES[bundle.status] || STATUS_STYLES["Active"];
+  const discount = Math.round(
+    ((bundle.retailValue - bundle.sellingPrice) / bundle.retailValue) * 100
+  );
+
   return (
-    <div className="bg-white p-5 rounded-2xl border border-[#F3F4F6] shadow-[0_4px_20px_rgba(0,0,0,0.03)] space-y-4 relative overflow-hidden">
-      {/* Decorative top border */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-[#F59E0B]" />
-      
-      <div className="flex justify-between items-start pt-1">
+    <motion.div
+      whileHover={{ y: -1 }}
+      className="p-5 rounded-2xl relative overflow-hidden"
+      style={{
+        background: "var(--bg-card)",
+        border: "1px solid var(--border-subtle)",
+      }}
+    >
+      {/* Orange top accent for active */}
+      {bundle.status === "Active" && (
+        <div
+          className="absolute top-0 left-0 right-0 h-px"
+          style={{
+            background: "linear-gradient(90deg, transparent, var(--accent-orange), transparent)",
+          }}
+        />
+      )}
+
+      {/* Header */}
+      <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-lg font-bold text-[#1F2937] font-display">{bundle.type}</h3>
-          <p className="text-sm text-[#6B7280]">Quantity: <span className="font-semibold text-[#1F2937]">{bundle.quantity}</span></p>
+          <h3
+            className="text-base font-black font-display"
+            style={{ color: "var(--text-primary)" }}
+          >
+            {bundle.type}
+          </h3>
+          <p className="text-xs mt-0.5" style={{ color: "var(--text-muted)" }}>
+            {bundle.quantity} remaining
+          </p>
         </div>
-        <span className="px-2.5 py-1 text-xs font-bold rounded-lg bg-[#FFFDF8] text-[#D97706] border border-[#FCD34D]">
+        <span
+          className="text-xs font-bold px-2.5 py-1 rounded-lg"
+          style={{
+            color: status.color,
+            background: status.bg,
+            border: `1px solid ${status.border}`,
+          }}
+        >
           {bundle.status}
         </span>
       </div>
 
-      <div className="flex justify-between items-center bg-[#F9FAFB] p-3 rounded-xl border border-[#F3F4F6]">
+      {/* Pricing */}
+      <div
+        className="flex justify-between items-center px-4 py-3 rounded-xl mb-4"
+        style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)" }}
+      >
         <div>
-          <p className="text-xs text-[#6B7280]">Retail Value</p>
-          <p className="text-sm font-semibold text-gray-500 line-through">R{bundle.retailValue}</p>
+          <p className="text-xs" style={{ color: "var(--text-muted)" }}>Retail</p>
+          <p
+            className="text-sm font-semibold line-through"
+            style={{ color: "var(--text-muted)" }}
+          >
+            R{bundle.retailValue}
+          </p>
+        </div>
+        <div
+          className="text-xs font-bold px-2 py-0.5 rounded-lg"
+          style={{
+            background: "rgba(245,158,11,0.15)",
+            color: "var(--accent-orange)",
+          }}
+        >
+          {discount}% OFF
         </div>
         <div className="text-right">
-          <p className="text-xs text-[#F59E0B] font-bold">Selling Price</p>
-          <p className="text-lg font-black text-[#1F2937]">R{bundle.sellingPrice}</p>
+          <p className="text-xs" style={{ color: "var(--accent-orange)" }}>Selling</p>
+          <p
+            className="text-lg font-black font-display"
+            style={{ color: "var(--text-primary)" }}
+          >
+            R{bundle.sellingPrice}
+          </p>
         </div>
       </div>
 
-      {onEdit && (
-        <Button variant="secondary" onClick={() => onEdit(bundle.id)} className="!py-2.5 !rounded-xl">
-          Edit Bundle
-        </Button>
-      )}
-    </div>
+      {/* Pickup Window */}
+      <div className="flex items-center gap-1.5 text-xs px-1 mb-4" style={{ color: "var(--text-muted)" }}>
+        <Clock size={12} className="text-amber-400" />
+        {bundle.pickupTime && bundle.pickupEndTime ? (
+          <span>Pickup Window: {bundle.pickupTime} – {bundle.pickupEndTime}</span>
+        ) : (
+          <span className="italic">Pickup window to be confirmed</span>
+        )}
+      </div>
+
+      {/* Edit */}
+      <button
+        onClick={() => router.push(`/bakery/dashboard/add-bundle?edit=${bundle.id}`)}
+        className="w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
+        style={{
+          background: "var(--bg-secondary)",
+          border: "1px solid var(--border-subtle)",
+          color: "var(--text-secondary)",
+        }}
+      >
+        <Pencil size={13} />
+        Edit Bundle
+      </button>
+    </motion.div>
   );
 }

@@ -9,6 +9,7 @@ import { useMarketplaceDeals } from "@/lib/marketplace";
 interface SpinMachineProps {
   onSpinComplete: (deal: Deal) => void;
   onAddToHistory: (deal: Deal) => void;
+  onReserve?: (deal: Deal) => void;
 }
 
 // Slot-machine bulb row
@@ -110,9 +111,11 @@ function SpinSlot({
 function ReserveModal({
   deal,
   onClose,
+  onConfirm,
 }: {
   deal: Deal;
   onClose: () => void;
+  onConfirm: () => void;
 }) {
   return (
     <motion.div
@@ -205,7 +208,10 @@ function ReserveModal({
 
         <motion.button
           whileTap={{ scale: 0.97 }}
-          onClick={onClose}
+          onClick={() => {
+            onConfirm();
+            onClose();
+          }}
           className="reserve-btn w-full py-4 text-base"
           style={{ color: "#1a0800" }}
         >
@@ -216,7 +222,7 @@ function ReserveModal({
   );
 }
 
-export default function SpinMachine({ onSpinComplete, onAddToHistory }: SpinMachineProps) {
+export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve }: SpinMachineProps) {
   const [isSpinning, setIsSpinning] = useState(false);
   const { deals, loading } = useMarketplaceDeals();
   const [currentDisplayDeal, setCurrentDisplayDeal] = useState<Deal | null>(null);
@@ -458,7 +464,11 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory }: SpinMach
       {/* Reserve modal */}
       <AnimatePresence>
         {showReserveModal && resultDeal && (
-          <ReserveModal deal={resultDeal} onClose={() => setShowReserveModal(false)} />
+          <ReserveModal
+            deal={resultDeal}
+            onClose={() => setShowReserveModal(false)}
+            onConfirm={() => onReserve?.(resultDeal)}
+          />
         )}
       </AnimatePresence>
     </>

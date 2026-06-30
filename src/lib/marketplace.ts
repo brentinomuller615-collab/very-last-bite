@@ -4,10 +4,13 @@ import { db } from "@/lib/firebase";
 import { Deal } from "./data";
 
 type BakeryInfo = {
+  id: string;
   businessName: string;
   openingTime: string;
   closingTime: string;
   status: string;
+  address: string;
+  phone: string;
 };
 
 function buildDeal(docId: string, data: Record<string, unknown>, bakeryInfo: BakeryInfo): Deal {
@@ -40,14 +43,19 @@ function buildDeal(docId: string, data: Record<string, unknown>, bakeryInfo: Bak
     originalPrice: retail,
     discountedPrice: selling,
     discountPercent: discount,
-    pickupTime: bakeryInfo.openingTime || "16:00",
-    pickupEndTime: bakeryInfo.closingTime || "18:00",
+    // Only set pickup times if the bakery explicitly configured them on the listing.
+    // Absent means "not yet set" → customer UI shows a fallback message.
+    pickupTime: (data.pickupTime as string) || undefined,
+    pickupEndTime: (data.pickupEndTime as string) || undefined,
     distance: 0.8,
     description: `A surprise selection of premium surplus baked goods — freshly prepared and packaged.`,
     tags: [(data.type as string) || "Pastries", "Bread", "Surprise"],
     rating: 4.8,
     reviewCount: 94,
     bgColor,
+    bakeryAddress: bakeryInfo.address || "Stellenbosch",
+    bakeryPhone: bakeryInfo.phone || "",
+    bakeryId: bakeryInfo.id,
   };
 }
 
@@ -69,10 +77,13 @@ export function useMarketplaceDeals() {
         bakerySnap.forEach((doc) => {
           const d = doc.data();
           bakeryMap.set(doc.id, {
+            id: doc.id,
             businessName: d.businessName || "Artisan Bakery",
             openingTime: d.openingTime || "08:00",
             closingTime: d.closingTime || "17:00",
             status: d.status || "pending",
+            address: d.address || "Stellenbosch",
+            phone: d.phone || "",
           });
         });
         console.log(

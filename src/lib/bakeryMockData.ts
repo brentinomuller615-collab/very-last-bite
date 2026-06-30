@@ -8,6 +8,8 @@ export interface Bundle {
   sellingPrice: number;
   status: "Active" | "Sold Out" | "Expired";
   createdAt: string;
+  pickupTime?: string;
+  pickupEndTime?: string;
 }
 
 export interface Order {

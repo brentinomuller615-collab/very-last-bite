@@ -59,6 +59,12 @@ export function getAdminAuth(): Auth {
   return getAuth(createAdminApp());
 }
 
+/** Returns the Admin Firestore instance. Initialises the app if needed. */
+export function getAdminDb() {
+  const { getFirestore } = require("firebase-admin/firestore");
+  return getFirestore(createAdminApp());
+}
+
 /**
  * Verifies a Firebase ID token and returns the decoded claims.
  * Throws if the token is invalid or expired.
