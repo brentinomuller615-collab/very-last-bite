@@ -85,18 +85,26 @@ export default function BakeryOrdersPage() {
   }, []);
 
   const handleVerify = async (e?: React.FormEvent) => {
+    console.log("[DIAG] Verify button clicked, pickupCode:", pickupCode);
     if (e) e.preventDefault();
-    if (!pickupCode.trim()) return;
+    if (!pickupCode.trim()) {
+      console.log("[DIAG] Empty code — returning early");
+      return;
+    }
 
+    console.log("[DIAG] Verification function entered");
     setIsVerifying(true);
     setVerifyMessage(null);
 
     try {
       const user = auth.currentUser;
+      console.log("[DIAG] auth.currentUser:", user?.uid ?? "NULL");
       if (!user) throw new Error("Not authenticated");
 
       const token = await user.getIdToken(true);
+      console.log("[DIAG] ID token obtained, length:", token.length);
 
+      console.log("[DIAG] Sending POST /api/bakery/verify-pickup with code:", pickupCode);
       const res = await fetch("/api/bakery/verify-pickup", {
         method: "POST",
         headers: {
@@ -106,16 +114,19 @@ export default function BakeryOrdersPage() {
         body: JSON.stringify({ pickupCode }),
       });
 
+      console.log("[DIAG] Response status:", res.status);
       const data = await res.json();
+      console.log("[DIAG] Response body:", data);
 
       if (!res.ok) {
         throw new Error(data.error || "Verification failed");
       }
 
+      console.log("[DIAG] SUCCESS — marking UI");
       setVerifyMessage({ text: "✓ Bundle collected — reservation marked as complete!", type: "success" });
       setPickupCode("");
     } catch (err: any) {
-      console.error("Error verifying code:", err);
+      console.error("[DIAG] CATCH:", err);
       setVerifyMessage({ text: err.message || "An error occurred", type: "error" });
     } finally {
       setIsVerifying(false);
@@ -179,7 +190,6 @@ export default function BakeryOrdersPage() {
             type="submit"
             isLoading={isVerifying}
             className="px-5 w-auto"
-            disabled={!pickupCode.trim() || isVerifying}
           >
             <ShieldCheck size={16} />
             Verify
