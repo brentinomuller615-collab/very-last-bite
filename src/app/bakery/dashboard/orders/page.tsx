@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { db, auth } from "@/lib/firebase";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import { CheckCircle, Clock, Search } from "lucide-react";
+import { CheckCircle, Clock, Search, ShieldCheck, X } from "lucide-react";
 import Input from "@/components/bakery/Input";
 import Button from "@/components/bakery/Button";
 
@@ -20,6 +20,9 @@ interface Reservation {
   createdAt: string;
   discountedPrice: number;
   emoji: string;
+  pickupCode?: string;
+  customerName?: string;
+  businessName?: string;
 }
 
 export default function BakeryOrdersPage() {
@@ -30,6 +33,9 @@ export default function BakeryOrdersPage() {
   const [pickupCode, setPickupCode] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
   const [verifyMessage, setVerifyMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
+
+  // Search state
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
@@ -55,6 +61,9 @@ export default function BakeryOrdersPage() {
             createdAt: d.createdAt || new Date().toISOString(),
             discountedPrice: d.discountedPrice || 0,
             emoji: d.emoji || "🥐",
+            pickupCode: d.pickupCode || "",
+            customerName: d.customerName || "",
+            businessName: d.businessName || "",
           });
         });
         fetched.sort((a, b) => {
@@ -103,15 +112,15 @@ export default function BakeryOrdersPage() {
         throw new Error(data.error || "Verification failed");
       }
 
-      setVerifyMessage({ text: "Reservation verified and collected successfully!", type: "success" });
+      setVerifyMessage({ text: "✓ Bundle collected — reservation marked as complete!", type: "success" });
       setPickupCode("");
     } catch (err: any) {
       console.error("Error verifying code:", err);
       setVerifyMessage({ text: err.message || "An error occurred", type: "error" });
     } finally {
       setIsVerifying(false);
-      // Clear message after 4s
-      setTimeout(() => setVerifyMessage(null), 4000);
+      // Clear message after 5s
+      setTimeout(() => setVerifyMessage(null), 5000);
     }
   };
 
@@ -131,61 +140,132 @@ export default function BakeryOrdersPage() {
   const reserved = orders.filter((o) => o.status === "Reserved" || o.status === "reserved");
   const collected = orders.filter((o) => o.status === "Collected" || o.status === "collected");
 
+  // Filter orders by search query
+  const q = searchQuery.trim().toLowerCase();
+  const filteredOrders = q
+    ? orders.filter(
+        (o) =>
+          o.title.toLowerCase().includes(q) ||
+          (o.customerName && o.customerName.toLowerCase().includes(q)) ||
+          (o.pickupCode && o.pickupCode.toLowerCase().includes(q))
+      )
+    : orders;
+
   return (
     <div className="px-4 pt-10 pb-6" style={{ background: "var(--bg-primary)" }}>
-      {/* Verify Section */}
+
+      {/* ── Verify Pickup Section ── */}
       <div className="mb-10">
         <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "var(--accent-orange)" }}>
           Secure Verification
         </p>
-        <h1 className="text-2xl font-black font-display mb-4" style={{ color: "var(--text-primary)" }}>
+        <h1 className="text-2xl font-black font-display mb-1" style={{ color: "var(--text-primary)" }}>
           Verify Pickup
         </h1>
+        <p className="text-xs mb-4" style={{ color: "var(--text-secondary)" }}>
+          Enter the 6-character code shown on the customer's app
+        </p>
+
         <form onSubmit={handleVerify} className="flex gap-3 items-start">
           <Input
-            placeholder="Enter 6-digit code"
+            placeholder="e.g. A7K9Q2"
             value={pickupCode}
             onChange={(e) => setPickupCode(e.target.value.toUpperCase())}
             className="flex-1"
             maxLength={6}
+            style={{ letterSpacing: "0.15em", fontWeight: 700, fontSize: "1rem" }}
           />
-          <Button type="submit" isLoading={isVerifying} className="px-5 w-auto">
-            <Search size={16} />
+          <Button
+            type="submit"
+            isLoading={isVerifying}
+            className="px-5 w-auto"
+            disabled={!pickupCode.trim() || isVerifying}
+          >
+            <ShieldCheck size={16} />
+            Verify
           </Button>
         </form>
-        
+
         <AnimatePresence>
           {verifyMessage && (
             <motion.div
               key="verify-msg"
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="mt-3 p-3 rounded-xl text-xs font-bold flex items-center justify-center text-center"
+              exit={{ opacity: 0, y: -8 }}
+              className="mt-3 p-3 rounded-xl text-xs font-bold flex items-center justify-between gap-3"
               style={{
-                background: verifyMessage.type === "success" ? "rgba(16,185,129,0.1)" : "rgba(239,68,68,0.1)",
+                background: verifyMessage.type === "success" ? "rgba(16,185,129,0.12)" : "rgba(239,68,68,0.1)",
                 color: verifyMessage.type === "success" ? "#10B981" : "#EF4444",
-                border: `1px solid ${verifyMessage.type === "success" ? "rgba(16,185,129,0.2)" : "rgba(239,68,68,0.2)"}`,
+                border: `1px solid ${verifyMessage.type === "success" ? "rgba(16,185,129,0.25)" : "rgba(239,68,68,0.25)"}`,
               }}
             >
-              {verifyMessage.text}
+              <span>{verifyMessage.text}</span>
+              <button onClick={() => setVerifyMessage(null)} className="opacity-60 hover:opacity-100 transition-opacity">
+                <X size={14} />
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      <div className="mb-8">
+      {/* ── Pickup Queue Section ── */}
+      <div className="mb-5">
         <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "var(--accent-orange)" }}>
           Customer Orders
         </p>
-        <h1 className="text-2xl font-black font-display" style={{ color: "var(--text-primary)" }}>
-          Pickup Queue
-        </h1>
-        <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
-          {reserved.length} active · {collected.length} collected
-        </p>
+        <div className="flex items-end justify-between">
+          <div>
+            <h2 className="text-2xl font-black font-display" style={{ color: "var(--text-primary)" }}>
+              Pickup Queue
+            </h2>
+            <p className="text-sm mt-0.5" style={{ color: "var(--text-secondary)" }}>
+              {reserved.length} active · {collected.length} collected
+            </p>
+          </div>
+        </div>
       </div>
 
+      {/* ── Search Bar ── */}
+      {orders.length > 0 && (
+        <div className="relative mb-6">
+          <Search
+            size={15}
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
+            style={{ color: "var(--text-muted)" }}
+          />
+          <input
+            type="text"
+            placeholder="Search by name, bundle, or code…"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-9 pr-10 py-3 rounded-xl text-sm outline-none transition-all duration-200"
+            style={{
+              background: "var(--bg-secondary)",
+              color: "var(--text-primary)",
+              border: "1px solid var(--border-subtle)",
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = "var(--accent-orange)";
+              e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,158,11,0.12)";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = "var(--border-subtle)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 opacity-60 hover:opacity-100 transition-opacity"
+            >
+              <X size={14} style={{ color: "var(--text-muted)" }} />
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* ── Orders List ── */}
       {orders.length === 0 ? (
         <div
           className="text-center py-14 rounded-2xl"
@@ -197,9 +277,20 @@ export default function BakeryOrdersPage() {
             Customer reservations will appear here
           </p>
         </div>
+      ) : filteredOrders.length === 0 ? (
+        <div
+          className="text-center py-12 rounded-2xl"
+          style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)" }}
+        >
+          <span className="text-3xl block mb-3">🔍</span>
+          <p className="font-bold text-sm" style={{ color: "var(--text-primary)" }}>No results for "{searchQuery}"</p>
+          <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
+            Try searching by name, bundle title, or pickup code
+          </p>
+        </div>
       ) : (
         <div className="space-y-3">
-          {orders.map((order) => (
+          {filteredOrders.map((order) => (
             <OrderRow key={order.id} order={order} />
           ))}
         </div>
@@ -244,6 +335,11 @@ function OrderRow({
             <h3 className="text-sm font-black font-display" style={{ color: "var(--text-primary)" }}>
               {order.title}
             </h3>
+            {order.customerName && (
+              <p className="text-xs mt-0.5 font-medium" style={{ color: "var(--text-secondary)" }}>
+                {order.customerName}
+              </p>
+            )}
             <div className="flex items-center gap-1 mt-0.5">
               <Clock size={11} style={{ color: "var(--text-muted)" }} />
               <p className="text-xs" style={{ color: "var(--text-muted)" }}>
@@ -272,6 +368,20 @@ function OrderRow({
           </p>
         </div>
       </div>
+
+      {/* Pickup code badge */}
+      {order.pickupCode && !isCollected && !isMissed && (
+        <div
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg mb-3 text-xs font-mono font-bold tracking-widest"
+          style={{
+            background: "var(--bg-secondary)",
+            color: "var(--text-secondary)",
+            border: "1px dashed var(--border-subtle)",
+          }}
+        >
+          CODE: {order.pickupCode}
+        </div>
+      )}
 
       <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>
         Reserved {new Date(order.createdAt).toLocaleDateString("en-ZA", {

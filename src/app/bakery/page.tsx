@@ -43,10 +43,18 @@ export default function BakeryLoginPage() {
       >
         <div className="mb-10 text-center">
           <div className="text-6xl mb-4">🍞</div>
-          <h1 className="text-3xl font-black font-display text-[var(--bakery-text)] mb-2">
+          <h1
+            className="text-3xl font-black font-display mb-1"
+            style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+          >
             Very Last Bite
           </h1>
-          <p className="text-[#6B7280] font-semibold">Bakery Portal</p>
+          <p
+            className="text-sm font-bold"
+            style={{ color: "var(--accent-orange)" }}
+          >
+            Bakery Portal
+          </p>
         </div>
 
         {error && (
