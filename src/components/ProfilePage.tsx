@@ -93,8 +93,7 @@ export default function ProfilePage() {
             whileTap={{ scale: 0.98 }}
             className="w-full flex items-center justify-between p-4 rounded-2xl"
             style={{
-              background: "var(--bg-secondary)",
-              border: "1px solid var(--border-subtle)",
+              background: "var(--bg-secondary)"
             }}
           >
             <div className="flex items-center gap-3">

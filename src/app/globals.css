@@ -106,25 +106,26 @@ body {
 
 .stat-card {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
+  border: none;
   border-radius: 16px;
   padding: 16px 12px;
   text-align: center;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .stat-card:hover {
-  border-color: var(--border-glow);
   box-shadow: var(--glow-orange);
   transform: translateY(-2px);
 }
 
 .slot-machine-frame {
   background: linear-gradient(180deg, #2a1500 0%, #1f0d00 100%);
-  border: 2px solid rgba(245, 158, 11, 0.3);
+  border: none;
   border-radius: 24px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(245, 158, 11, 0.15);
 }
 
 .slot-machine-frame::before {
@@ -155,11 +156,12 @@ body {
 
 .deal-card {
   background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  border: none;
   border-radius: 20px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .deal-card::after {
@@ -178,9 +180,8 @@ body {
 }
 
 .deal-card:hover {
-  border-color: var(--border-glow);
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), 0 0 20px rgba(245, 158, 11, 0.15);
 }
 
 .spin-btn {
@@ -239,14 +240,15 @@ body {
 
 .nav-bottom {
   background: linear-gradient(0deg, #1a0800 0%, rgba(26, 8, 0, 0.95) 100%);
-  border-top: 1px solid rgba(245, 158, 11, 0.15);
+  border-top: none;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
 }
 
 .badge-save {
   background: linear-gradient(135deg, #065F46 0%, #047857 100%);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  border: none;
   border-radius: 999px;
 }
 

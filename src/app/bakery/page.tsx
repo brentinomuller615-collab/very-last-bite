@@ -9,10 +9,11 @@ import Input from "@/components/bakery/Input";
 
 import { auth } from "@/lib/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { formatAuthError } from "@/contexts/AuthContext";
+import { useAuth, formatAuthError } from "@/contexts/AuthContext";
 
 export default function BakeryLoginPage() {
   const router = useRouter();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +25,7 @@ export default function BakeryLoginPage() {
     setError("");
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signIn(email, password);
       router.push("/bakery/dashboard");
     } catch (err: any) {
       console.error("Bakery Login Error:", err);

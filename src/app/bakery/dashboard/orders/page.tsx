@@ -29,12 +29,12 @@ export default function BakeryOrdersPage() {
   const [orders, setOrders] = useState<Reservation[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Verification state
-  const [pickupCode, setPickupCode] = useState("");
+  // Verification state (Cleaned and separated from Search)
+  const [verificationCode, setVerificationCode] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
   const [verifyMessage, setVerifyMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
-  // Search state
+  // Search state (Independent)
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -85,48 +85,38 @@ export default function BakeryOrdersPage() {
   }, []);
 
   const handleVerify = async (e?: React.FormEvent) => {
-    console.log("[DIAG] Verify button clicked, pickupCode:", pickupCode);
     if (e) e.preventDefault();
-    if (!pickupCode.trim()) {
-      console.log("[DIAG] Empty code — returning early");
-      return;
-    }
+    const codeToVerify = verificationCode.trim().toUpperCase();
+    if (!codeToVerify) return;
 
-    console.log("[DIAG] Verification function entered");
     setIsVerifying(true);
     setVerifyMessage(null);
 
     try {
       const user = auth.currentUser;
-      console.log("[DIAG] auth.currentUser:", user?.uid ?? "NULL");
       if (!user) throw new Error("Not authenticated");
 
       const token = await user.getIdToken(true);
-      console.log("[DIAG] ID token obtained, length:", token.length);
 
-      console.log("[DIAG] Sending POST /api/bakery/verify-pickup with code:", pickupCode);
       const res = await fetch("/api/bakery/verify-pickup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ pickupCode }),
+        body: JSON.stringify({ pickupCode: codeToVerify }),
       });
 
-      console.log("[DIAG] Response status:", res.status);
       const data = await res.json();
-      console.log("[DIAG] Response body:", data);
 
       if (!res.ok) {
         throw new Error(data.error || "Verification failed");
       }
 
-      console.log("[DIAG] SUCCESS — marking UI");
       setVerifyMessage({ text: "✓ Bundle collected — reservation marked as complete!", type: "success" });
-      setPickupCode("");
+      setVerificationCode("");
     } catch (err: any) {
-      console.error("[DIAG] CATCH:", err);
+      console.error("Error verifying code:", err);
       setVerifyMessage({ text: err.message || "An error occurred", type: "error" });
     } finally {
       setIsVerifying(false);
@@ -157,8 +147,7 @@ export default function BakeryOrdersPage() {
     ? orders.filter(
         (o) =>
           o.title.toLowerCase().includes(q) ||
-          (o.customerName && o.customerName.toLowerCase().includes(q)) ||
-          (o.pickupCode && o.pickupCode.toLowerCase().includes(q))
+          (o.customerName && o.customerName.toLowerCase().includes(q))
       )
     : orders;
 
@@ -177,14 +166,32 @@ export default function BakeryOrdersPage() {
           Enter the 6-character code shown on the customer's app
         </p>
 
-        <form onSubmit={handleVerify} className="flex gap-3 items-start">
-          <Input
-            placeholder="e.g. A7K9Q2"
-            value={pickupCode}
-            onChange={(e) => setPickupCode(e.target.value.toUpperCase())}
-            className="flex-1"
+        <form
+          onSubmit={handleVerify}
+          className="flex gap-3 items-stretch w-full"
+        >
+          <input
+            type="text"
+            placeholder="Enter 6-character pickup code"
+            value={verificationCode}
+            onChange={(e) => setVerificationCode(e.target.value.toUpperCase())}
+            className="flex-1 px-4 py-3.5 rounded-xl outline-none transition-all duration-200 font-body text-sm"
+            style={{
+              background: "var(--bg-secondary)",
+              color: "var(--text-primary)",
+              border: "1px solid var(--border-subtle)",
+              letterSpacing: "0.1em",
+              fontWeight: 700
+            }}
             maxLength={6}
-            style={{ letterSpacing: "0.15em", fontWeight: 700, fontSize: "1rem" }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = "var(--accent-orange)";
+              e.currentTarget.style.boxShadow = "0 0 0 3px rgba(245,158,11,0.12)";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = "var(--border-subtle)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
           />
           <Button
             type="submit"
@@ -325,7 +332,7 @@ function OrderRow({
       className="p-5 rounded-2xl relative overflow-hidden"
       style={{
         background: "var(--bg-card)",
-        border: `1px solid ${isCollected ? "rgba(16,185,129,0.3)" : "var(--border-subtle)"}`,
+        boxShadow: isCollected ? "0 4px 20px rgba(16,185,129,0.06)" : "0 4px 20px rgba(0,0,0,0.2)",
       }}
     >
       {/* Top accent */}
@@ -367,8 +374,7 @@ function OrderRow({
                 ? "rgba(16,185,129,0.1)"
                 : isMissed
                 ? "rgba(245,158,11,0.1)"
-                : "rgba(245,158,11,0.1)",
-              border: `1px solid ${isCollected ? "rgba(16,185,129,0.3)" : "rgba(245,158,11,0.3)"}`,
+                : "rgba(245,158,11,0.1)"
             }}
           >
             {order.status}
@@ -379,19 +385,6 @@ function OrderRow({
         </div>
       </div>
 
-      {/* Pickup code badge */}
-      {order.pickupCode && !isCollected && !isMissed && (
-        <div
-          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg mb-3 text-xs font-mono font-bold tracking-widest"
-          style={{
-            background: "var(--bg-secondary)",
-            color: "var(--text-secondary)",
-            border: "1px dashed var(--border-subtle)",
-          }}
-        >
-          CODE: {order.pickupCode}
-        </div>
-      )}
 
       <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>
         Reserved {new Date(order.createdAt).toLocaleDateString("en-ZA", {
@@ -405,7 +398,7 @@ function OrderRow({
       {isCollected ? (
         <div
           className="flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold"
-          style={{ background: "rgba(16,185,129,0.1)", color: "#10B981", border: "1px solid rgba(16,185,129,0.2)" }}
+          style={{ background: "rgba(16,185,129,0.1)", color: "#10B981" }}
         >
           <CheckCircle size={14} />
           Bundle Collected
@@ -413,7 +406,7 @@ function OrderRow({
       ) : isMissed ? (
         <div
           className="py-2.5 rounded-xl text-xs font-bold text-center"
-          style={{ background: "var(--bg-secondary)", color: "var(--text-muted)", border: "1px solid var(--border-subtle)" }}
+          style={{ background: "var(--bg-secondary)", color: "var(--text-muted)" }}
         >
           Pickup window passed
         </div>
@@ -422,8 +415,7 @@ function OrderRow({
           className="w-full py-3 rounded-xl text-sm font-bold flex items-center justify-center text-center transition-all opacity-80"
           style={{
             background: "var(--bg-secondary)",
-            color: "var(--text-muted)",
-            border: "1px solid var(--border-subtle)",
+            color: "var(--text-muted)"
           }}
         >
           Awaiting Verification Code

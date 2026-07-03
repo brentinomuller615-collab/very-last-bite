@@ -136,7 +136,7 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
               {deal.status === "collected" ? (
                 <div
                   className="mt-4 p-3 rounded-xl flex items-center justify-between"
-                  style={{ background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.2)" }}
+                  style={{ background: "rgba(59,130,246,0.1)" }}
                 >
                   <span className="text-sm font-semibold text-blue-400">Collected</span>
                   <span className="text-xs text-blue-400/80">
@@ -147,7 +147,7 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
                 <>
                   <div
                     className="mt-4 p-3 rounded-xl flex flex-col items-center justify-center text-center gap-1"
-                    style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)" }}
+                    style={{ background: "var(--bg-secondary)" }}
                   >
                     <p className="text-xs mb-1" style={{ color: "var(--text-muted)" }}>
                       Show this code to the bakery when collecting:
