@@ -192,7 +192,7 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-72 pb-44 md:pt-96 md:pb-60 px-6 overflow-hidden">
+      <section className="relative pt-52 pb-32 md:pt-60 md:pb-40 px-6 overflow-hidden">
         {/* Ambient glow background */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -209,85 +209,84 @@ export default function LandingPage() {
         />
 
         <div className="max-w-4xl mx-auto relative z-10 text-center">
-          {/* Main Hero Content */}
-          <div className="space-y-10">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="space-y-8"
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="space-y-6"
+          >
+            <h1
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08]"
+              style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
             >
-              <h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08]"
-                style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
-              >
-                Make every <br className="hidden sm:inline" />
-                <span style={{ color: "var(--accent-orange)" }}>rand</span> go further.
-              </h1>
-              <p
-                className="text-lg leading-relaxed max-w-2xl mx-auto text-center"
-                style={{ color: "var(--text-secondary)", lineHeight: "1.8" }}
-              >
-                Very Last Bite helps people access available bakery food at reduced prices, making it easier to stretch every rand further while helping reduce unnecessary food waste.
-              </p>
-            </motion.div>
+              Make every <br className="hidden sm:inline" />
+              <span style={{ color: "var(--accent-orange)" }}>rand</span> go further.
+            </h1>
+            <p
+              className="text-lg leading-relaxed max-w-2xl mx-auto"
+              style={{ color: "var(--text-secondary)", lineHeight: "1.8" }}
+            >
+              Very Last Bite helps people access available bakery food at reduced prices, making it easier to stretch every rand further while helping reduce unnecessary food waste.
+            </p>
+          </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15 }}
-              className="space-y-8 pt-4 flex flex-col items-center"
-            >
-              <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-center">
-                <Link href={authButtonLink} className="sm:inline-block">
-                  <motion.button
-                    whileTap={{ scale: 0.97 }}
-                    className="w-full sm:w-auto min-h-[46px] px-8 py-3 rounded-xl font-bold text-sm leading-none transition-all cursor-pointer tracking-wide inline-flex items-center justify-center whitespace-nowrap"
-                    style={{
-                      background: "linear-gradient(135deg, var(--accent-orange-dark), var(--accent-orange))",
-                      color: "#1a0800",
-                      boxShadow: "var(--glow-orange-strong)",
-                    }}
-                  >
-                    {authButtonText}
-                  </motion.button>
-                </Link>
-                <a href="#mission" onClick={(e) => handleSmoothScroll(e, "mission")} className="sm:inline-block">
-                  <motion.button
-                    whileTap={{ scale: 0.97 }}
-                    className="w-full sm:w-auto min-h-[46px] px-8 py-3 rounded-xl font-bold text-sm leading-none transition-all cursor-pointer text-center tracking-wide inline-flex items-center justify-center whitespace-nowrap"
-                    style={{
-                      background: "transparent",
-                      color: "var(--text-secondary)",
-                      border: "2px solid var(--border-subtle)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = "var(--accent-orange)";
-                      e.currentTarget.style.background = "rgba(245, 158, 11, 0.06)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = "var(--border-subtle)";
-                      e.currentTarget.style.background = "transparent";
-                    }}
-                  >
-                    Learn More
-                  </motion.button>
-                </a>
-              </div>
-              <p
-                className="text-xs font-medium tracking-wider flex items-center justify-center gap-2"
-                style={{ color: "var(--text-muted)" }}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-10"
+          >
+            <Link href={authButtonLink} className="sm:inline-block">
+              <motion.button
+                whileTap={{ scale: 0.97 }}
+                className="w-full sm:w-auto px-10 py-3.5 rounded-xl font-bold text-sm transition-all cursor-pointer tracking-wide inline-flex items-center justify-center whitespace-nowrap"
+                style={{
+                  background: "linear-gradient(135deg, var(--accent-orange-dark), var(--accent-orange))",
+                  color: "#1a0800",
+                  boxShadow: "var(--glow-orange-strong)",
+                }}
               >
-                <span className="text-base" style={{ color: "var(--accent-orange)" }}>✨</span>
-                Join the movement to make food go further.
-              </p>
-            </motion.div>
-          </div>
+                {authButtonText}
+              </motion.button>
+            </Link>
+            <a href="#mission" onClick={(e) => handleSmoothScroll(e, "mission")} className="sm:inline-block">
+              <motion.button
+                whileTap={{ scale: 0.97 }}
+                className="w-full sm:w-auto px-10 py-3.5 rounded-xl font-bold text-sm transition-all cursor-pointer tracking-wide inline-flex items-center justify-center whitespace-nowrap"
+                style={{
+                  background: "transparent",
+                  color: "var(--text-secondary)",
+                  border: "2px solid var(--border-subtle)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "var(--accent-orange)";
+                  e.currentTarget.style.background = "rgba(245, 158, 11, 0.06)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "var(--border-subtle)";
+                  e.currentTarget.style.background = "transparent";
+                }}
+              >
+                Learn More
+              </motion.button>
+            </a>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="text-xs font-medium tracking-wider flex items-center justify-center gap-2 mt-6"
+            style={{ color: "var(--text-muted)" }}
+          >
+            <span className="text-base" style={{ color: "var(--accent-orange)" }}>✨</span>
+            Join the movement to make food go further.
+          </motion.p>
         </div>
       </section>
 
       {/* Quote Section */}
-      <section className="py-36 md:py-52 px-6 relative">
+      <section className="py-20 md:py-28 px-6 relative">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -312,8 +311,8 @@ export default function LandingPage() {
       </section>
 
       {/* Mission Section */}
-      <section id="mission" className="py-40 md:py-56 px-6 max-w-7xl mx-auto scroll-mt-24">
-        <div className="text-center space-y-6 max-w-3xl mx-auto mb-28">
+      <section id="mission" className="py-24 md:py-32 px-6 max-w-7xl mx-auto scroll-mt-24">
+        <div className="text-center space-y-5 max-w-3xl mx-auto mb-20">
           <motion.div {...fadeUp}>
             <span
               className="text-xs uppercase font-extrabold tracking-widest"
@@ -387,9 +386,9 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-40 md:py-56 px-6 scroll-mt-24 relative">
+      <section id="how-it-works" className="py-24 md:py-32 px-6 scroll-mt-24 relative">
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center space-y-6 max-w-3xl mx-auto mb-28">
+          <div className="text-center space-y-5 max-w-3xl mx-auto mb-20">
             <motion.div {...fadeUp}>
               <span
                 className="text-xs uppercase font-extrabold tracking-widest"
@@ -472,8 +471,8 @@ export default function LandingPage() {
       </section>
 
       {/* Impact Section */}
-      <section id="impact" className="py-40 md:py-56 px-6 max-w-7xl mx-auto scroll-mt-24">
-        <div className="text-center space-y-6 max-w-3xl mx-auto mb-28">
+      <section id="impact" className="py-24 md:py-32 px-6 max-w-7xl mx-auto scroll-mt-24">
+        <div className="text-center space-y-5 max-w-3xl mx-auto mb-20">
           <motion.div {...fadeUp}>
             <span
               className="text-xs uppercase font-extrabold tracking-widest"
@@ -517,11 +516,11 @@ export default function LandingPage() {
               <p className="text-base leading-relaxed text-justify" style={{ color: "var(--text-secondary)", lineHeight: "1.75" }}>
                 Every single day, local bakeries, cafés, and restaurants have high-quality baked goods left over. We bridge the gap so you can rescue these delicious bundles at massive discounts.
               </p>
-              <div className="space-y-4 pt-2">
+              <div className="space-y-5 pt-2">
                 {[
-                  { label: "💰 Stretch Your Budget", text: "Get up to 70% off retail value to make your rand go further." },
-                  { label: "🌱 Rescue Surplus Food", text: "Prevent good food from being wasted and protect our environment." },
-                  { label: "🤝 Support Local Shops", text: "Help neighborhood merchants recover value while feeding communities." }
+                  { label: "Stretch Your Budget", text: "Get up to 70% off retail value to make your rand go further." },
+                  { label: "Rescue Surplus Food", text: "Prevent good food from being wasted and protect our environment." },
+                  { label: "Support Local Shops", text: "Help neighborhood merchants recover value while feeding communities." },
                 ].map((item) => (
                   <div key={item.label} className="space-y-1">
                     <h4 className="font-bold text-sm" style={{ color: "var(--accent-orange)" }}>{item.label}</h4>
@@ -532,28 +531,50 @@ export default function LandingPage() {
             </div>
           </motion.div>
 
-          {/* Right Column Stats: Flat stats */}
+          {/* Right Column: Vision + Pillars */}
           <motion.div
             {...fadeUp}
             className="lg:col-span-6 space-y-8"
           >
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <span
+                className="text-xs uppercase font-extrabold tracking-widest"
+                style={{ color: "var(--accent-orange)" }}
+              >
+                The Vision
+              </span>
+              <h3
+                className="text-2xl font-black tracking-tight"
+                style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+              >
+                A Better Future
+              </h3>
+              <p className="text-base font-medium leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                Very Last Bite was built on a simple belief: Good food should remain accessible to everyday people.
+              </p>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                By helping bakeries recover value from available food while helping people stretch their budgets further, we can create a system that benefits everyone.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
                 {
-                  emoji: "🍞",
                   title: "Better Food Access",
                   desc: "Making fresh items affordable to households daily.",
                 },
                 {
-                  emoji: "♻️",
                   title: "Reduced Food Waste",
                   desc: "Rescuing kilograms of good bakery products daily.",
                 },
-              ].map(({ emoji, title, desc }) => (
-                <div key={title} className="flex flex-col items-start">
-                  <div className="text-3xl mb-2">{emoji}</div>
+                {
+                  title: "Stronger Communities",
+                  desc: "Connecting local bakeries directly with residents in a cooperative system.",
+                },
+              ].map(({ title, desc }) => (
+                <div key={title} className="flex flex-col items-start space-y-1">
                   <h4
-                    className="font-bold text-base mb-1"
+                    className="font-bold text-sm"
                     style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
                   >
                     {title}
@@ -562,105 +583,14 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
-
-            <div className="pt-4">
-              <div className="flex gap-4 items-start">
-                <div className="text-4xl">🇿🇦</div>
-                <div>
-                  <h4
-                    className="font-bold text-base mb-1"
-                    style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
-                  >
-                    Stronger Communities
-                  </h4>
-                  <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                    Connecting local neighborhood bakeries directly with residents in a cooperative, waste-free system.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Vision Section */}
-      <section className="py-40 md:py-56 px-6 relative">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center relative z-10">
-          {/* Visual Left on desktop */}
-          <motion.div
-            {...fadeUp}
-            className="md:col-span-5 flex justify-center"
-          >
-            <div className="relative w-full max-w-sm h-64 md:h-80 flex items-center justify-center">
-              {/* Glow orb */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: "radial-gradient(circle at center, rgba(245, 158, 11, 0.08) 0%, transparent 60%)",
-                }}
-              />
-              <div className="relative z-10 flex flex-col items-center gap-4">
-                <span className="text-8xl select-none filter drop-shadow-lg">🤝</span>
-                <div
-                  className="px-5 py-2.5 text-center text-sm font-bold"
-                  style={{
-                    color: "var(--text-secondary)",
-                  }}
-                >
-                  Dignity · Community · Impact
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Text Right */}
-          <motion.div
-            {...fadeUp}
-            className="md:col-span-7 space-y-6"
-          >
-            <span
-              className="text-xs uppercase font-extrabold tracking-widest"
-              style={{ color: "var(--accent-orange)" }}
-            >
-              The Vision
-            </span>
-            <h2
-              className="text-3xl font-black"
-              style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
-            >
-              A Better Future
-            </h2>
-            <div className="space-y-4">
-              <p className="text-base font-bold leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                Very Last Bite was built on a simple belief: Good food should remain accessible to everyday people.
-              </p>
-              <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
-                By helping bakeries recover value from available food while helping people stretch their budgets further, we can create a system that benefits everyone.
-              </p>
-
-              <div className="flex flex-wrap gap-2.5 pt-2">
-                {["🌱 Less waste", "✊ More dignity", "🥖 Better access"].map((pill) => (
-                  <span
-                    key={pill}
-                    className="px-3.5 py-1.5 rounded-full text-xs font-semibold"
-                    style={{
-                      background: "rgba(245, 158, 11, 0.05)",
-                      color: "var(--text-secondary)",
-                    }}
-                  >
-                    {pill}
-                  </span>
-                ))}
-              </div>
-            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-40 md:py-56 px-6 scroll-mt-24">
+      <section id="contact" className="py-24 md:py-32 px-6 scroll-mt-24">
         <div className="max-w-xl mx-auto">
-          <div className="text-center space-y-6 mb-20">
+          <div className="text-center space-y-5 mb-16">
             <motion.div {...fadeUp}>
               <span
                 className="text-xs uppercase font-extrabold tracking-widest"
