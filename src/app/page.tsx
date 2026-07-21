@@ -193,7 +193,7 @@ export default function LandingPage() {
       <main>
 
         {/* Hero Section */}
-        <section className="relative pt-32 pb-32 md:pt-40 md:pb-40 px-6 overflow-hidden">
+        <section className="relative pt-28 pb-32 md:pt-36 md:pb-40 px-6 overflow-hidden">
           {/* Ambient glow background */}
           <div
             className="absolute inset-0 pointer-events-none"
@@ -235,7 +235,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 }}
-              className="flex flex-col sm:flex-row gap-4 items-center justify-center mt-10"
+              className="flex flex-row gap-4 items-center justify-center mt-10"
             >
               <Link href={authButtonLink} className="sm:inline-block">
                 <motion.button
