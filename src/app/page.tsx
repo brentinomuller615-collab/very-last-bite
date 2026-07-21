@@ -58,7 +58,7 @@ export default function LandingPage() {
     >
       {/* Navigation */}
       <header
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+        className="fixed top-0 left-0 right-0 z-50 py-[22px] transition-[background,backdrop-filter,border-color] duration-500"
         style={{
           background: scrolled
             ? "rgba(26, 10, 0, 0.90)"
@@ -68,7 +68,6 @@ export default function LandingPage() {
           borderBottom: scrolled
             ? "1px solid var(--border-subtle)"
             : "1px solid transparent",
-          padding: scrolled ? "18px 0" : "28px 0",
         }}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -191,7 +190,7 @@ export default function LandingPage() {
         </AnimatePresence>
       </header>
 
-      <main className="pt-20">
+      <main>
 
         {/* Hero Section */}
         <section className="relative pt-32 pb-32 md:pt-40 md:pb-40 px-6 overflow-hidden">
