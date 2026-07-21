@@ -193,7 +193,7 @@ export default function LandingPage() {
       <main>
 
         {/* Hero Section */}
-        <section className="relative pt-28 pb-32 md:pt-36 md:pb-40 px-6 overflow-hidden">
+        <section className="relative pt-32 pb-16 md:pt-36 md:pb-24 px-6 mb-32 md:mb-44 overflow-hidden">
           {/* Ambient glow background */}
           <div
             className="absolute inset-0 pointer-events-none"
@@ -287,7 +287,7 @@ export default function LandingPage() {
         </section>
 
         {/* Quote Section */}
-        <section className="py-16 md:py-20 px-6 relative">
+        <section className="px-6 mb-32 md:mb-44 relative">
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -312,7 +312,7 @@ export default function LandingPage() {
         </section>
 
         {/* Mission Section */}
-        <section id="mission" className="py-32 md:py-44 px-6 max-w-7xl mx-auto scroll-mt-24">
+        <section id="mission" className="px-6 max-w-7xl mx-auto scroll-mt-24 mb-32 md:mb-44">
           <div className="text-center space-y-5 max-w-3xl mx-auto mb-20">
             <motion.div {...fadeUp}>
               <span
@@ -387,7 +387,7 @@ export default function LandingPage() {
         </section>
 
         {/* How It Works Section */}
-        <section id="how-it-works" className="py-32 md:py-44 px-6 scroll-mt-24 relative">
+        <section id="how-it-works" className="px-6 scroll-mt-24 relative mb-32 md:mb-44">
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center space-y-5 max-w-3xl mx-auto mb-20">
               <motion.div {...fadeUp}>
@@ -472,7 +472,7 @@ export default function LandingPage() {
         </section>
 
         {/* Impact Section */}
-        <section id="impact" className="py-32 md:py-44 px-6 max-w-7xl mx-auto scroll-mt-24">
+        <section id="impact" className="px-6 max-w-7xl mx-auto scroll-mt-24 mb-32 md:mb-44">
           <div className="text-center space-y-5 max-w-3xl mx-auto mb-20">
             <motion.div {...fadeUp}>
               <span
@@ -589,7 +589,7 @@ export default function LandingPage() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-32 md:py-44 px-6 scroll-mt-24">
+        <section id="contact" className="px-6 scroll-mt-24 mb-32 md:mb-44">
           <div className="max-w-xl mx-auto">
             <div className="text-center space-y-5 mb-16">
               <motion.div {...fadeUp}>
@@ -730,7 +730,7 @@ export default function LandingPage() {
 
         {/* Footer */}
         <footer
-          className="py-16 px-6 mt-28"
+          className="py-16 px-6 mt-32 md:mt-44"
           style={{
             background: "var(--bg-secondary)",
             borderTop: "1px solid var(--border-subtle)",
