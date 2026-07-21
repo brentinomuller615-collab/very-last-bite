@@ -152,30 +152,30 @@ export default function BakeryOrdersPage() {
     : orders;
 
   return (
-    <div className="px-4 pt-10 pb-6" style={{ background: "var(--bg-primary)" }}>
+    <div className="section-pad pt-12 pb-6" style={{ background: "var(--bg-primary)" }}>
 
       {/* ── Verify Pickup Section ── */}
-      <div className="mb-10">
+      <div className="mb-12">
         <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "var(--accent-orange)" }}>
           Secure Verification
         </p>
         <h1 className="text-2xl font-black font-display mb-1" style={{ color: "var(--text-primary)" }}>
           Verify Pickup
         </h1>
-        <p className="text-xs mb-4" style={{ color: "var(--text-secondary)" }}>
+        <p className="text-xs mb-5" style={{ color: "var(--text-secondary)" }}>
           Enter the 6-character code shown on the customer's app
         </p>
 
         <form
           onSubmit={handleVerify}
-          className="flex gap-3 items-stretch w-full"
+          className="flex gap-4 items-stretch w-full"
         >
           <input
             type="text"
             placeholder="Enter 6-character pickup code"
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value.toUpperCase())}
-            className="flex-1 px-4 py-3.5 rounded-xl outline-none transition-all duration-200 font-body text-sm"
+            className="flex-1 px-4 py-4 rounded-xl outline-none transition-all duration-200 font-body text-sm"
             style={{
               background: "var(--bg-secondary)",
               color: "var(--text-primary)",
@@ -227,7 +227,7 @@ export default function BakeryOrdersPage() {
       </div>
 
       {/* ── Pickup Queue Section ── */}
-      <div className="mb-5">
+      <div className="mb-6 mt-4">
         <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "var(--accent-orange)" }}>
           Customer Orders
         </p>
@@ -236,7 +236,7 @@ export default function BakeryOrdersPage() {
             <h2 className="text-2xl font-black font-display" style={{ color: "var(--text-primary)" }}>
               Pickup Queue
             </h2>
-            <p className="text-sm mt-0.5" style={{ color: "var(--text-secondary)" }}>
+            <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
               {reserved.length} active · {collected.length} collected
             </p>
           </div>
@@ -245,7 +245,7 @@ export default function BakeryOrdersPage() {
 
       {/* ── Search Bar ── */}
       {orders.length > 0 && (
-        <div className="relative mb-6">
+        <div className="relative mb-8">
           <Search
             size={15}
             className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
@@ -256,7 +256,7 @@ export default function BakeryOrdersPage() {
             placeholder="Search by name, bundle, or code…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-10 py-3 rounded-xl text-sm outline-none transition-all duration-200"
+            className="w-full pl-9 pr-10 py-3.5 rounded-xl text-sm outline-none transition-all duration-200"
             style={{
               background: "var(--bg-secondary)",
               color: "var(--text-primary)",
@@ -286,7 +286,7 @@ export default function BakeryOrdersPage() {
       {orders.length === 0 ? (
         <div
           className="text-center py-14 rounded-2xl"
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)" }}
+          style={{ background: "var(--bg-card)" }}
         >
           <span className="text-4xl block mb-3">🧾</span>
           <p className="font-bold text-sm" style={{ color: "var(--text-primary)" }}>No orders yet</p>
@@ -297,7 +297,7 @@ export default function BakeryOrdersPage() {
       ) : filteredOrders.length === 0 ? (
         <div
           className="text-center py-12 rounded-2xl"
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)" }}
+          style={{ background: "var(--bg-card)" }}
         >
           <span className="text-3xl block mb-3">🔍</span>
           <p className="font-bold text-sm" style={{ color: "var(--text-primary)" }}>No results for "{searchQuery}"</p>
@@ -306,7 +306,7 @@ export default function BakeryOrdersPage() {
           </p>
         </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-3.5">
           {filteredOrders.map((order) => (
             <OrderRow key={order.id} order={order} />
           ))}

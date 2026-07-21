@@ -131,7 +131,6 @@ export default function DashboardLayout({
             className="w-20 h-20 rounded-3xl flex items-center justify-center text-4xl relative"
             style={{
               background: "var(--bg-card)",
-              border: "1px solid var(--border-subtle)",
               boxShadow: `0 0 40px rgba(245,158,11,0.15)`,
             }}
           >

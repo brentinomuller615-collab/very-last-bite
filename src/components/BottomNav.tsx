@@ -22,7 +22,7 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
       className="fixed bottom-0 left-0 right-0 z-40 nav-bottom"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
-      <div className="max-w-[430px] mx-auto flex items-center justify-around px-2 py-2">
+      <div className="max-w-[430px] mx-auto flex items-center justify-around px-4 py-3">
         {tabs.map(({ id, label, Icon }) => {
           const isActive = activeTab === id;
           return (
@@ -31,11 +31,11 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
               id={`nav-${id}`}
               whileTap={{ scale: 0.9 }}
               onClick={() => onTabChange(id)}
-              className="flex flex-col items-center gap-0.5 px-5 py-2 rounded-2xl relative"
+              className="flex flex-col items-center gap-1 px-6 py-2.5 rounded-2xl relative"
               style={{
                 color: isActive ? "var(--accent-orange)" : "var(--text-muted)",
                 transition: "color 0.2s ease",
-                minWidth: 60,
+                minWidth: 68,
               }}
             >
               {isActive && (

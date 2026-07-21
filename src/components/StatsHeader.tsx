@@ -10,9 +10,9 @@ function formatNumber(n: number) {
 
 export default function StatsHeader() {
   return (
-    <header className="px-4 pt-6 pb-2">
+    <header className="section-pad pt-7 pb-4">
       {/* Brand */}
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-2">
             <span className="text-2xl">🍔</span>
@@ -29,10 +29,9 @@ export default function StatsHeader() {
         </div>
         <motion.button
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium"
           style={{
             background: "var(--bg-secondary)",
-            border: "1px solid var(--border-subtle)",
             color: "var(--text-secondary)",
           }}
         >
@@ -42,7 +41,7 @@ export default function StatsHeader() {
       </div>
 
       {/* Stats Row */}
-      <div className="grid grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-3 gap-3">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}

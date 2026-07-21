@@ -26,7 +26,7 @@ export default function ProfilePage() {
 
   return (
     <div className="page-content">
-      <div className="px-4 pt-6 pb-5">
+      <div className="section-pad pt-7 pb-5">
         <h1
           className="text-2xl font-black"
           style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
@@ -36,12 +36,12 @@ export default function ProfilePage() {
       </div>
 
       {/* Avatar */}
-      <div className="flex flex-col items-center pb-6">
+      <div className="flex flex-col items-center pb-8">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", bounce: 0.4 }}
-          className="w-24 h-24 rounded-3xl flex items-center justify-center text-4xl mb-3"
+          className="w-24 h-24 rounded-3xl flex items-center justify-center text-4xl mb-4"
           style={{
             background: "linear-gradient(135deg, var(--accent-orange-dark), var(--accent-orange))",
             boxShadow: "0 0 30px rgba(245,158,11,0.3)",
@@ -60,7 +60,7 @@ export default function ProfilePage() {
         </p>
 
         {/* Impact summary */}
-        <div className="flex gap-4 mt-4">
+        <div className="flex gap-6 mt-5">
           {[
             { label: "Meals saved", value: "47" },
             { label: "kg rescued", value: "18.3" },
@@ -82,7 +82,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Menu items */}
-      <div className="px-4 flex flex-col gap-2">
+      <div className="section-pad flex flex-col gap-2.5">
         {menuItems.map(({ icon: Icon, label, badge, danger }, i) => (
           <motion.button
             key={label}
@@ -96,9 +96,9 @@ export default function ProfilePage() {
               background: "var(--bg-secondary)"
             }}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3.5">
               <Icon
-                size={18}
+                size={20}
                 style={{ color: danger ? "#EF4444" : "var(--accent-orange)" }}
               />
               <span
@@ -124,7 +124,7 @@ export default function ProfilePage() {
       </div>
 
       {/* App version */}
-      <p className="text-center text-xs mt-6 pb-4" style={{ color: "var(--text-muted)" }}>
+      <p className="text-center text-xs mt-8 pb-4" style={{ color: "var(--text-muted)" }}>
         Very Last Bite v1.0.0 · Made with 💛 in Stellenbosch
       </p>
     </div>

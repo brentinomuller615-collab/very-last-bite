@@ -16,7 +16,7 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
       <motion.div
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
-        className="deal-card flex items-center gap-3 p-3 cursor-pointer"
+        className="deal-card flex items-center gap-4 p-4 cursor-pointer"
         onClick={() => onReserve?.(deal)}
       >
         {/* Emoji box */}
@@ -77,13 +77,13 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="deal-card p-5"
+      className="deal-card p-6"
     >
       {/* Header */}
-      <div className="flex items-center gap-4 mb-4">
+      <div className="flex items-center gap-4 mb-5">
         <div
           className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0"
-          style={{ background: deal.bgColor + "25", border: `1px solid ${deal.bgColor}40` }}
+          style={{ background: deal.bgColor + "25" }}
         >
           {deal.emoji}
         </div>
@@ -108,7 +108,7 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
       </div>
 
       {/* Description */}
-      <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--text-secondary)" }}>
+      <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--text-secondary)" }}>
         {deal.description}
       </p>
 
@@ -121,7 +121,6 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
             style={{
               background: "var(--bg-surface)",
               color: "var(--text-secondary)",
-              border: "1px solid var(--border-subtle)",
             }}
           >
             {tag}
@@ -131,8 +130,8 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
 
       {/* Details row */}
       <div
-        className="flex items-center justify-between p-3 rounded-xl mb-4"
-        style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)" }}
+        className="flex items-center justify-between p-4 rounded-xl mb-5"
+        style={{ background: "var(--bg-secondary)" }}
       >
         <div className="flex items-center gap-1.5 text-sm" style={{ color: "var(--text-secondary)" }}>
           <Clock size={14} className="text-amber-400" />
@@ -163,7 +162,7 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           onClick={() => onReserve?.(deal)}
-          className="reserve-btn px-6 py-3.5 text-sm font-bold"
+          className="reserve-btn px-7 py-4 text-sm font-bold"
           style={{ color: "#1a0800" }}
         >
           Reserve Now

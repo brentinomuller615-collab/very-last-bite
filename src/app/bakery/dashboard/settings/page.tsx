@@ -107,7 +107,7 @@ export default function BakerySettingsPage() {
       {/* Business Information */}
       <section
         className="p-5 rounded-2xl space-y-4"
-        style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)" }}
+        style={{ background: "var(--bg-card)" }}
       >
         <h2 className="text-sm font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
           Business Info
@@ -153,7 +153,6 @@ export default function BakerySettingsPage() {
         className="p-5 rounded-2xl relative overflow-hidden"
         style={{
           background: "var(--bg-card)",
-          border: "1px solid var(--border-subtle)",
           opacity: 0.7,
         }}
       >
@@ -162,7 +161,6 @@ export default function BakerySettingsPage() {
           style={{
             background: "rgba(245,158,11,0.1)",
             color: "var(--accent-orange)",
-            border: "1px solid rgba(245,158,11,0.25)",
           }}
         >
           Coming Soon
@@ -191,7 +189,6 @@ export default function BakerySettingsPage() {
           style={{
             background: "var(--bg-secondary)",
             color: "var(--text-muted)",
-            border: "1px solid var(--border-subtle)",
           }}
         >
           Manage Subscription

@@ -188,7 +188,7 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
       >
         <div
           className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl"
-          style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)" }}
+          style={{ background: "rgba(239,68,68,0.1)" }}
         >
           ⚠️
         </div>
@@ -208,18 +208,17 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
   // ── Form ──
   return (
     <div
-      className="px-4 pt-10 flex flex-col min-h-[calc(100dvh-90px)]"
+      className="section-pad pt-12 flex flex-col min-h-[calc(100dvh-90px)]"
       style={{ background: "var(--bg-primary)" }}
     >
       {/* Header */}
-      <div className="flex items-center gap-3 mb-8">
+      <div className="flex items-center gap-4 mb-10">
         {step > 1 && (
           <button
             onClick={() => setStep((s) => Math.max(s - 1, 1))}
-            className="w-9 h-9 rounded-full flex items-center justify-center transition-all"
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-all"
             style={{
-              background: "var(--bg-card)",
-              border: "1px solid var(--border-subtle)",
+              background: "var(--bg-secondary)",
               color: "var(--text-secondary)",
             }}
           >
@@ -237,9 +236,9 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
       </div>
 
       {/* Progress Bar */}
-      <div className="mb-8">
+      <div className="mb-10">
         <div
-          className="h-1.5 rounded-full overflow-hidden"
+          className="h-2 rounded-full overflow-hidden"
           style={{ background: "var(--bg-secondary)" }}
         >
           <motion.div
@@ -264,15 +263,15 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.2 }}
             >
-              <h2 className="text-2xl font-black font-display mb-6" style={{ color: "var(--text-primary)" }}>
+              <h2 className="text-2xl font-black font-display mb-8" style={{ color: "var(--text-primary)" }}>
                 Select Bundle Type
               </h2>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {BUNDLE_TYPES.map((bt) => (
                   <button
                     key={bt}
                     onClick={() => setType(bt)}
-                    className="w-full px-4 py-4 rounded-2xl border text-left font-bold transition-all flex items-center gap-3"
+                    className="w-full px-5 py-5 rounded-2xl border text-left font-bold transition-all flex items-center gap-4"
                     style={{
                       background: type === bt ? "rgba(245,158,11,0.08)" : "var(--bg-card)",
                       borderColor: type === bt ? "var(--accent-orange)" : "var(--border-subtle)",
@@ -304,7 +303,7 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
                 How many bundles can you offer today?
               </p>
 
-              <div className="flex items-center justify-center gap-8 my-10">
+              <div className="flex items-center justify-center gap-10 my-12">
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -364,12 +363,12 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
                 }}
               >
                 <span
-                  className="flex items-center justify-center self-stretch text-2xl font-black shrink-0 border-r px-5"
+                  className="flex items-center justify-center self-stretch text-2xl font-black shrink-0 border-r px-6"
                   style={{
                     background: "var(--bg-secondary)",
                     color: "var(--text-muted)",
                     borderColor: "var(--border-subtle)",
-                    minWidth: "3.5rem",
+                    minWidth: "4rem",
                   }}
                 >
                   R
@@ -379,7 +378,7 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
                   value={retailValue}
                   onChange={(e) => setRetailValue(e.target.value)}
                   placeholder="120"
-                  className="flex-1 min-w-0 px-4 py-5 text-4xl font-black outline-none bg-transparent"
+                  className="flex-1 min-w-0 px-5 py-5 text-4xl font-black outline-none bg-transparent"
                   style={{ color: "var(--text-primary)" }}
                   onFocus={() => setRetailFocused(true)}
                   onBlur={() => setRetailFocused(false)}
@@ -406,10 +405,9 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
 
               {/* Retail reference */}
               <div
-                className="flex justify-between items-center px-4 py-3 rounded-xl mb-5"
+                className="flex justify-between items-center px-5 py-4 rounded-xl mb-6"
                 style={{
                   background: "var(--bg-secondary)",
-                  border: "1px solid var(--border-subtle)",
                 }}
               >
                 <span className="text-sm" style={{ color: "var(--text-muted)" }}>
@@ -422,7 +420,7 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
 
               {/* Selling price input */}
               <div
-                className="flex items-center rounded-2xl border-2 overflow-hidden transition-all mb-5"
+                className="flex items-center rounded-2xl border-2 overflow-hidden transition-all mb-6"
                 style={{
                   background: "var(--bg-card)",
                   borderColor: priceFocused
@@ -440,12 +438,12 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
                 }}
               >
                 <span
-                  className="flex items-center justify-center self-stretch text-2xl font-black shrink-0 border-r px-5"
+                  className="flex items-center justify-center self-stretch text-2xl font-black shrink-0 border-r px-6"
                   style={{
                     background: "var(--bg-secondary)",
                     color: isPriceValid ? "var(--text-muted)" : "#EF4444",
                     borderColor: "var(--border-subtle)",
-                    minWidth: "3.5rem",
+                    minWidth: "4rem",
                   }}
                 >
                   R
@@ -454,7 +452,7 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
                   type="number"
                   value={sellingPrice}
                   onChange={(e) => setSellingPrice(e.target.value)}
-                  className="flex-1 min-w-0 px-4 py-5 text-4xl font-black outline-none bg-transparent"
+                  className="flex-1 min-w-0 px-5 py-5 text-4xl font-black outline-none bg-transparent"
                   style={{ color: isPriceValid ? "var(--text-primary)" : "#EF4444" }}
                   onFocus={() => setPriceFocused(true)}
                   onBlur={() => setPriceFocused(false)}
@@ -463,7 +461,7 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
 
               {/* Discount display */}
               <div
-                className="flex justify-between items-center px-4 py-4 rounded-2xl"
+                className="flex justify-between items-center px-5 py-5 rounded-2xl"
                 style={{
                   background: isPriceValid ? "rgba(16,185,129,0.08)" : "rgba(239,68,68,0.08)",
                   border: `1px solid ${isPriceValid ? "rgba(16,185,129,0.25)" : "rgba(239,68,68,0.25)"}`,
@@ -480,7 +478,7 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
                 </span>
               </div>
               {!isPriceValid && discountPercentage > 0 && (
-                <p className="text-xs mt-2 font-semibold" style={{ color: "#EF4444" }}>
+                <p className="text-xs mt-3 font-semibold" style={{ color: "#EF4444" }}>
                   Discount must be between 60% and 80%
                 </p>
               )}
@@ -506,7 +504,7 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-4">
                 {[
                   { label: "From", value: pickupTime, setter: setPickupTime },
                   { label: "Until", value: pickupEndTime, setter: setPickupEndTime },
@@ -541,9 +539,9 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
               {/* Review Card */}
               <div
                 className="rounded-2xl overflow-hidden"
-                style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)" }}
+                style={{ background: "var(--bg-card)" }}
               >
-                <div className="px-4 py-3" style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+                <div className="px-5 py-4">
                   <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
                     Review Before Publishing
                   </p>
@@ -557,8 +555,7 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
                 ].map(({ label, value }) => (
                   <div
                     key={label}
-                    className="flex justify-between px-4 py-3"
-                    style={{ borderBottom: "1px solid var(--border-subtle)" }}
+                    className="flex justify-between px-5 py-3.5"
                   >
                     <span className="text-sm" style={{ color: "var(--text-muted)" }}>
                       {label}
@@ -575,10 +572,10 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
       </div>
 
       {/* Navigation */}
-      <div className="pt-6 flex gap-3">
+      <div className="pt-8 pb-6 flex gap-4">
         {step < TOTAL_STEPS ? (
           <Button
-            onClick={() => setStep((s) => Math.min(s + 1, TOTAL_STEPS))}
+            onClick={() => setStep((s) => Math.max(s + 1, TOTAL_STEPS))}
             className="flex-1"
             disabled={
               (step === 1 && !type) ||

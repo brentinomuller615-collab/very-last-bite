@@ -78,9 +78,9 @@ export default function BakeryDashboardPage() {
   }
 
   return (
-    <div className="px-4 pt-10 pb-6" style={{ background: "var(--bg-primary)" }}>
+    <div className="section-pad pt-12 pb-6" style={{ background: "var(--bg-primary)" }}>
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-10">
         <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "var(--accent-orange)" }}>
           Very Last Bite · Bakery Portal
         </p>
@@ -91,7 +91,7 @@ export default function BakeryDashboardPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 gap-3 mb-8">
+      <div className="grid grid-cols-2 gap-4 mb-10">
         {[
           { label: "Active Listings", value: activeBundlesCount, icon: "📦" },
           { label: "Bundles Available", value: totalQty, icon: "🥐" },
@@ -102,7 +102,6 @@ export default function BakeryDashboardPage() {
             className="p-5 rounded-2xl relative overflow-hidden"
             style={{
               background: "var(--bg-card)",
-              border: "1px solid var(--border-subtle)",
             }}
           >
             <div className="text-2xl mb-2">{stat.icon}</div>
@@ -119,7 +118,7 @@ export default function BakeryDashboardPage() {
       {/* Bundles section */}
       <div>
         <h2
-          className="text-sm font-bold uppercase tracking-widest mb-4"
+          className="text-sm font-bold uppercase tracking-widest mb-5"
           style={{ color: "var(--text-muted)" }}
         >
           Your Bundles
@@ -127,10 +126,9 @@ export default function BakeryDashboardPage() {
 
         {bundles.length === 0 ? (
           <div
-            className="text-center py-12 rounded-2xl"
+            className="text-center py-14 rounded-2xl"
             style={{
               background: "var(--bg-card)",
-              border: "1px solid var(--border-subtle)",
             }}
           >
             <span className="text-4xl block mb-3">📦</span>
@@ -142,7 +140,7 @@ export default function BakeryDashboardPage() {
             </p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-3.5">
             {bundles.map((bundle) => (
               <BundleCard key={bundle.id} bundle={bundle} />
             ))}

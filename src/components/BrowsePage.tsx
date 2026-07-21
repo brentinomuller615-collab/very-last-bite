@@ -36,9 +36,9 @@ export default function BrowsePage({ onReserve }: BrowsePageProps) {
   return (
     <div className="page-content">
       {/* Header */}
-      <div className="px-4 pt-6 pb-3">
+      <div className="section-pad pt-7 pb-4">
         <h1
-          className="text-2xl font-black mb-1"
+          className="text-2xl font-black mb-1.5"
           style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
         >
           Nearby deals
@@ -49,7 +49,7 @@ export default function BrowsePage({ onReserve }: BrowsePageProps) {
       </div>
 
       {/* Search bar */}
-      <div className="px-4 mb-3">
+      <div className="section-pad mb-4">
         <div
           className="flex items-center gap-3 px-4 py-3 rounded-2xl"
           style={{
@@ -72,8 +72,8 @@ export default function BrowsePage({ onReserve }: BrowsePageProps) {
       </div>
 
       {/* Category filters */}
-      <div className="px-4 mb-4">
-        <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-1">
+      <div className="section-pad mb-5">
+        <div className="flex gap-2.5 overflow-x-auto hide-scrollbar pb-1">
           {categories.map(({ id, label, emoji }) => (
             <motion.button
               key={id}
@@ -84,10 +84,6 @@ export default function BrowsePage({ onReserve }: BrowsePageProps) {
                 background:
                   activeCategory === id ? "var(--accent-orange)" : "var(--bg-secondary)",
                 color: activeCategory === id ? "#1a0800" : "var(--text-secondary)",
-                border:
-                  activeCategory === id
-                    ? "1px solid var(--accent-orange)"
-                    : "1px solid var(--border-subtle)",
               }}
             >
               <span>{emoji}</span>
@@ -98,7 +94,7 @@ export default function BrowsePage({ onReserve }: BrowsePageProps) {
       </div>
 
       {/* Deal list */}
-      <div className="px-4 flex flex-col gap-3">
+      <div className="section-pad flex flex-col gap-3.5">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
             <motion.div

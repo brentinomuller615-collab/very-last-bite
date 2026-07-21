@@ -36,14 +36,14 @@ export default function BakeryLoginPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] flex flex-col p-6 pt-16">
+    <div className="min-h-[100dvh] flex flex-col p-6 pt-20">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col flex-1"
       >
-        <div className="mb-10 text-center">
-          <div className="text-6xl mb-4">🍞</div>
+        <div className="mb-12 text-center">
+          <div className="text-6xl mb-5">🍞</div>
           <h1
             className="text-3xl font-black font-display mb-1"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
@@ -59,12 +59,12 @@ export default function BakeryLoginPage() {
         </div>
 
         {error && (
-          <div className="p-3 mb-4 text-sm text-red-500 bg-red-50 border border-red-200 rounded-xl text-center font-semibold">
+          <div className="p-4 mb-5 text-sm text-red-500 bg-red-50 border border-red-200 rounded-xl text-center font-semibold">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleLogin} className="space-y-4 flex-1">
+        <form onSubmit={handleLogin} className="space-y-5 flex-1">
           <Input 
             type="email"
             label="Email Address"
@@ -82,7 +82,7 @@ export default function BakeryLoginPage() {
             required
           />
 
-          <div className="pt-4 space-y-4">
+          <div className="pt-5 space-y-4">
             <Button type="submit" isLoading={isLoading}>
               Login
             </Button>

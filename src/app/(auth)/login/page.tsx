@@ -64,12 +64,12 @@ export default function LoginPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-sm space-y-8"
+        className="w-full max-w-sm space-y-10"
       >
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-3">
           <Link
             href="/"
-            className="inline-block text-2xl font-black tracking-tight mb-4"
+            className="inline-block text-2xl font-black tracking-tight mb-5"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-secondary)" }}
           >
             Very Last Bite
@@ -85,14 +85,14 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleLogin} className="space-y-5">
           {error && (
-            <div className="p-3 text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-xl text-center">
+            <div className="p-4 text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-xl text-center">
               {error}
             </div>
           )}
           {resetMessage && (
-            <div className="p-3 text-sm text-green-500 bg-green-500/10 border border-green-500/20 rounded-xl text-center">
+            <div className="p-4 text-sm text-green-500 bg-green-500/10 border border-green-500/20 rounded-xl text-center">
               {resetMessage}
             </div>
           )}
@@ -105,7 +105,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email address"
-                className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-200"
+                className="w-full px-4 py-4 rounded-xl outline-none transition-all duration-200"
                 style={{
                   background: "var(--bg-secondary)",
                   color: "var(--text-primary)",
@@ -122,7 +122,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className="w-full px-4 py-3 rounded-xl outline-none transition-all duration-200"
+                className="w-full px-4 py-4 rounded-xl outline-none transition-all duration-200"
                 style={{
                   background: "var(--bg-secondary)",
                   color: "var(--text-primary)",

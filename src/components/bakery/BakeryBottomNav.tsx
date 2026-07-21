@@ -38,7 +38,7 @@ export default function BakeryBottomNav() {
             <Link
               key={tab.id}
               href={tab.path}
-              className="relative flex flex-col items-center gap-1 py-1 w-16"
+              className="relative flex flex-col items-center gap-1.5 py-1.5 w-[72px]"
             >
               <motion.div
                 animate={{

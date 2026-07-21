@@ -60,9 +60,11 @@ body {
   width: 4px;
   height: 4px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-secondary);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--accent-orange-dark);
   border-radius: 2px;
@@ -73,42 +75,143 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
 /* Slot machine marquee lights animation */
 @keyframes bulb-pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 6px 2px rgba(245, 158, 11, 0.8); }
-  50% { opacity: 0.4; box-shadow: 0 0 2px 1px rgba(245, 158, 11, 0.3); }
+
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 6px 2px rgba(245, 158, 11, 0.8);
+  }
+
+  50% {
+    opacity: 0.4;
+    box-shadow: 0 0 2px 1px rgba(245, 158, 11, 0.3);
+  }
 }
 
 @keyframes spin-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.2); }
-  50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.6); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(245, 158, 11, 0.6);
+  }
 }
 
 @keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 @keyframes shine {
-  0% { left: -100%; }
-  100% { left: 200%; }
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 200%;
+  }
+}
+
+/* ─── Spacing Utility Classes ───────────────────────────────────────────────
+   Shared spacing tokens to ensure visual consistency across all pages.
+   Use these classes instead of ad-hoc padding/margin values.
+─────────────────────────────────────────────────────────────────────────── */
+
+/* Page section outer padding */
+.section-pad {
+  padding-left: 1.25rem;
+  /* px-5 */
+  padding-right: 1.25rem;
+}
+
+/* Standard card internal padding */
+.card-pad {
+  padding: 1.25rem;
+  /* p-5 */
+}
+
+/* Larger card internal padding for prominent cards */
+.card-pad-lg {
+  padding: 1.5rem;
+  /* p-6 */
+}
+
+/* Consistent gap between stacked cards/rows */
+.card-gap {
+  gap: 0.875rem;
+  /* gap-3.5 */
+}
+
+/* Section header block (title + subtitle) bottom spacing */
+.section-header {
+  padding-top: 1.5rem;
+  /* pt-6 */
+  padding-bottom: 1.25rem;
+  /* pb-5 */
+}
+
+/* Input touch target */
+.input-base {
+  padding-left: 1rem;
+  /* px-4 */
+  padding-right: 1rem;
+  padding-top: 0.875rem;
+  /* py-3.5 — 44px+ touch target */
+  padding-bottom: 0.875rem;
+  border-radius: 0.75rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+/* Standard button touch target */
+.btn-base {
+  padding-top: 1rem;
+  /* py-3.5 — 44px+ touch target */
+  padding-bottom: 1rem;
+  padding-left: 2rem;
+  /* px-6 */
+  padding-right: 2rem;
+  border-radius: 1rem;
+  /* rounded-[14px] */
+  font-weight: 700;
 }
 
 .stat-card {
   background: var(--bg-secondary);
   border: none;
   border-radius: 16px;
-  padding: 16px 12px;
+  padding: 20px 14px;
   text-align: center;
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -261,7 +364,8 @@ body {
 
 .page-content {
   min-height: 100dvh;
-  padding-bottom: 80px;
+  padding-bottom: 96px;
+  /* slightly more room above bottom nav */
 }
 
 @media (min-width: 430px) {

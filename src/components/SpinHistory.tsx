@@ -11,24 +11,23 @@ export default function SpinHistory({ history }: SpinHistoryProps) {
   if (history.length === 0) return null;
 
   return (
-    <div className="px-4 pb-6">
+    <div className="section-pad pb-8">
       <h3
-        className="text-sm font-semibold mb-2.5"
+        className="text-sm font-semibold mb-3.5"
         style={{ color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em" }}
       >
         Spin History
       </h3>
-      <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-1">
+      <div className="flex gap-2.5 overflow-x-auto hide-scrollbar pb-1">
         {history.map((deal, i) => (
           <motion.div
             key={`${deal.id}-${i}`}
             initial={{ opacity: 0, scale: 0.8, x: -20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ type: "spring", bounce: 0.4 }}
-            className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-2xl"
+            className="flex-shrink-0 flex items-center gap-2.5 px-4 py-2.5 rounded-2xl"
             style={{
               background: "var(--bg-secondary)",
-              border: "1px solid var(--border-subtle)",
               minWidth: 160,
             }}
           >

@@ -52,7 +52,6 @@ function SpinSlot({
       className="mx-3 mb-3 rounded-2xl overflow-hidden"
       style={{
         background: "var(--bg-card)",
-        border: "1px solid rgba(245,158,11,0.15)",
         minHeight: 100,
       }}
     >
@@ -165,7 +164,7 @@ function ReserveModal({
         {/* Deal summary */}
         <div
           className="rounded-2xl p-4 mb-5"
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)" }}
+          style={{ background: "var(--bg-card)" }}
         >
           <div className="flex items-center gap-3 mb-3">
             <div
@@ -331,7 +330,6 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
           {/* Marquee title */}
           <div
             className="text-center py-2"
-            style={{ borderBottom: "1px solid rgba(245,158,11,0.12)" }}
           >
             <span
               className="text-sm font-bold tracking-wide"
@@ -367,7 +365,6 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
               className="rounded-2xl p-5"
               style={{
                 background: "var(--bg-secondary)",
-                border: "1px solid rgba(245,158,11,0.3)",
                 boxShadow: "0 0 30px rgba(245,158,11,0.15)",
               }}
             >
@@ -376,7 +373,6 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
                   className="w-18 h-18 w-[72px] h-[72px] rounded-2xl flex items-center justify-center text-4xl flex-shrink-0"
                   style={{
                     background: resultDeal.bgColor + "25",
-                    border: `1px solid ${resultDeal.bgColor}40`,
                   }}
                 >
                   {resultDeal.emoji}

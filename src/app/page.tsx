@@ -61,14 +61,14 @@ export default function LandingPage() {
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
           background: scrolled
-            ? "rgba(26, 10, 0, 0.85)"
+            ? "rgba(26, 10, 0, 0.90)"
             : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
           borderBottom: scrolled
             ? "1px solid var(--border-subtle)"
             : "1px solid transparent",
-          padding: scrolled ? "12px 0" : "20px 0",
+          padding: scrolled ? "18px 0" : "28px 0",
         }}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -82,7 +82,7 @@ export default function LandingPage() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+          <nav className="hidden md:flex items-center gap-10 text-sm font-medium">
             {[
               { label: "Home", href: "#", target: "" },
               { label: "Mission", href: "#mission", target: "mission" },
@@ -94,7 +94,7 @@ export default function LandingPage() {
                 key={label}
                 href={href}
                 onClick={target ? (e) => handleSmoothScroll(e, target) : undefined}
-                className="transition-colors duration-200"
+                className="transition-colors duration-200 relative py-1.5"
                 style={{ color: "var(--text-secondary)" }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-orange)")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
@@ -108,18 +108,18 @@ export default function LandingPage() {
           <div className="hidden md:block">
             <Link href={authButtonLink}>
               <button
-                className="font-bold px-6 py-2.5 rounded-xl transition-all duration-200 cursor-pointer text-sm"
+                className="font-bold px-7 py-2.5 rounded-xl transition-all duration-200 cursor-pointer text-xs tracking-wider uppercase"
                 style={{
                   background: "linear-gradient(135deg, var(--accent-orange-dark), var(--accent-orange))",
                   color: "#1a0800",
-                  boxShadow: "0 0 20px rgba(245, 158, 11, 0.2)",
+                  boxShadow: "0 0 24px rgba(245, 158, 11, 0.25)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0 0 30px rgba(245, 158, 11, 0.4)";
+                  e.currentTarget.style.boxShadow = "0 0 36px rgba(245, 158, 11, 0.45)";
                   e.currentTarget.style.transform = "translateY(-1px)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "0 0 20px rgba(245, 158, 11, 0.2)";
+                  e.currentTarget.style.boxShadow = "0 0 24px rgba(245, 158, 11, 0.25)";
                   e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
@@ -192,19 +192,19 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-28 md:pt-56 md:pb-48 px-6 overflow-hidden">
+      <section className="relative pt-72 pb-44 md:pt-96 md:pb-60 px-6 overflow-hidden">
         {/* Ambient glow background */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 80% 50% at 50% 30%, rgba(245, 158, 11, 0.07) 0%, transparent 70%)",
+              "radial-gradient(ellipse 70% 50% at 50% 30%, rgba(245, 158, 11, 0.08) 0%, transparent 70%)",
           }}
         />
         <div
-          className="absolute top-20 right-0 w-[500px] h-[500px] pointer-events-none"
+          className="absolute top-20 right-0 w-[600px] h-[600px] pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(245, 158, 11, 0.04) 0%, transparent 60%)",
+            background: "radial-gradient(circle, rgba(245, 158, 11, 0.06) 0%, transparent 60%)",
           }}
         />
 
@@ -215,35 +215,29 @@ export default function LandingPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="relative w-full max-w-sm h-72 md:h-[360px] flex items-center justify-center"
+              className="relative w-full max-w-sm h-80 md:h-[400px] flex items-center justify-center"
             >
               {/* Glow orb behind emoji */}
               <div
-                className="absolute inset-0 rounded-full"
+                className="absolute inset-0 rounded-full blur-2xl"
                 style={{
-                  background: "radial-gradient(circle at center, rgba(245, 158, 11, 0.12) 0%, rgba(245, 158, 11, 0.03) 40%, transparent 70%)",
+                  background: "radial-gradient(circle at center, rgba(245, 158, 11, 0.22) 0%, rgba(245, 158, 11, 0.04) 50%, transparent 80%)",
                 }}
               />
               <motion.div
-                animate={{ y: [0, -14, 0] }}
+                animate={{ y: [0, -18, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="flex flex-col items-center gap-5 text-center z-10"
+                className="flex flex-col items-center gap-6 text-center z-10"
               >
-                <span className="text-8xl md:text-9xl drop-shadow-lg">🍞</span>
-                <div
-                  className="backdrop-blur-md rounded-2xl px-6 py-3"
-                  style={{
-                    background: "rgba(245, 158, 11, 0.08)",
-                    border: "1px solid var(--border-subtle)",
-                  }}
-                >
+                <span className="text-9xl drop-shadow-2xl filter saturate-125">🍞</span>
+                <div className="text-center pt-2">
                   <span
-                    className="font-extrabold text-lg"
-                    style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+                    className="font-extrabold text-sm uppercase tracking-widest"
+                    style={{ fontFamily: "var(--font-display)", color: "var(--accent-orange)" }}
                   >
                     South Africa&apos;s Food Rescue
                   </span>
-                  <div className="flex gap-1 justify-center mt-1" style={{ color: "var(--accent-orange)" }}>
+                  <div className="flex gap-1.5 justify-center mt-2" style={{ color: "var(--accent-orange)", opacity: 0.85 }}>
                     <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                   </div>
                 </div>
@@ -252,23 +246,23 @@ export default function LandingPage() {
           </div>
 
           {/* Text Left */}
-          <div className="md:col-span-7 md:order-1 space-y-6 text-left">
+          <div className="md:col-span-7 md:order-1 space-y-10 text-left">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="space-y-5"
+              className="space-y-8"
             >
               <h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05]"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.08]"
                 style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
               >
                 Make every <br className="hidden sm:inline" />
                 <span style={{ color: "var(--accent-orange)" }}>rand</span> go further.
               </h1>
               <p
-                className="text-lg leading-relaxed max-w-lg"
-                style={{ color: "var(--text-secondary)" }}
+                className="text-lg leading-relaxed max-w-xl text-justify"
+                style={{ color: "var(--text-secondary)", lineHeight: "1.8" }}
               >
                 Very Last Bite helps people access available bakery food at reduced prices, making it easier to stretch every rand further while helping reduce unnecessary food waste.
               </p>
@@ -278,37 +272,37 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 }}
-              className="space-y-5 pt-2"
+              className="space-y-8 pt-6"
             >
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href={authButtonLink} className="flex-1 sm:flex-none">
+              <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+                <Link href={authButtonLink} className="sm:inline-block">
                   <motion.button
                     whileTap={{ scale: 0.97 }}
-                    className="w-full sm:w-auto font-bold px-8 py-4 rounded-2xl transition-all cursor-pointer text-base"
+                    className="w-full sm:w-auto min-h-[46px] px-8 py-3 rounded-xl font-bold text-sm leading-none transition-all cursor-pointer tracking-wide inline-flex items-center justify-center whitespace-nowrap"
                     style={{
                       background: "linear-gradient(135deg, var(--accent-orange-dark), var(--accent-orange))",
                       color: "#1a0800",
-                      boxShadow: "var(--glow-orange)",
+                      boxShadow: "var(--glow-orange-strong)",
                     }}
                   >
                     {authButtonText}
                   </motion.button>
                 </Link>
-                <a href="#mission" onClick={(e) => handleSmoothScroll(e, "mission")} className="flex-1 sm:flex-none">
+                <a href="#mission" onClick={(e) => handleSmoothScroll(e, "mission")} className="sm:inline-block">
                   <motion.button
                     whileTap={{ scale: 0.97 }}
-                    className="w-full sm:w-auto font-bold px-8 py-4 rounded-2xl transition-all cursor-pointer text-base text-center"
+                    className="w-full sm:w-auto min-h-[46px] px-8 py-3 rounded-xl font-bold text-sm leading-none transition-all cursor-pointer text-center tracking-wide inline-flex items-center justify-center whitespace-nowrap"
                     style={{
                       background: "transparent",
                       color: "var(--text-secondary)",
-                      border: "1px solid var(--border-subtle)",
+                      border: "2px solid var(--border-subtle)",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = "rgba(245, 158, 11, 0.4)";
-                      e.currentTarget.style.background = "rgba(245, 158, 11, 0.05)";
+                      e.currentTarget.style.borderColor = "var(--accent-orange)";
+                      e.currentTarget.style.background = "rgba(245, 158, 11, 0.06)";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = "rgba(245, 158, 11, 0.15)";
+                      e.currentTarget.style.borderColor = "var(--border-subtle)";
                       e.currentTarget.style.background = "transparent";
                     }}
                   >
@@ -317,7 +311,7 @@ export default function LandingPage() {
                 </a>
               </div>
               <p
-                className="text-xs font-medium tracking-wide flex items-center gap-1.5 pl-1"
+                className="text-xs font-medium tracking-wider flex items-center gap-2 pl-1"
                 style={{ color: "var(--text-muted)" }}
               >
                 <span className="text-base" style={{ color: "var(--accent-orange)" }}>✨</span>
@@ -328,38 +322,34 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Quote Block */}
-      <section className="py-20 md:py-32 px-6 relative">
+      {/* Quote Section */}
+      <section className="py-36 md:py-52 px-6 relative">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background: "radial-gradient(ellipse 60% 40% at 50% 50%, rgba(245, 158, 11, 0.03) 0%, transparent 70%)",
           }}
         />
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="max-w-5xl mx-auto flex items-center justify-center gap-8 relative z-10">
+          <div className="hidden sm:block h-px flex-1 bg-gradient-to-r from-transparent to-[var(--border-subtle)]" />
           <motion.div
             {...fadeUp}
-            className="space-y-4"
+            className="text-center max-w-2xl px-4"
           >
-            <span className="text-5xl block" style={{ color: "var(--accent-orange)", opacity: 0.6 }}>
-              &ldquo;
-            </span>
             <blockquote
-              className="text-xl sm:text-2xl md:text-3xl font-bold italic max-w-2xl mx-auto leading-relaxed"
+              className="text-2xl sm:text-3xl md:text-4xl font-light italic leading-relaxed tracking-wide"
               style={{ fontFamily: "var(--font-display)", color: "var(--text-secondary)" }}
             >
-              A small amount of money should still be enough to put good food on the table.
+              &ldquo;A small amount of money should still be enough to put good food on the table.&rdquo;
             </blockquote>
-            <span className="text-5xl block leading-none" style={{ color: "var(--accent-orange)", opacity: 0.6 }}>
-              &rdquo;
-            </span>
           </motion.div>
+          <div className="hidden sm:block h-px flex-1 bg-gradient-to-l from-transparent to-[var(--border-subtle)]" />
         </div>
       </section>
 
       {/* Mission Section */}
-      <section id="mission" className="py-28 md:py-40 px-6 max-w-7xl mx-auto scroll-mt-20">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-20">
+      <section id="mission" className="py-40 md:py-56 px-6 max-w-7xl mx-auto scroll-mt-24">
+        <div className="text-center space-y-6 max-w-3xl mx-auto mb-28">
           <motion.div {...fadeUp}>
             <span
               className="text-xs uppercase font-extrabold tracking-widest"
@@ -370,22 +360,22 @@ export default function LandingPage() {
           </motion.div>
           <motion.h2
             {...fadeUp}
-            className="text-3xl sm:text-4xl font-black"
+            className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
           >
             Bridging Value and Dignity
           </motion.h2>
           <motion.p
             {...fadeUp}
-            className="text-base leading-relaxed"
-            style={{ color: "var(--text-secondary)" }}
+            className="text-base leading-relaxed text-justify sm:text-center"
+            style={{ color: "var(--text-secondary)", lineHeight: "1.8" }}
           >
             Food prices continue to rise while many hardworking people struggle to keep up. Very Last Bite exists to help everyday people access more food for their money while helping bakeries reduce unnecessary waste.
           </motion.p>
           <motion.p
             {...fadeUp}
-            className="text-sm leading-relaxed"
-            style={{ color: "var(--text-muted)" }}
+            className="text-sm leading-relaxed text-justify sm:text-center"
+            style={{ color: "var(--text-muted)", lineHeight: "1.8" }}
           >
             We believe nobody should have to choose between hunger and dignity. By connecting available food with people who need it most, we can create stronger communities and a more sustainable food system.
           </motion.p>
@@ -444,9 +434,9 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-28 md:py-40 px-6 scroll-mt-20 relative">
+      <section id="how-it-works" className="py-40 md:py-56 px-6 scroll-mt-24 relative">
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center space-y-4 max-w-3xl mx-auto mb-20">
+          <div className="text-center space-y-6 max-w-3xl mx-auto mb-28">
             <motion.div {...fadeUp}>
               <span
                 className="text-xs uppercase font-extrabold tracking-widest"
@@ -457,14 +447,14 @@ export default function LandingPage() {
             </motion.div>
             <motion.h2
               {...fadeUp}
-              className="text-3xl sm:text-4xl font-black"
+              className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight"
               style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
             >
               How It Works
             </motion.h2>
             <motion.p
               {...fadeUp}
-              className="text-sm"
+              className="text-sm tracking-wide"
               style={{ color: "var(--text-muted)" }}
             >
               Simple steps connecting bakeries and consumers seamlessly.
@@ -534,8 +524,8 @@ export default function LandingPage() {
       </section>
 
       {/* Impact Section */}
-      <section id="impact" className="py-28 md:py-40 px-6 max-w-7xl mx-auto scroll-mt-20">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-20">
+      <section id="impact" className="py-40 md:py-56 px-6 max-w-7xl mx-auto scroll-mt-24">
+        <div className="text-center space-y-6 max-w-3xl mx-auto mb-28">
           <motion.div {...fadeUp}>
             <span
               className="text-xs uppercase font-extrabold tracking-widest"
@@ -546,72 +536,51 @@ export default function LandingPage() {
           </motion.div>
           <motion.h2
             {...fadeUp}
-            className="text-3xl sm:text-4xl font-black"
+            className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
           >
             Why It Matters
           </motion.h2>
           <motion.p
             {...fadeUp}
-            className="text-sm"
+            className="text-sm tracking-wide"
             style={{ color: "var(--text-muted)" }}
           >
             Real difference in pocket size and ecological footprint.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-          {/* Left Column Comparison: flat & borderless structure */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          {/* Left Column Redesigned visual representation */}
           <motion.div
             {...fadeUp}
-            className="lg:col-span-6 space-y-6"
+            className="lg:col-span-6 space-y-8"
           >
-            <div className="space-y-6">
+            <div className="space-y-6 pr-4">
               <h3
-                className="text-xl font-bold pb-2"
+                className="text-2xl md:text-3xl font-black tracking-tight leading-snug"
                 style={{
                   fontFamily: "var(--font-display)",
                   color: "var(--text-primary)",
                 }}
               >
-                Budget Stretching Example
+                Food Rescue with Value & Dignity
               </h3>
-
-              <div className="space-y-4">
-                <div className="py-2">
-                  <span
-                    className="text-xs font-extrabold uppercase tracking-wider block mb-1"
-                    style={{ color: "var(--text-muted)" }}
-                  >
-                    Traditional Purchase
-                  </span>
-                  <p className="text-sm font-semibold" style={{ color: "var(--text-secondary)" }}>
-                    &ldquo;R30 may only cover a basic food item.&rdquo;
-                  </p>
-                </div>
-
-                <div
-                  className="p-5 rounded-xl"
-                  style={{
-                    background: "rgba(245, 158, 11, 0.05)",
-                    borderLeft: "3px solid var(--accent-orange)",
-                  }}
-                >
-                  <span
-                    className="text-xs font-extrabold uppercase tracking-wider block mb-1"
-                    style={{ color: "var(--accent-orange)" }}
-                  >
-                    Very Last Bite Difference
-                  </span>
-                  <p className="text-base font-bold" style={{ color: "var(--text-primary)" }}>
-                    &ldquo;The same budget can stretch further through available food bundles.&rdquo;
-                  </p>
-                </div>
-              </div>
-
-              <p className="text-xs italic" style={{ color: "var(--text-muted)" }}>
-                * Note: Exact items fluctuate daily based on available bakery surplus to guarantee freshness.
+              <p className="text-base leading-relaxed text-justify" style={{ color: "var(--text-secondary)", lineHeight: "1.75" }}>
+                Every single day, local bakeries, cafés, and restaurants have high-quality baked goods left over. We bridge the gap so you can rescue these delicious bundles at massive discounts.
               </p>
+              <div className="space-y-4 pt-2">
+                {[
+                  { label: "💰 Stretch Your Budget", text: "Get up to 70% off retail value to make your rand go further." },
+                  { label: "🌱 Rescue Surplus Food", text: "Prevent good food from being wasted and protect our environment." },
+                  { label: "🤝 Support Local Shops", text: "Help neighborhood merchants recover value while feeding communities." }
+                ].map((item) => (
+                  <div key={item.label} className="space-y-1">
+                    <h4 className="font-bold text-sm" style={{ color: "var(--accent-orange)" }}>{item.label}</h4>
+                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>{item.text}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
 
@@ -667,7 +636,7 @@ export default function LandingPage() {
       </section>
 
       {/* Vision Section */}
-      <section className="py-28 md:py-40 px-6 relative">
+      <section className="py-40 md:py-56 px-6 relative">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center relative z-10">
           {/* Visual Left on desktop */}
           <motion.div
@@ -728,7 +697,6 @@ export default function LandingPage() {
                     className="px-3.5 py-1.5 rounded-full text-xs font-semibold"
                     style={{
                       background: "rgba(245, 158, 11, 0.05)",
-                      border: "1px solid var(--border-subtle)",
                       color: "var(--text-secondary)",
                     }}
                   >
@@ -742,9 +710,9 @@ export default function LandingPage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-28 md:py-40 px-6">
+      <section id="contact" className="py-40 md:py-56 px-6 scroll-mt-24">
         <div className="max-w-xl mx-auto">
-          <div className="text-center space-y-4 mb-14">
+          <div className="text-center space-y-6 mb-20">
             <motion.div {...fadeUp}>
               <span
                 className="text-xs uppercase font-extrabold tracking-widest"
@@ -755,120 +723,129 @@ export default function LandingPage() {
             </motion.div>
             <motion.h2
               {...fadeUp}
-              className="text-3xl font-black"
+              className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight"
               style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
             >
               Get In Touch
             </motion.h2>
             <motion.p
               {...fadeUp}
-              className="text-sm"
+              className="text-sm tracking-wide"
               style={{ color: "var(--text-muted)" }}
             >
               Have questions, suggestions, or want to partner? Drop us a line.
             </motion.p>
           </div>
 
-          {/* Flat contact form directly on the page background */}
-          <motion.form
+          {/* Flat contact form inside clean container card */}
+          <motion.div
             {...fadeUp}
-            onSubmit={handleContactSubmit}
-            className="space-y-6"
+            className="p-8 md:p-10 rounded-3xl"
+            style={{
+              background: "var(--bg-card)",
+              border: "1px solid var(--border-subtle)",
+              boxShadow: "0 10px 40px rgba(0, 0, 0, 0.2)"
+            }}
           >
-            <div>
-              <label
-                className="text-xs font-bold block mb-2 ml-1"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                required
-                placeholder="Jane Doe"
-                className="w-full px-4 py-3.5 rounded-xl outline-none text-sm transition-all duration-200"
-                style={{
-                  background: "var(--bg-secondary)",
-                  color: "var(--text-primary)",
-                  border: "1px solid var(--border-subtle)",
-                }}
-                onFocus={(e) => (e.target.style.borderColor = "var(--accent-orange)")}
-                onBlur={(e) => (e.target.style.borderColor = "var(--border-subtle)")}
-              />
-            </div>
-
-            <div>
-              <label
-                className="text-xs font-bold block mb-2 ml-1"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                required
-                placeholder="jane@example.com"
-                className="w-full px-4 py-3.5 rounded-xl outline-none text-sm transition-all duration-200"
-                style={{
-                  background: "var(--bg-secondary)",
-                  color: "var(--text-primary)",
-                  border: "1px solid var(--border-subtle)",
-                }}
-                onFocus={(e) => (e.target.style.borderColor = "var(--accent-orange)")}
-                onBlur={(e) => (e.target.style.borderColor = "var(--border-subtle)")}
-              />
-            </div>
-
-            <div>
-              <label
-                className="text-xs font-bold block mb-2 ml-1"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                Message
-              </label>
-              <textarea
-                rows={4}
-                required
-                placeholder="How can we help you stretch your budget or partner?"
-                className="w-full px-4 py-3.5 rounded-xl outline-none text-sm transition-all duration-200 resize-none"
-                style={{
-                  background: "var(--bg-secondary)",
-                  color: "var(--text-primary)",
-                  border: "1px solid var(--border-subtle)",
-                }}
-                onFocus={(e) => (e.target.style.borderColor = "var(--accent-orange)")}
-                onBlur={(e) => (e.target.style.borderColor = "var(--border-subtle)")}
-              ></textarea>
-            </div>
-
-            <motion.button
-              whileTap={{ scale: 0.98 }}
-              type="submit"
-              className="w-full font-bold py-4 rounded-xl transition-all cursor-pointer mt-2"
-              style={{
-                background: "linear-gradient(135deg, var(--accent-orange-dark), var(--accent-orange))",
-                color: "#1a0800",
-                boxShadow: "var(--glow-orange)",
-              }}
+            <form
+              onSubmit={handleContactSubmit}
+              className="space-y-6"
             >
-              Submit Message
-            </motion.button>
+              <div>
+                <label
+                  className="text-xs font-bold block mb-2.5 ml-1"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="Jane Doe"
+                  className="w-full px-5 py-4 rounded-xl outline-none text-sm transition-all duration-200"
+                  style={{
+                    background: "var(--bg-secondary)",
+                    color: "var(--text-primary)",
+                    border: "1px solid var(--border-subtle)",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = "var(--accent-orange)")}
+                  onBlur={(e) => (e.target.style.borderColor = "var(--border-subtle)")}
+                />
+              </div>
 
-            {formSubmitted && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-xs font-bold text-center p-3 rounded-xl mt-4"
+              <div>
+                <label
+                  className="text-xs font-bold block mb-2.5 ml-1"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  required
+                  placeholder="jane@example.com"
+                  className="w-full px-5 py-4 rounded-xl outline-none text-sm transition-all duration-200"
+                  style={{
+                    background: "var(--bg-secondary)",
+                    color: "var(--text-primary)",
+                    border: "1px solid var(--border-subtle)",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = "var(--accent-orange)")}
+                  onBlur={(e) => (e.target.style.borderColor = "var(--border-subtle)")}
+                />
+              </div>
+
+              <div>
+                <label
+                  className="text-xs font-bold block mb-2.5 ml-1"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  Message
+                </label>
+                <textarea
+                  rows={4}
+                  required
+                  placeholder="How can we help you stretch your budget or partner?"
+                  className="w-full px-5 py-4 rounded-xl outline-none text-sm transition-all duration-200 resize-none"
+                  style={{
+                    background: "var(--bg-secondary)",
+                    color: "var(--text-primary)",
+                    border: "1px solid var(--border-subtle)",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = "var(--accent-orange)")}
+                  onBlur={(e) => (e.target.style.borderColor = "var(--border-subtle)")}
+                ></textarea>
+              </div>
+
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                type="submit"
+                className="w-full font-bold py-4 rounded-xl transition-all cursor-pointer mt-4"
                 style={{
-                  background: "rgba(16, 185, 129, 0.1)",
-                  color: "var(--accent-green)",
-                  border: "1px solid rgba(16, 185, 129, 0.2)",
+                  background: "linear-gradient(135deg, var(--accent-orange-dark), var(--accent-orange))",
+                  color: "#1a0800",
+                  boxShadow: "var(--glow-orange)",
                 }}
               >
-                ✓ Thank you! We&apos;ll get back to you shortly.
-              </motion.div>
-            )}
-          </motion.form>
+                Submit Message
+              </motion.button>
+
+              {formSubmitted && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-xs font-bold text-center p-4 rounded-xl mt-4"
+                  style={{
+                    background: "rgba(16, 185, 129, 0.1)",
+                    color: "var(--accent-green)",
+                    border: "1px solid rgba(16, 185, 129, 0.2)",
+                  }}
+                >
+                  ✓ Thank you! We&apos;ll get back to you shortly.
+                </motion.div>
+              )}
+            </form>
+          </motion.div>
         </div>
       </section>
 

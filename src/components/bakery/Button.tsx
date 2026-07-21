@@ -15,7 +15,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const base =
-    "w-full py-3.5 px-6 rounded-2xl font-bold font-display transition-all flex items-center justify-center gap-2 text-sm";
+    "w-full py-4 px-6 rounded-2xl font-bold font-display transition-all flex items-center justify-center gap-2 text-sm";
 
   const variants: Record<string, string> = {
     primary:

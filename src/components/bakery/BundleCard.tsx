@@ -36,10 +36,9 @@ export default function BundleCard({ bundle }: BundleCardProps) {
   return (
     <motion.div
       whileHover={{ y: -1 }}
-      className="p-5 rounded-2xl relative overflow-hidden"
+      className="p-6 rounded-2xl relative overflow-hidden"
       style={{
         background: "var(--bg-card)",
-        border: "1px solid var(--border-subtle)",
       }}
     >
       {/* Orange top accent for active */}
@@ -53,7 +52,7 @@ export default function BundleCard({ bundle }: BundleCardProps) {
       )}
 
       {/* Header */}
-      <div className="flex justify-between items-start mb-4">
+      <div className="flex justify-between items-start mb-5">
         <div>
           <h3
             className="text-base font-black font-display"
@@ -79,8 +78,8 @@ export default function BundleCard({ bundle }: BundleCardProps) {
 
       {/* Pricing */}
       <div
-        className="flex justify-between items-center px-4 py-3 rounded-xl mb-4"
-        style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)" }}
+        className="flex justify-between items-center px-5 py-4 rounded-xl mb-5"
+        style={{ background: "var(--bg-secondary)" }}
       >
         <div>
           <p className="text-xs" style={{ color: "var(--text-muted)" }}>Retail</p>
@@ -112,7 +111,7 @@ export default function BundleCard({ bundle }: BundleCardProps) {
       </div>
 
       {/* Pickup Window */}
-      <div className="flex items-center gap-1.5 text-xs px-1 mb-4" style={{ color: "var(--text-muted)" }}>
+      <div className="flex items-center gap-2 text-xs px-1 mb-5" style={{ color: "var(--text-muted)" }}>
         <Clock size={12} className="text-amber-400" />
         {bundle.pickupTime && bundle.pickupEndTime ? (
           <span>Pickup Window: {bundle.pickupTime} – {bundle.pickupEndTime}</span>
@@ -124,10 +123,9 @@ export default function BundleCard({ bundle }: BundleCardProps) {
       {/* Edit */}
       <button
         onClick={() => router.push(`/bakery/dashboard/add-bundle?edit=${bundle.id}`)}
-        className="w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
+        className="w-full py-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
         style={{
           background: "var(--bg-secondary)",
-          border: "1px solid var(--border-subtle)",
           color: "var(--text-secondary)",
         }}
       >
