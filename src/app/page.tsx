@@ -208,45 +208,9 @@ export default function LandingPage() {
           }}
         />
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center relative z-10">
-          {/* Visual on Mobile - Stacked above text */}
-          <div className="md:col-span-5 md:order-2 flex justify-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="relative w-full max-w-sm h-80 md:h-[400px] flex items-center justify-center"
-            >
-              {/* Glow orb behind emoji */}
-              <div
-                className="absolute inset-0 rounded-full blur-2xl"
-                style={{
-                  background: "radial-gradient(circle at center, rgba(245, 158, 11, 0.22) 0%, rgba(245, 158, 11, 0.04) 50%, transparent 80%)",
-                }}
-              />
-              <motion.div
-                animate={{ y: [0, -18, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="flex flex-col items-center gap-6 text-center z-10"
-              >
-                <span className="text-9xl drop-shadow-2xl filter saturate-125">🍞</span>
-                <div className="text-center pt-2">
-                  <span
-                    className="font-extrabold text-sm uppercase tracking-widest"
-                    style={{ fontFamily: "var(--font-display)", color: "var(--accent-orange)" }}
-                  >
-                    South Africa&apos;s Food Rescue
-                  </span>
-                  <div className="flex gap-1.5 justify-center mt-2" style={{ color: "var(--accent-orange)", opacity: 0.85 }}>
-                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {/* Text Left */}
-          <div className="md:col-span-7 md:order-1 space-y-10 text-left">
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          {/* Main Hero Content */}
+          <div className="space-y-10">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -261,7 +225,7 @@ export default function LandingPage() {
                 <span style={{ color: "var(--accent-orange)" }}>rand</span> go further.
               </h1>
               <p
-                className="text-lg leading-relaxed max-w-xl text-justify"
+                className="text-lg leading-relaxed max-w-2xl mx-auto text-center"
                 style={{ color: "var(--text-secondary)", lineHeight: "1.8" }}
               >
                 Very Last Bite helps people access available bakery food at reduced prices, making it easier to stretch every rand further while helping reduce unnecessary food waste.
@@ -272,9 +236,9 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 }}
-              className="space-y-8 pt-6"
+              className="space-y-8 pt-4 flex flex-col items-center"
             >
-              <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+              <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-center">
                 <Link href={authButtonLink} className="sm:inline-block">
                   <motion.button
                     whileTap={{ scale: 0.97 }}
@@ -311,7 +275,7 @@ export default function LandingPage() {
                 </a>
               </div>
               <p
-                className="text-xs font-medium tracking-wider flex items-center gap-2 pl-1"
+                className="text-xs font-medium tracking-wider flex items-center justify-center gap-2"
                 style={{ color: "var(--text-muted)" }}
               >
                 <span className="text-base" style={{ color: "var(--accent-orange)" }}>✨</span>
@@ -382,50 +346,39 @@ export default function LandingPage() {
         </div>
 
         {/* Completely borderless & flat mission grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10">
           {[
             {
-              emoji: "🪙",
               title: "More Value",
               description:
                 "Help people stretch their food budget further. Access premium baked goods at a massive discount when it matters most.",
             },
             {
-              emoji: "🌍",
               title: "Less Waste",
               description:
                 "Connect available food with people who can use it. Minimize end-of-day wastage for bakeries and protect our environment.",
             },
             {
-              emoji: "🤝",
               title: "Fair Access",
               description:
                 "Create equal opportunities for everyone to access available bundles. No queues, no hassle, just dignified, affordable food.",
             },
-          ].map(({ emoji, title, description }, i) => (
+          ].map(({ title, description }, i) => (
             <motion.div
               key={title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="flex flex-col items-start gap-4 cursor-default"
+              className="flex flex-col items-start space-y-3 cursor-default"
             >
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center text-xl transition-all duration-300"
-                style={{
-                  background: "rgba(245, 158, 11, 0.06)",
-                }}
-              >
-                {emoji}
-              </div>
               <h3
-                className="text-xl font-bold mt-2"
-                style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+                className="text-xl font-bold font-display"
+                style={{ color: "var(--text-primary)" }}
               >
                 {title}
               </h3>
-              <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)", lineHeight: "1.75" }}>
                 {description}
               </p>
             </motion.div>
@@ -462,59 +415,54 @@ export default function LandingPage() {
           </div>
 
           {/* Completely borderless list columns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             {[
               {
                 num: "01",
-                emoji: "🏪",
                 title: "Bakery food becomes available",
                 desc: "Bakeries check unsold stock at the end of the day and bundle them together into available deals.",
               },
               {
                 num: "02",
-                emoji: "📱",
                 title: "Users open Very Last Bite",
                 desc: "Consumers check the platform to see what discount bakery bundles are currently available nearby.",
               },
               {
                 num: "03",
-                emoji: "⚡",
                 title: "Users unlock food bundles",
                 desc: "Secure a bundle instantly on the platform, receiving a unique verification pickup code.",
               },
               {
                 num: "04",
-                emoji: "🛍️",
                 title: "Collect more food for less",
                 desc: "Head to the bakery, show your pickup code, and collect your delicious food bundle with dignity.",
               },
-            ].map(({ num, emoji, title, desc }, i) => (
+            ].map(({ num, title, desc }, i) => (
               <motion.div
                 key={num}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="relative flex flex-col gap-3"
+                className="relative flex flex-col space-y-3"
               >
                 <div
-                  className="text-2xl font-black"
+                  className="text-3xl font-black mb-1"
                   style={{
                     fontFamily: "var(--font-display)",
                     color: "var(--accent-orange)",
-                    opacity: 0.35,
+                    opacity: 0.45,
                   }}
                 >
                   {num}
                 </div>
-                <div className="text-2xl mt-1">{emoji}</div>
                 <h4
-                  className="font-bold pt-2 text-base"
-                  style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
+                  className="font-bold text-base font-display"
+                  style={{ color: "var(--text-primary)" }}
                 >
                   {title}
                 </h4>
-                <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)", lineHeight: "1.7" }}>
                   {desc}
                 </p>
               </motion.div>
