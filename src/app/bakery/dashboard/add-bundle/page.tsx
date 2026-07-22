@@ -110,7 +110,7 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
     return Math.round(((r - s) / r) * 100);
   }, [retailValue, sellingPrice]);
 
-  const isPriceValid = discountPercentage >= 60 && discountPercentage <= 80;
+  const isPriceValid = discountPercentage >= 60 && discountPercentage <= 80 && Number(sellingPrice) > 0;
 
   const handlePublish = async () => {
     setIsPublishing(true);
@@ -575,7 +575,7 @@ export default function AddBundlePage({ searchParams }: AddBundlePageProps) {
       <div className="pt-8 pb-6 flex gap-4">
         {step < TOTAL_STEPS ? (
           <Button
-            onClick={() => setStep((s) => Math.max(s + 1, TOTAL_STEPS))}
+            onClick={() => setStep((s) => Math.min(s + 1, TOTAL_STEPS))}
             className="flex-1"
             disabled={
               (step === 1 && !type) ||
