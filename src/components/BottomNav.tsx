@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Home, Search, Ticket, User } from "lucide-react";
+import { Home, Ticket, User } from "lucide-react";
 
 export type TabId = "spin" | "reserved" | "profile";
 
@@ -29,9 +29,9 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
             <motion.button
               key={id}
               id={`nav-${id}`}
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.92 }}
               onClick={() => onTabChange(id)}
-              className="flex flex-col items-center gap-1 px-6 py-2.5 rounded-2xl relative"
+              className="flex flex-col items-center gap-1 px-6 py-2 rounded-xl relative"
               style={{
                 color: isActive ? "var(--accent-orange)" : "var(--text-muted)",
                 transition: "color 0.2s ease",
@@ -41,13 +41,13 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
               {isActive && (
                 <motion.div
                   layoutId="nav-pill"
-                  className="absolute inset-0 rounded-2xl"
-                  style={{ background: "rgba(245,158,11,0.1)" }}
-                  transition={{ type: "spring", bounce: 0.25, duration: 0.35 }}
+                  className="absolute inset-0 rounded-xl"
+                  style={{ background: "rgba(245,158,11,0.12)" }}
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.3 }}
                 />
               )}
-              <Icon size={22} strokeWidth={isActive ? 2.5 : 1.8} />
-              <span className="text-[10px] font-semibold relative z-10">{label}</span>
+              <Icon size={21} strokeWidth={isActive ? 2.2 : 1.8} />
+              <span className="text-[11px] font-semibold relative z-10 tracking-tight">{label}</span>
             </motion.button>
           );
         })}
@@ -55,3 +55,5 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
     </nav>
   );
 }
+
+

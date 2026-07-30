@@ -20,21 +20,21 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
 
   if (reservations.length === 0) {
     return (
-      <div className="page-content flex flex-col items-center justify-center min-h-[70vh] px-8 text-center">
+      <div className="page-content flex flex-col items-center justify-center min-h-[65vh] px-8 text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ type: "spring", bounce: 0.4 }}
+          transition={{ type: "spring", bounce: 0.3 }}
         >
-          <p className="text-6xl mb-4">🎟️</p>
+          <p className="text-5xl mb-3">🎟️</p>
           <h2
-            className="text-xl font-black mb-2"
+            className="text-lg font-bold mb-1"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
           >
-            No reservations yet
+            No active reservations
           </h2>
-          <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-            Spin to discover deals or browse nearby offers to make your first reservation.
+          <p className="text-xs leading-relaxed max-w-xs" style={{ color: "var(--text-secondary)" }}>
+            Spin to discover available bakery food bundles and make your first reservation.
           </p>
         </motion.div>
       </div>
@@ -43,73 +43,73 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
 
   return (
     <div className="page-content">
-      <div className="section-pad pt-7 pb-5">
+      <div className="px-6 pt-8 pb-4">
         <h1
-          className="text-2xl font-black"
+          className="text-2xl font-black tracking-tight"
           style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
         >
           Your Reservations
         </h1>
-        <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
-          {reservations.length} active {reservations.length === 1 ? "deal" : "deals"}
+        <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>
+          {reservations.length} active {reservations.length === 1 ? "reservation" : "reservations"}
         </p>
       </div>
 
-      <div className="section-pad flex flex-col gap-3.5">
+      <div className="px-6 flex flex-col gap-4">
         <AnimatePresence>
           {reservations.map((deal, i) => (
             <motion.div
               key={deal.id}
               layout
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ delay: i * 0.05, layout: { type: "spring", bounce: 0.2 } }}
+              exit={{ opacity: 0, x: -60 }}
+              transition={{ delay: i * 0.04, layout: { type: "spring", bounce: 0.2 } }}
               className="deal-card p-5"
             >
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-4">
                 <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"
-                  style={{ background: deal.bgColor + "30" }}
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
+                  style={{ background: deal.bgColor + "20" }}
                 >
                   {deal.emoji}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
                     <span
-                      className="font-bold leading-tight"
+                      className="font-bold text-base leading-snug truncate"
                       style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
                     >
                       {deal.title}
                     </span>
                     {deal.status === "collected" ? (
-                      <span className="flex items-center gap-1 text-xs text-blue-400">
-                        <CheckCircle2 size={11} />
+                      <span className="flex items-center gap-1 text-[11px] font-semibold text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded-md">
+                        <CheckCircle2 size={10} />
                         Collected
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1 text-xs text-emerald-400">
-                        <CheckCircle2 size={11} />
+                      <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-md">
+                        <CheckCircle2 size={10} />
                         Reserved
                       </span>
                     )}
                   </div>
-                  <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+                  <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
                     {deal.businessName}
                   </p>
-                  <div className="flex flex-col gap-1.5 mt-2.5">
-                    <div className="flex items-center gap-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
-                      <Clock size={11} className="text-amber-400" />
+                  <div className="flex flex-col gap-1 mt-2.5 text-xs" style={{ color: "var(--text-muted)" }}>
+                    <div className="flex items-center gap-1.5">
+                      <Clock size={11} className="text-[var(--accent-orange)]" />
                       {deal.pickupTime && deal.pickupEndTime ? (
                         <span>Pickup: {deal.pickupTime} – {deal.pickupEndTime}</span>
                       ) : (
-                        <span className="italic" style={{ color: "var(--text-muted)" }}>
-                          Pickup time to be confirmed by the bakery
+                        <span className="italic">
+                          Pickup time confirmed by bakery
                         </span>
                       )}
                     </div>
-                    <div className="flex items-center gap-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
-                      <MapPin size={11} className="text-amber-400" />
+                    <div className="flex items-center gap-1.5">
+                      <MapPin size={11} className="text-[var(--accent-orange)]" />
                       <span>{deal.bakeryAddress || "Stellenbosch"} ({deal.distance} km)</span>
                     </div>
                   </div>
@@ -124,7 +124,7 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
                   {deal.status !== "collected" && (
                     <button
                       onClick={() => setCancelling(deal.id)}
-                      className="text-xs mt-1"
+                      className="text-xs mt-1 transition-colors hover:text-white"
                       style={{ color: "var(--text-muted)" }}
                     >
                       Cancel
@@ -138,21 +138,21 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
                   className="mt-4 p-3 rounded-xl flex items-center justify-between"
                   style={{ background: "rgba(59,130,246,0.1)" }}
                 >
-                  <span className="text-sm font-semibold text-blue-400">Collected</span>
-                  <span className="text-xs text-blue-400/80">
+                  <span className="text-xs font-semibold text-blue-400">Collected</span>
+                  <span className="text-[11px] text-blue-400/80">
                     {deal.collectedAt ? new Date(deal.collectedAt).toLocaleString() : "Recently"}
                   </span>
                 </div>
               ) : (
                 <>
                   <div
-                    className="mt-5 p-4 rounded-xl flex flex-col items-center justify-center text-center gap-1.5"
+                    className="mt-4 p-4 rounded-xl flex flex-col items-center justify-center text-center gap-1"
                     style={{ background: "var(--bg-secondary)" }}
                   >
-                    <p className="text-xs mb-1" style={{ color: "var(--text-muted)" }}>
-                      Show this code to the bakery when collecting:
+                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+                      Show code to bakery at pickup:
                     </p>
-                    <div className="text-3xl tracking-widest font-black py-1" style={{ color: "var(--accent-orange)" }}>
+                    <div className="text-2xl tracking-widest font-black py-0.5 font-mono" style={{ color: "var(--accent-orange)" }}>
                       {deal.pickupCode}
                     </div>
                   </div>
@@ -164,13 +164,13 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: "65%" }}
-                      transition={{ duration: 1, delay: 0.3 }}
+                      transition={{ duration: 1, delay: 0.2 }}
                       className="h-full rounded-full"
                       style={{ background: "var(--accent-orange)" }}
                     />
                   </div>
-                  <p className="text-xs mt-1.5" style={{ color: "var(--text-muted)" }}>
-                    {deal.pickupTime ? "Pickup window approaching" : "Awaiting pickup confirmation"}
+                  <p className="text-[11px] mt-1.5" style={{ color: "var(--text-muted)" }}>
+                    {deal.pickupTime ? "Pickup window open" : "Awaiting bakery confirmation"}
                   </p>
                 </>
               )}
@@ -187,43 +187,42 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-6"
-            style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)" }}
+            style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(8px)" }}
             onClick={() => setCancelling(null)}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="w-full max-w-sm rounded-3xl p-6"
-              style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-subtle)" }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="w-full max-w-xs rounded-3xl p-6"
+              style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-glow)" }}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="text-center mb-5">
-                <X size={40} className="mx-auto mb-3" style={{ color: "var(--text-muted)" }} />
+                <X size={36} className="mx-auto mb-2 text-[var(--text-muted)]" />
                 <h3
-                  className="text-xl font-black mb-1"
+                  className="text-lg font-bold mb-1"
                   style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
                 >
                   Cancel reservation?
                 </h3>
-                <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                  This deal will go back to the pool. You can spin for it again.
+                <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+                  This bundle will be returned to the available pool.
                 </p>
               </div>
               <div className="flex gap-3">
                 <button
                   onClick={() => setCancelling(null)}
-                  className="flex-1 py-3.5 rounded-2xl text-sm font-semibold"
+                  className="flex-1 py-3 rounded-xl text-xs font-semibold"
                   style={{ background: "var(--bg-card)", color: "var(--text-secondary)" }}
                 >
                   Keep it
                 </button>
                 <button
                   onClick={() => handleCancel(cancelling)}
-                  className="flex-1 py-3.5 rounded-2xl text-sm font-semibold"
-                  style={{ background: "rgba(239,68,68,0.15)", color: "#EF4444" }}
+                  className="flex-1 py-3 rounded-xl text-xs font-semibold text-white bg-red-600 hover:bg-red-700 transition-colors"
                 >
-                  Yes, cancel
+                  Cancel
                 </button>
               </div>
             </motion.div>
@@ -233,3 +232,5 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
     </div>
   );
 }
+
+

@@ -170,7 +170,7 @@ export default function SpinPage() {
     <AuthGuard>
       <main
         className="max-mobile relative"
-        style={{ background: "var(--bg-primary)", minHeight: "100dvh" }}
+        style={{ background: "var(--bg-primary)", color: "var(--text-primary)", minHeight: "100dvh" }}
       >
         <AnimatePresence mode="wait">
           {activeTab === "spin" && (
@@ -230,3 +230,4 @@ export default function SpinPage() {
     </AuthGuard>
   );
 }
+

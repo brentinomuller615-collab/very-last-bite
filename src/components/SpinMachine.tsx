@@ -24,7 +24,7 @@ function BulbRow({ isSpinning }: { isSpinning: boolean }) {
 
   const COUNT = 12;
   return (
-    <div className="flex items-center justify-between px-3 py-2.5">
+    <div className="flex items-center justify-between px-3 py-2">
       {Array.from({ length: COUNT }).map((_, i) => {
         const active = isSpinning ? i % 4 === phase : i % 2 === 0;
         return (
@@ -39,7 +39,7 @@ function BulbRow({ isSpinning }: { isSpinning: boolean }) {
   );
 }
 
-// Spinning deal slot view (shows deal cycling during spin)
+// Spinning deal slot view
 function SpinSlot({
   currentDeal,
   isSpinning,
@@ -49,51 +49,51 @@ function SpinSlot({
 }) {
   return (
     <div
-      className="mx-3 mb-3 rounded-2xl overflow-hidden"
+      className="mx-3 mb-3 rounded-xl overflow-hidden"
       style={{
         background: "var(--bg-card)",
-        minHeight: 100,
+        minHeight: 96,
       }}
     >
       <AnimatePresence mode="popLayout">
         {currentDeal && (
           <motion.div
             key={currentDeal.id + (isSpinning ? Date.now() : "final")}
-            initial={isSpinning ? { y: -60, opacity: 0 } : { scale: 0.95, opacity: 0 }}
+            initial={isSpinning ? { y: -50, opacity: 0 } : { scale: 0.96, opacity: 0 }}
             animate={isSpinning ? { y: 0, opacity: 1 } : { scale: 1, opacity: 1 }}
-            exit={isSpinning ? { y: 60, opacity: 0 } : { scale: 0.95, opacity: 0 }}
+            exit={isSpinning ? { y: 50, opacity: 0 } : { scale: 0.96, opacity: 0 }}
             transition={
               isSpinning
                 ? { duration: 0.12, ease: "easeOut" }
-                : { duration: 0.4, type: "spring", bounce: 0.3 }
+                : { duration: 0.35, type: "spring", bounce: 0.25 }
             }
             className="flex items-center gap-4 p-4"
           >
             <div
-              className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
-              style={{ background: currentDeal.bgColor + "30" }}
+              className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
+              style={{ background: currentDeal.bgColor + "25" }}
             >
               {currentDeal.emoji}
             </div>
-            <div>
+            <div className="min-w-0">
               <div
-                className="font-bold text-lg leading-tight"
+                className="font-bold text-base leading-snug truncate"
                 style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
               >
                 {currentDeal.title}
               </div>
-              <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
+              <div className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>
                 {currentDeal.businessName}
               </div>
               {!isSpinning && (
                 <motion.div
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="badge-save flex items-center gap-1 px-2.5 py-1 mt-1.5 w-fit"
+                  transition={{ delay: 0.2 }}
+                  className="badge-save flex items-center gap-1 px-2.5 py-0.5 mt-1.5 w-fit"
                 >
-                  <Zap size={11} className="text-emerald-400" />
-                  <span className="text-xs font-semibold text-emerald-400">
+                  <Zap size={10} className="text-emerald-400" />
+                  <span className="text-[11px] font-bold text-emerald-400">
                     Save {currentDeal.discountPercent}%
                   </span>
                 </motion.div>
@@ -122,22 +122,22 @@ function ReserveModal({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-end justify-center p-4"
-      style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(8px)" }}
+      style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(8px)" }}
       onClick={onClose}
     >
       <motion.div
-        initial={{ y: 80, opacity: 0 }}
+        initial={{ y: 60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 80, opacity: 0 }}
-        transition={{ type: "spring", bounce: 0.25 }}
+        exit={{ y: 60, opacity: 0 }}
+        transition={{ type: "spring", bounce: 0.2 }}
         className="w-full max-w-sm rounded-3xl p-6"
         style={{ background: "var(--bg-secondary)", border: "1px solid var(--border-glow)" }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close */}
-        <div className="flex justify-end mb-2">
+        <div className="flex justify-end mb-1">
           <button onClick={onClose} style={{ color: "var(--text-muted)" }}>
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 
@@ -146,49 +146,38 @@ function ReserveModal({
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ type: "spring", delay: 0.1, bounce: 0.5 }}
+            transition={{ type: "spring", delay: 0.1, bounce: 0.4 }}
           >
-            <CheckCircle2 size={52} className="text-emerald-400 mb-3" />
+            <CheckCircle2 size={44} className="text-emerald-400 mb-2" />
           </motion.div>
           <h2
-            className="text-2xl font-black mb-1"
+            className="text-xl font-bold mb-0.5"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
           >
             Reserved! 🎉
           </h2>
-          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-            Your deal has been secured. Show this at pickup.
+          <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
+            Your deal has been secured. Show code at pickup.
           </p>
         </div>
 
-        {/* Deal summary */}
-        <div
-          className="rounded-2xl p-4 mb-5"
-          style={{ background: "var(--bg-card)" }}
-        >
-          <div className="flex items-center gap-3 mb-3">
-            <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
-              style={{ background: deal.bgColor + "30" }}
-            >
-              {deal.emoji}
-            </div>
-            <div>
-              <div className="font-bold" style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}>
-                {deal.title}
-              </div>
-              <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                {deal.businessName}
-              </div>
-            </div>
+        {/* Deal summary text (clean layout) */}
+        <div className="flex items-center gap-3.5 mb-4 py-3 border-y border-[var(--border-subtle)]">
+          <div
+            className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+            style={{ background: deal.bgColor + "25" }}
+          >
+            {deal.emoji}
           </div>
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-1.5" style={{ color: "var(--text-secondary)" }}>
-              <Clock size={13} className="text-amber-400" />
-              <span>Pickup: {deal.pickupTime} – {deal.pickupEndTime}</span>
+          <div className="min-w-0 flex-1">
+            <div className="font-bold text-sm truncate" style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}>
+              {deal.title}
             </div>
-            <div className="flex items-center gap-1.5" style={{ color: "var(--text-secondary)" }}>
-              <MapPin size={13} className="text-amber-400" />
+            <div className="text-xs" style={{ color: "var(--text-secondary)" }}>
+              {deal.businessName}
+            </div>
+            <div className="flex items-center justify-between text-xs pt-1" style={{ color: "var(--text-muted)" }}>
+              <span>Pickup: {deal.pickupTime}–{deal.pickupEndTime}</span>
               <span>{deal.distance} km</span>
             </div>
           </div>
@@ -196,9 +185,9 @@ function ReserveModal({
 
         {/* Price */}
         <div className="flex items-center justify-between mb-5">
-          <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Amount due at pickup</span>
+          <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>Amount due at pickup</span>
           <span
-            className="text-2xl font-black"
+            className="text-xl font-black"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
           >
             R{deal.discountedPrice}
@@ -206,13 +195,12 @@ function ReserveModal({
         </div>
 
         <motion.button
-          whileTap={{ scale: 0.97 }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => {
             onConfirm();
             onClose();
           }}
-          className="reserve-btn w-full py-4 text-base"
-          style={{ color: "#1a0800" }}
+          className="reserve-btn w-full py-4 text-xs font-bold"
         >
           Got it, I&apos;ll be there!
         </motion.button>
@@ -228,11 +216,9 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
   const [resultDeal, setResultDeal] = useState<Deal | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [showReserveModal, setShowReserveModal] = useState(false);
-  const [glowActive, setGlowActive] = useState(false);
   const spinInterval = useRef<ReturnType<typeof setInterval> | null>(null);
   const controls = useAnimationControls();
 
-  // Set initial display deal once deals are loaded
   useEffect(() => {
     if (!loading && deals.length > 0 && !currentDisplayDeal && !isSpinning && !resultDeal) {
       setCurrentDisplayDeal(deals[0]);
@@ -245,15 +231,11 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
     setIsSpinning(true);
     setShowResult(false);
     setResultDeal(null);
-    setGlowActive(false);
 
-    // Haptic feedback on mobile
     if ("vibrate" in navigator) navigator.vibrate([30, 20, 30]);
 
-    // Pick final result first
     const finalDeal = deals[Math.floor(Math.random() * deals.length)];
 
-    // Slot cycling animation: fast → slow
     let idx = 0;
     let speed = 80;
     let elapsed = 0;
@@ -264,24 +246,20 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
       idx++;
       elapsed += speed;
 
-      // Gradually slow down after 2s
       if (elapsed > 2000) {
         speed = Math.min(speed + 30, 350);
         if (spinInterval.current) clearInterval(spinInterval.current);
         setTimeout(() => {
-          // Final landing
           setCurrentDisplayDeal(finalDeal);
           setIsSpinning(false);
-          setGlowActive(true);
           setResultDeal(finalDeal);
           setShowResult(true);
           onSpinComplete(finalDeal);
           onAddToHistory(finalDeal);
 
-          // Celebratory shake
           controls.start({
-            x: [0, -6, 6, -4, 4, 0],
-            transition: { duration: 0.4, ease: "easeInOut" },
+            x: [0, -4, 4, -2, 2, 0],
+            transition: { duration: 0.35, ease: "easeInOut" },
           });
 
           if ("vibrate" in navigator) navigator.vibrate([50, 30, 80]);
@@ -289,7 +267,6 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
       }
     }, speed);
 
-    // Safety stop at totalDuration
     setTimeout(() => {
       if (spinInterval.current) clearInterval(spinInterval.current);
     }, totalDuration);
@@ -304,48 +281,35 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
   return (
     <>
       {/* Spin section title */}
-      <div className="px-4 pt-6 pb-3 text-center">
+      <div className="px-6 pt-4 pb-4 text-center">
         <h2
-          className="text-2xl font-black"
+          className="text-xl font-bold tracking-tight"
           style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
         >
-          Spin For{" "}
-          <span style={{ color: "var(--accent-orange)" }}>Today&apos;s Bite</span>
+          Spin For <span style={{ color: "var(--accent-orange)" }}>Today&apos;s Bite</span>
         </h2>
-        <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
-          Spin to discover discounted surplus food near you.
+        <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>
+          Discover available bakery surplus bundles near you.
         </p>
       </div>
 
       {/* Slot machine frame */}
-      <div className="px-4">
+      <div className="px-6">
         <motion.div
           animate={controls}
           className="slot-machine-frame"
-          style={{
-            boxShadow: glowActive ? "var(--glow-orange-strong)" : "none",
-            transition: "box-shadow 0.5s ease",
-          }}
         >
-          {/* Marquee title */}
-          <div
-            className="text-center py-2"
-          >
+          <div className="text-center py-2">
             <span
-              className="text-sm font-bold tracking-wide"
+              className="text-xs font-bold uppercase tracking-wider"
               style={{ color: "var(--accent-orange)", fontFamily: "var(--font-display)" }}
             >
-              ✦ Today&apos;s Bite
+              ✦ Available Surplus Bundle
             </span>
           </div>
 
-          {/* Bulb rows */}
           <BulbRow isSpinning={isSpinning} />
-
-          {/* Deal slot */}
           <SpinSlot currentDeal={currentDisplayDeal} isSpinning={isSpinning} />
-
-          {/* Bottom bulbs */}
           <BulbRow isSpinning={isSpinning} />
         </motion.div>
       </div>
@@ -354,74 +318,64 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
       <AnimatePresence>
         {showResult && resultDeal && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ type: "spring", bounce: 0.3 }}
-            className="px-4 mt-4"
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ type: "spring", bounce: 0.25 }}
+            className="px-6 mt-4"
           >
-            {/* Deal detail card */}
-            <div
-              className="rounded-2xl p-5"
-              style={{
-                background: "var(--bg-secondary)",
-                boxShadow: "0 0 30px rgba(245,158,11,0.15)",
-              }}
-            >
+            <div className="deal-card p-5">
               <div className="flex items-center gap-4 mb-3">
                 <div
-                  className="w-18 h-18 w-[72px] h-[72px] rounded-2xl flex items-center justify-center text-4xl flex-shrink-0"
-                  style={{
-                    background: resultDeal.bgColor + "25",
-                  }}
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
+                  style={{ background: resultDeal.bgColor + "20" }}
                 >
                   {resultDeal.emoji}
                 </div>
-                <div>
+                <div className="min-w-0 flex-1">
                   <h3
-                    className="text-xl font-black leading-tight"
+                    className="text-lg font-black leading-tight truncate"
                     style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
                   >
                     {resultDeal.title}
                   </h3>
-                  <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
+                  <p className="text-xs mt-0.5" style={{ color: "var(--text-secondary)" }}>
                     {resultDeal.businessName}
                   </p>
-                  <div className="flex items-center gap-3 mt-1.5">
-                    <span className="flex items-center gap-1 text-xs" style={{ color: "var(--text-muted)" }}>
-                      <Clock size={11} />
+                  <div className="flex items-center gap-3 mt-1 text-xs" style={{ color: "var(--text-muted)" }}>
+                    <span className="flex items-center gap-1">
+                      <Clock size={11} className="text-[var(--accent-orange)]" />
                       {resultDeal.pickupTime}–{resultDeal.pickupEndTime}
                     </span>
-                    <span className="flex items-center gap-1 text-xs" style={{ color: "var(--text-muted)" }}>
-                      <MapPin size={11} />
+                    <span className="flex items-center gap-1">
+                      <MapPin size={11} className="text-[var(--accent-orange)]" />
                       {resultDeal.distance} km
                     </span>
                   </div>
                 </div>
               </div>
 
-              <p className="text-sm leading-relaxed mb-4" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-xs leading-relaxed mb-4" style={{ color: "var(--text-secondary)" }}>
                 {resultDeal.description}
               </p>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between pt-1">
                 <div>
                   <div className="text-xs line-through" style={{ color: "var(--text-muted)" }}>
                     R{resultDeal.originalPrice}
                   </div>
                   <div
-                    className="text-3xl font-black"
+                    className="text-2xl font-black"
                     style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
                   >
                     R{resultDeal.discountedPrice}
                   </div>
                 </div>
                 <motion.button
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.96 }}
+                  whileHover={{ translateY: -1 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => setShowReserveModal(true)}
-                  className="reserve-btn px-6 py-3.5 text-sm font-bold"
-                  style={{ color: "#1a0800" }}
+                  className="reserve-btn px-6 py-3.5 text-xs font-bold"
                 >
                   Reserve Now
                 </motion.button>
@@ -432,13 +386,12 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
       </AnimatePresence>
 
       {/* Spin button */}
-      <div className="px-4 mt-5 pb-4">
+      <div className="px-6 mt-5 pb-2">
         <motion.button
           onClick={handleSpin}
           disabled={isSpinning}
-          className="spin-btn w-full py-5 text-xl"
-          style={{ color: "#1a0800" }}
-          whileTap={!isSpinning ? { scale: 0.97 } : {}}
+          className="spin-btn w-full py-4 text-base tracking-wide"
+          whileTap={!isSpinning ? { scale: 0.98 } : {}}
         >
           {isSpinning ? (
             <span className="flex items-center justify-center gap-2">
@@ -452,7 +405,7 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
               Spinning...
             </span>
           ) : (
-            "🎰 SPIN"
+            "🎰 SPIN FOR FOOD"
           )}
         </motion.button>
       </div>
@@ -470,3 +423,5 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
     </>
   );
 }
+
+

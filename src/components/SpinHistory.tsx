@@ -11,29 +11,29 @@ export default function SpinHistory({ history }: SpinHistoryProps) {
   if (history.length === 0) return null;
 
   return (
-    <div className="section-pad pb-8">
+    <div className="px-6 pt-6 pb-6">
       <h3
-        className="text-sm font-semibold mb-3.5"
-        style={{ color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em" }}
+        className="text-[11px] font-bold mb-3 tracking-wider uppercase"
+        style={{ color: "var(--text-muted)" }}
       >
-        Spin History
+        Recent Spins
       </h3>
-      <div className="flex gap-2.5 overflow-x-auto hide-scrollbar pb-1">
+      <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-1">
         {history.map((deal, i) => (
           <motion.div
             key={`${deal.id}-${i}`}
-            initial={{ opacity: 0, scale: 0.8, x: -20 }}
+            initial={{ opacity: 0, scale: 0.9, x: -16 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ type: "spring", bounce: 0.4 }}
-            className="flex-shrink-0 flex items-center gap-2.5 px-4 py-2.5 rounded-2xl"
+            transition={{ type: "spring", bounce: 0.3 }}
+            className="flex-shrink-0 flex items-center gap-2.5 px-3 py-2 rounded-xl"
             style={{
               background: "var(--bg-secondary)",
-              minWidth: 160,
+              minWidth: 140,
             }}
           >
             <div
-              className="w-8 h-8 rounded-xl flex items-center justify-center text-lg flex-shrink-0"
-              style={{ background: deal.bgColor + "30" }}
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-base flex-shrink-0"
+              style={{ background: deal.bgColor + "20" }}
             >
               {deal.emoji}
             </div>
@@ -44,7 +44,7 @@ export default function SpinHistory({ history }: SpinHistoryProps) {
               >
                 {deal.title}
               </div>
-              <div className="text-xs" style={{ color: "var(--text-muted)" }}>
+              <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
                 R{deal.discountedPrice}
               </div>
             </div>
@@ -54,3 +54,5 @@ export default function SpinHistory({ history }: SpinHistoryProps) {
     </div>
   );
 }
+
+

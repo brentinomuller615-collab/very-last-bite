@@ -18,7 +18,7 @@ export default function BakeryBottomNav() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-6 pt-3 max-mobile mx-auto"
+      className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-5 pt-2.5 max-mobile mx-auto"
       style={{
         background: "linear-gradient(0deg, var(--bg-primary) 0%, rgba(26,10,0,0.96) 100%)",
         borderTop: "1px solid var(--border-subtle)",
@@ -38,7 +38,7 @@ export default function BakeryBottomNav() {
             <Link
               key={tab.id}
               href={tab.path}
-              className="relative flex flex-col items-center gap-1.5 py-1.5 w-[72px]"
+              className="relative flex flex-col items-center gap-1 py-1 w-[72px]"
             >
               <motion.div
                 animate={{
@@ -47,11 +47,11 @@ export default function BakeryBottomNav() {
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <Icon size={22} strokeWidth={isActive ? 2.5 : 1.8} />
+                <Icon size={20} strokeWidth={isActive ? 2.2 : 1.7} />
               </motion.div>
 
               <span
-                className="text-[10px] font-semibold transition-colors"
+                className="text-[11px] font-semibold transition-colors tracking-tight"
                 style={{ color: isActive ? "var(--accent-orange)" : "var(--text-muted)" }}
               >
                 {tab.label}
@@ -60,9 +60,9 @@ export default function BakeryBottomNav() {
               {isActive && (
                 <motion.div
                   layoutId="bakery-nav-indicator"
-                  className="absolute -top-3 w-8 h-0.5 rounded-full"
+                  className="absolute -top-2.5 w-6 h-0.5 rounded-full"
                   style={{ background: "var(--accent-orange)" }}
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
                 />
               )}
             </Link>
@@ -72,3 +72,5 @@ export default function BakeryBottomNav() {
     </div>
   );
 }
+
+

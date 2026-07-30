@@ -14,20 +14,19 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
   if (compact) {
     return (
       <motion.div
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.98 }}
         className="deal-card flex items-center gap-4 p-4 cursor-pointer"
         onClick={() => onReserve?.(deal)}
       >
         {/* Emoji box */}
         <div
-          className="relative flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center text-3xl"
-          style={{ background: deal.bgColor + "30" }}
+          className="relative flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center text-2xl"
+          style={{ background: deal.bgColor + "20" }}
         >
           <span>{deal.emoji}</span>
           <div
-            className="discount-badge absolute -top-1.5 -left-1.5 text-xs px-1.5 py-0.5"
-            style={{ color: "#1a0800", fontSize: "10px" }}
+            className="discount-badge absolute -top-1.5 -left-1.5 text-[10px] px-1.5 py-0.5"
           >
             -{deal.discountPercent}%
           </div>
@@ -36,21 +35,21 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
         {/* Info */}
         <div className="flex-1 min-w-0">
           <div
-            className="font-bold text-base leading-tight"
+            className="font-bold text-base leading-snug truncate"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
           >
             {deal.title}
           </div>
-          <div className="text-sm" style={{ color: "var(--text-secondary)" }}>
+          <div className="text-xs text-[var(--text-secondary)] truncate mt-0.5">
             {deal.businessName}
           </div>
-          <div className="flex items-center gap-3 mt-1">
-            <span className="flex items-center gap-1 text-xs" style={{ color: "var(--text-muted)" }}>
-              <Clock size={10} />
+          <div className="flex items-center gap-3 mt-1.5 text-xs text-[var(--text-muted)]">
+            <span className="flex items-center gap-1">
+              <Clock size={11} className="text-[var(--accent-orange)]" />
               {deal.pickupTime && deal.pickupEndTime ? `${deal.pickupTime} – ${deal.pickupEndTime}` : "Confirmed by bakery"}
             </span>
-            <span className="flex items-center gap-1 text-xs" style={{ color: "var(--text-muted)" }}>
-              <MapPin size={10} />
+            <span className="flex items-center gap-1">
+              <MapPin size={11} className="text-[var(--accent-orange)]" />
               {deal.distance} km
             </span>
           </div>
@@ -62,7 +61,7 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
             R{deal.originalPrice}
           </div>
           <div
-            className="text-xl font-black"
+            className="text-lg font-black"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
           >
             R{deal.discountedPrice}
@@ -75,31 +74,31 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
   // Full card (used in deal detail overlay)
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
       className="deal-card p-6"
     >
       {/* Header */}
-      <div className="flex items-center gap-4 mb-5">
+      <div className="flex items-center gap-4 mb-4">
         <div
-          className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0"
-          style={{ background: deal.bgColor + "25" }}
+          className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
+          style={{ background: deal.bgColor + "20" }}
         >
           {deal.emoji}
         </div>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <h3
-            className="text-xl font-black leading-tight"
+            className="text-xl font-black leading-tight truncate"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
           >
             {deal.title}
           </h3>
-          <p className="text-sm font-medium mt-0.5" style={{ color: "var(--text-secondary)" }}>
+          <p className="text-xs font-medium text-[var(--text-secondary)] mt-0.5">
             {deal.businessName}
           </p>
           <div className="flex items-center gap-1 mt-1">
-            <Star size={12} fill="#F59E0B" stroke="none" />
-            <span className="text-xs font-semibold text-amber-400">{deal.rating}</span>
+            <Star size={12} fill="var(--accent-orange)" stroke="none" />
+            <span className="text-xs font-bold text-[var(--accent-orange)]">{deal.rating}</span>
             <span className="text-xs" style={{ color: "var(--text-muted)" }}>
               ({deal.reviewCount} reviews)
             </span>
@@ -108,62 +107,42 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
       </div>
 
       {/* Description */}
-      <p className="text-sm leading-relaxed mb-5" style={{ color: "var(--text-secondary)" }}>
+      <p className="text-xs leading-relaxed mb-4" style={{ color: "var(--text-secondary)" }}>
         {deal.description}
       </p>
 
-      {/* Tags */}
-      <div className="flex flex-wrap gap-1.5 mb-4">
-        {deal.tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-xs px-2.5 py-1 rounded-full font-medium"
-            style={{
-              background: "var(--bg-surface)",
-              color: "var(--text-secondary)",
-            }}
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      {/* Details row */}
-      <div
-        className="flex items-center justify-between p-4 rounded-xl mb-5"
-        style={{ background: "var(--bg-secondary)" }}
-      >
-        <div className="flex items-center gap-1.5 text-sm" style={{ color: "var(--text-secondary)" }}>
-          <Clock size={14} className="text-amber-400" />
+      {/* Details text (no nested box) */}
+      <div className="flex items-center justify-between text-xs mb-5 text-[var(--text-secondary)] border-y border-[var(--border-subtle)] py-3">
+        <div className="flex items-center gap-1.5">
+          <Clock size={13} className="text-[var(--accent-orange)]" />
           <span>
-            {deal.pickupTime && deal.pickupEndTime ? `${deal.pickupTime} – ${deal.pickupEndTime}` : "Pickup time to be confirmed by the bakery."}
+            {deal.pickupTime && deal.pickupEndTime ? `${deal.pickupTime} – ${deal.pickupEndTime}` : "Pickup time confirmed by bakery"}
           </span>
         </div>
-        <div className="flex items-center gap-1.5 text-sm" style={{ color: "var(--text-secondary)" }}>
-          <MapPin size={14} className="text-amber-400" />
+        <div className="flex items-center gap-1.5">
+          <MapPin size={13} className="text-[var(--accent-orange)]" />
           <span>{deal.distance} km away</span>
         </div>
       </div>
 
       {/* Price + Reserve */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pt-1">
         <div>
-          <div className="text-sm line-through" style={{ color: "var(--text-muted)" }}>
+          <div className="text-xs line-through" style={{ color: "var(--text-muted)" }}>
             R{deal.originalPrice}
           </div>
           <div
-            className="text-3xl font-black"
+            className="text-2xl font-black"
             style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
           >
             R{deal.discountedPrice}
           </div>
         </div>
         <motion.button
-          whileHover={{ scale: 1.04 }}
-          whileTap={{ scale: 0.96 }}
+          whileHover={{ translateY: -1 }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => onReserve?.(deal)}
-          className="reserve-btn px-7 py-4 text-sm font-bold"
-          style={{ color: "#1a0800" }}
+          className="reserve-btn px-6 py-3.5 text-xs font-bold"
         >
           Reserve Now
         </motion.button>
@@ -171,3 +150,5 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
     </motion.div>
   );
 }
+
+

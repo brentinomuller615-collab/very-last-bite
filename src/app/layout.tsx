@@ -3,20 +3,29 @@ import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = {
-  title: "Very Last Bite — Discover Surplus Food Deals Near You",
+  title: "Very Last Bite — Quality Bakery Food. Within Reach.",
   description:
-    "Spin to discover discounted surplus food from nearby restaurants, cafés, bakeries, and grocery stores. Save money. Save food. Very Last Bite.",
-  keywords: ["surplus food", "food deals", "food waste", "discount meals", "rescue food"],
+    "Very Last Bite connects people with surplus bakery food at the end of each day. Save up to 70% on quality baked goods. Reduce waste. Join the Founding Club today.",
+  keywords: [
+    "surplus food",
+    "bakery deals",
+    "food rescue",
+    "affordable food",
+    "food waste",
+    "founding club",
+    "bakery surplus",
+  ],
   authors: [{ name: "Very Last Bite" }],
   openGraph: {
-    title: "Very Last Bite",
-    description: "Spin to discover surplus food deals near you.",
+    title: "Very Last Bite — Quality Bakery Food. Within Reach.",
+    description:
+      "Quality bakery food at end-of-day prices. Join the Founding Club and be first in line when we launch.",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1a0a00",
+  themeColor: "#FEFCFA",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -31,8 +40,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"

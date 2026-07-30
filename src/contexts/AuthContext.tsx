@@ -76,7 +76,8 @@ export function formatAuthError(error: AuthError): string {
  *  2. Firestore `users/{uid}.role` document           (fallback for users without a custom claim)
  *
  * Force-refreshes the token on every call so freshly-set custom claims are always visible.
- * Admin access is granted ONLY when `claims.role === "admin"` — no email/domain checks.
+ * Admin access is granted ONLY when `claims.role === "admin"` — no email/domain checks.Redesign and completely replace the existing Very Last Bite homepage. Overwrite the current homepage entirely while leaving the rest of the application unchanged.
+
  */
 async function resolveRole(
   firebaseUser: User
