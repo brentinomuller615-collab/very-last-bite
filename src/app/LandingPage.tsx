@@ -142,14 +142,14 @@ function Nav({ authButtonText, authButtonLink }: { authButtonText: string; authB
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 8,
+            gap: 7,
             textDecoration: "none",
           }}
         >
-          <span style={{ fontSize: 22 }}>🍞</span>
+          <span style={{ fontSize: 20 }}>🍞</span>
           <span
             style={{
-              fontSize: 16,
+              fontSize: 15,
               fontWeight: 800,
               letterSpacing: "-0.03em",
               color: "#1C1917",
@@ -480,19 +480,16 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
             Very Last Bite connects people with bakery food at the end of the day — so nothing good goes to waste, and no one goes without.
           </p>
 
-          {/* CTA Row */}
+          {/* Primary CTA */}
           <div
             style={{
-              display: "flex",
-              flexDirection: "var(--lp-hero-btn-flex-dir)" as any,
-              alignItems: "var(--lp-hero-btn-align)" as any,
-              gap: "var(--lp-hero-btn-gap)",
+              marginBottom: "var(--lp-hero-mb-sub)",
               opacity: heroMounted ? 1 : 0,
               transform: heroMounted ? "translateY(0)" : "translateY(14px)",
               transition: "opacity 0.6s ease 0.34s, transform 0.6s ease 0.34s",
             }}
           >
-            <Link href={authButtonLink} style={{ textDecoration: "none" }}>
+            <Link href={authButtonLink} style={{ textDecoration: "none", display: "block" }}>
               <button
                 id="hero-primary-cta"
                 style={{
@@ -528,76 +525,10 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
                 Join the Founding Club
               </button>
             </Link>
-            <button
-              id="hero-secondary-cta"
-              onClick={() => {
-                const el = document.getElementById("how-it-works");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }}
-              style={{
-                background: "transparent",
-                color: "#57534E",
-                border: "none",
-                padding: "17px 12px",
-                fontSize: 14,
-                fontWeight: 500,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                minHeight: 52,
-                gap: 6,
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#1C1917")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#57534E")}
-            >
-              See how it works
-              <span style={{ fontSize: 12, marginTop: 1 }}>↓</span>
-            </button>
-          </div>
-
-          {/* Social proof micro */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-              marginTop: 40,
-              opacity: heroMounted ? 1 : 0,
-              transition: "opacity 0.6s ease 0.44s",
-            }}
-          >
-            {/* Avatar stack */}
-            <div style={{ display: "flex" }}>
-              {["#D97706", "#92400E", "#B45309", "#78350F"].map((c, i) => (
-                <div
-                  key={i}
-                  style={{
-                    width: 30,
-                    height: 30,
-                    borderRadius: "50%",
-                    background: c,
-                    border: "2px solid #FEFCFA",
-                    marginLeft: i > 0 ? -10 : 0,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 11,
-                    color: "#fff",
-                    fontWeight: 700,
-                  }}
-                >
-                  {["A", "B", "C", "D"][i]}
-                </div>
-              ))}
-            </div>
-            <span style={{ fontSize: 13, color: "#A8A29E", fontWeight: 500 }}>
-              Join <strong style={{ color: "#57534E" }}>240+ people</strong> already on the waitlist
-            </span>
           </div>
         </div>
 
-        {/* Right: Image */}
+        {/* Hero Image (Stacked on Mobile) */}
         <div
           className="lp-hero-image-col"
           style={{
@@ -615,6 +546,7 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
               aspectRatio: "4/5",
               position: "relative",
               background: "#F5F0EA",
+              width: "100%",
             }}
           >
             <Image
@@ -649,6 +581,47 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
                 on surplus bakery bundles
               </div>
             </div>
+          </div>
+
+          {/* Social proof micro under hero image on mobile */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 10,
+              marginTop: 24,
+              opacity: heroMounted ? 1 : 0,
+              transition: "opacity 0.6s ease 0.44s",
+            }}
+          >
+            {/* Avatar stack */}
+            <div style={{ display: "flex" }}>
+              {["#D97706", "#92400E", "#B45309", "#78350F"].map((c, i) => (
+                <div
+                  key={i}
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: "50%",
+                    background: c,
+                    border: "2px solid #FEFCFA",
+                    marginLeft: i > 0 ? -10 : 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: 11,
+                    color: "#fff",
+                    fontWeight: 700,
+                  }}
+                >
+                  {["A", "B", "C", "D"][i]}
+                </div>
+              ))}
+            </div>
+            <span style={{ fontSize: 13, color: "#A8A29E", fontWeight: 500 }}>
+              Join <strong style={{ color: "#57534E" }}>240+ people</strong> already on the waitlist
+            </span>
           </div>
         </div>
       </div>

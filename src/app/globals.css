@@ -407,17 +407,17 @@ body {
   :root {
     --lp-section-py: 64px;
     --lp-section-px: 24px;
-    --lp-grid-gap: 32px;
+    --lp-grid-gap: 40px;
     --lp-card-padding: 28px 24px;
     --lp-title-mb: 40px;
 
     --lp-hero-min-height: auto;
-    --lp-hero-padding: 96px 24px 48px;
-    --lp-hero-mb-headline: 16px;
-    --lp-hero-mb-sub: 24px;
-    --lp-hero-btn-gap: 12px;
+    --lp-hero-padding: 104px 24px 64px;
+    --lp-hero-mb-headline: 20px;
+    --lp-hero-mb-sub: 32px;
+    --lp-hero-btn-gap: 16px;
 
-    --lp-trust-padding: 24px 24px;
+    --lp-trust-padding: 48px 24px;
 
     --lp-mission-gap: 40px;
 
@@ -426,7 +426,7 @@ body {
 
     --lp-faq-padding: 18px 20px;
 
-    --lp-final-cta-padding: 72px 24px 64px;
+    --lp-final-cta-padding: 80px 24px 64px;
 
     --lp-footer-padding: 48px 24px 32px;
   }
@@ -436,20 +436,24 @@ body {
   :root {
     --lp-section-py: 56px;
     --lp-section-px: 16px;
-    --lp-grid-gap: 20px;
+    --lp-grid-gap: 32px;
     --lp-card-padding: 24px 20px;
     --lp-title-mb: 32px;
 
-    --lp-hero-padding: 88px 16px 40px;
+    --lp-hero-padding: 96px 16px 56px;
+    --lp-hero-mb-headline: 20px;
+    --lp-hero-mb-sub: 32px;
     --lp-hero-btn-flex-dir: column;
     --lp-hero-btn-align: stretch;
     --lp-hero-btn-width: 100%;
+
+    --lp-trust-padding: 44px 16px;
 
     --lp-cta-box-padding: 28px 20px;
 
     --lp-faq-padding: 16px 18px;
 
-    --lp-final-cta-padding: 64px 16px 48px;
+    --lp-final-cta-padding: 72px 16px 48px;
     --lp-final-btn-flex-dir: column;
     --lp-final-btn-width: 100%;
 
@@ -554,22 +558,22 @@ body {
 
 @media (max-width: 900px) {
   .lp-desktop-nav {
-    display: none;
+    display: none !important;
   }
 
   .lp-mobile-nav {
-    display: flex;
+    display: flex !important;
   }
 
   .lp-hero-grid {
-    grid-template-columns: 1fr;
-    gap: 48px;
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
   }
 
   .lp-hero-image-col {
     display: block;
-    width: 100%;
-    max-width: 500px;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0 auto;
   }
 
