@@ -577,14 +577,16 @@ body {
     margin: 0 auto;
   }
 
+  /* How It Works: Clean 2x2 grid on mobile/tablet */
   .lp-steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
   }
 
+  /* Why Join Now: Clean 2-column wrapping grid */
   .lp-benefits-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
   }
 
   .lp-mission-grid {
@@ -604,12 +606,14 @@ body {
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 480px) {
   .lp-steps-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
   }
 
   .lp-benefits-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
   }
 }
