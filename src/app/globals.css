@@ -541,19 +541,17 @@ body {
   grid-template-columns: repeat(3, 1fr);
 }
 
-/* Mission: two-column on desktop */
+/* Mission: image left, text right on desktop */
 .lp-mission-grid {
   grid-template-columns: 1fr 1fr;
 }
 
-/* CTA box: row on desktop */
-.lp-cta-box {
-  flex-direction: row;
+.lp-mission-img-col {
+  order: 1;
 }
 
-/* Footer: row on desktop */
-.lp-footer-grid {
-  flex-direction: row;
+.lp-mission-grid > div:first-child {
+  order: 2;
 }
 
 @media (max-width: 900px) {
@@ -590,8 +588,18 @@ body {
   }
 
   .lp-mission-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .lp-mission-grid > div:first-child {
+    order: 1 !important;
+  }
+
+  .lp-mission-img-col {
+    order: 2 !important;
+    width: 100%;
+    max-width: 100%;
   }
 
   .lp-cta-box {

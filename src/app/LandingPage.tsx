@@ -823,27 +823,6 @@ function MissionSection() {
         }}
         className="lp-mission-grid"
       >
-        {/* Image */}
-        <FadeIn>
-          <div
-            style={{
-              borderRadius: 24,
-              overflow: "hidden",
-              aspectRatio: "4/5",
-              position: "relative",
-              background: "#292524",
-            }}
-          >
-            <Image
-              src="/community-warmth.png"
-              alt="A bakery worker handing a paper bag of food to a customer, representing community and dignity"
-              fill
-              style={{ objectFit: "cover", opacity: 0.9 }}
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
-        </FadeIn>
-
         {/* Copy */}
         <FadeIn delay={100}>
           <div>
@@ -925,6 +904,28 @@ function MissionSection() {
                 </div>
               ))}
             </div>
+          </div>
+        </FadeIn>
+
+        {/* Image (below copy on mobile, desktop ordering preserved by CSS order / desktop layout) */}
+        <FadeIn className="lp-mission-img-col">
+          <div
+            style={{
+              borderRadius: 24,
+              overflow: "hidden",
+              aspectRatio: "4/5",
+              position: "relative",
+              background: "#292524",
+              width: "100%",
+            }}
+          >
+            <Image
+              src="/community-warmth.png"
+              alt="A bakery worker handing a paper bag of food to a customer, representing community and dignity"
+              fill
+              style={{ objectFit: "cover", opacity: 0.9 }}
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
         </FadeIn>
       </div>
