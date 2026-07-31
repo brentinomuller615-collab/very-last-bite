@@ -194,17 +194,18 @@ body {
   transition: all 0.2s;
 }
 
-/* Standard button touch target */
+/* Standard button — generous horizontal whitespace, stable height */
 .btn-base {
-  padding-top: 1rem;
-  /* py-3.5 — 44px+ touch target */
-  padding-bottom: 1rem;
-  padding-left: 2rem;
-  /* px-6 */
-  padding-right: 2rem;
+  padding-top: 1.0625rem;
+  padding-bottom: 1.0625rem;
+  padding-left: 3.5rem;     /* 56px — text sits at ~40% of button width */
+  padding-right: 3.5rem;
   border-radius: 1rem;
-  /* rounded-[14px] */
-  font-weight: 700;
+  font-weight: 600;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .stat-card {
@@ -252,7 +253,7 @@ body {
 .deal-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 20px;
+  border-radius: 14px;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -282,15 +283,25 @@ body {
 
 .spin-btn {
   background: linear-gradient(135deg, var(--accent-orange) 0%, #D97706 100%);
-  border-radius: 18px;
+  border-radius: 16px;
   font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: 0.04em;
+  font-weight: 700;
+  font-size: 0.9375rem;     /* Slightly reduced so text stays slim relative to width */
+  letter-spacing: 0.025em;
   position: relative;
   overflow: hidden;
   color: #1a0800 !important;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: var(--glow-orange);
+  /* Height preserved, width made generous */
+  padding-top: 1.0625rem;
+  padding-bottom: 1.0625rem;
+  padding-left: 4rem;       /* 64px each side — text ~38% of full width */
+  padding-right: 4rem;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .spin-btn:hover {
@@ -310,12 +321,22 @@ body {
 
 .reserve-btn {
   background: linear-gradient(135deg, var(--accent-orange) 0%, #D97706 100%);
-  border-radius: 14px;
+  border-radius: 16px;
   font-family: var(--font-display);
   font-weight: 700;
+  font-size: 0.8125rem;     /* Slightly smaller so label stays proportionate */
   color: #1a0800 !important;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+  /* Height preserved, width made generous */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 3.5rem;     /* 56px each side — spacious, unhurried feel */
+  padding-right: 3.5rem;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .reserve-btn:hover {
@@ -349,16 +370,137 @@ body {
   font-family: var(--font-display);
 }
 
+/* ─── Responsive Landing Page Variables ────────────────────────────────────── */
+:root {
+  --lp-section-py: 120px;
+  --lp-section-px: 28px;
+  --lp-grid-gap: 64px;
+  --lp-card-padding: 36px 28px;
+  --lp-title-mb: 72px;
+
+  --lp-hero-min-height: 100dvh;
+  --lp-hero-padding: 120px 28px 80px;
+  --lp-hero-mb-headline: 28px;
+  --lp-hero-mb-sub: 44px;
+  --lp-hero-btn-flex-dir: row;
+  --lp-hero-btn-align: center;
+  --lp-hero-btn-width: auto;
+  --lp-hero-btn-gap: 16px;
+
+  --lp-trust-padding: 28px 28px;
+
+  --lp-mission-gap: 80px;
+
+  --lp-benefits-gap: 24px;
+  --lp-cta-box-padding: 56px 48px;
+
+  --lp-faq-padding: 20px 24px;
+
+  --lp-final-cta-padding: 120px 28px 100px;
+  --lp-final-btn-flex-dir: row;
+  --lp-final-btn-width: auto;
+
+  --lp-footer-padding: 64px 28px 40px;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --lp-section-py: 64px;
+    --lp-section-px: 24px;
+    --lp-grid-gap: 32px;
+    --lp-card-padding: 28px 24px;
+    --lp-title-mb: 40px;
+
+    --lp-hero-min-height: auto;
+    --lp-hero-padding: 96px 24px 48px;
+    --lp-hero-mb-headline: 16px;
+    --lp-hero-mb-sub: 24px;
+    --lp-hero-btn-gap: 12px;
+
+    --lp-trust-padding: 24px 24px;
+
+    --lp-mission-gap: 40px;
+
+    --lp-benefits-gap: 16px;
+    --lp-cta-box-padding: 36px 28px;
+
+    --lp-faq-padding: 18px 20px;
+
+    --lp-final-cta-padding: 72px 24px 64px;
+
+    --lp-footer-padding: 48px 24px 32px;
+  }
+}
+
+@media (max-width: 560px) {
+  :root {
+    --lp-section-py: 56px;
+    --lp-section-px: 16px;
+    --lp-grid-gap: 20px;
+    --lp-card-padding: 24px 20px;
+    --lp-title-mb: 32px;
+
+    --lp-hero-padding: 88px 16px 40px;
+    --lp-hero-btn-flex-dir: column;
+    --lp-hero-btn-align: stretch;
+    --lp-hero-btn-width: 100%;
+
+    --lp-cta-box-padding: 28px 20px;
+
+    --lp-faq-padding: 16px 18px;
+
+    --lp-final-cta-padding: 64px 16px 48px;
+    --lp-final-btn-flex-dir: column;
+    --lp-final-btn-width: 100%;
+
+    --lp-footer-padding: 36px 16px 24px;
+  }
+}
+
 .page-content {
   min-height: 100dvh;
   padding-bottom: 96px;
   /* slightly more room above bottom nav */
 }
 
-@media (min-width: 430px) {
+/* ─── Trust Band Responsive Layout ─────────────────────────────────────────── */
+.lp-trust-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 5vw, 80px);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .lp-trust-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 32px;
+    justify-items: center;
+  }
+}
+
+/* ─── App Shell Responsive Frame ────────────────────────────────────────────── */
+
+@media (min-width: 480px) {
   .max-mobile {
-    max-width: 430px;
+    max-width: 460px;
     margin: 0 auto;
+    border-left: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Center the fixed navigation bars on desktop/tablet to align with the mock frame */
+  .nav-bottom,
+  .max-mobile.fixed {
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    width: 460px !important;
+    border-left: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
   }
 }
 
@@ -425,7 +567,10 @@ body {
   }
 
   .lp-hero-image-col {
-    display: none;
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
   }
 
   .lp-steps-grid {

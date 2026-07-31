@@ -178,7 +178,7 @@ function ReserveModal({
             </div>
             <div className="flex items-center justify-between text-xs pt-1" style={{ color: "var(--text-muted)" }}>
               <span>Pickup: {deal.pickupTime}–{deal.pickupEndTime}</span>
-              <span>{deal.distance} km</span>
+              {deal.bakeryAddress && <span>{deal.bakeryAddress}</span>}
             </div>
           </div>
         </div>
@@ -200,7 +200,7 @@ function ReserveModal({
             onConfirm();
             onClose();
           }}
-          className="reserve-btn w-full py-4 text-xs font-bold"
+          className="reserve-btn w-full"
         >
           Got it, I&apos;ll be there!
         </motion.button>
@@ -347,10 +347,12 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
                       <Clock size={11} className="text-[var(--accent-orange)]" />
                       {resultDeal.pickupTime}–{resultDeal.pickupEndTime}
                     </span>
-                    <span className="flex items-center gap-1">
-                      <MapPin size={11} className="text-[var(--accent-orange)]" />
-                      {resultDeal.distance} km
-                    </span>
+                    {resultDeal.bakeryAddress && (
+                      <span className="flex items-center gap-1">
+                        <MapPin size={11} className="text-[var(--accent-orange)]" />
+                        {resultDeal.bakeryAddress}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -375,7 +377,7 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
                   whileHover={{ translateY: -1 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setShowReserveModal(true)}
-                  className="reserve-btn px-6 py-3.5 text-xs font-bold"
+                  className="reserve-btn"
                 >
                   Reserve Now
                 </motion.button>
@@ -390,7 +392,7 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
         <motion.button
           onClick={handleSpin}
           disabled={isSpinning}
-          className="spin-btn w-full py-4 text-base tracking-wide"
+          className="spin-btn w-full"
           whileTap={!isSpinning ? { scale: 0.98 } : {}}
         >
           {isSpinning ? (

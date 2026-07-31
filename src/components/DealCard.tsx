@@ -48,10 +48,12 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
               <Clock size={11} className="text-[var(--accent-orange)]" />
               {deal.pickupTime && deal.pickupEndTime ? `${deal.pickupTime} – ${deal.pickupEndTime}` : "Confirmed by bakery"}
             </span>
-            <span className="flex items-center gap-1">
-              <MapPin size={11} className="text-[var(--accent-orange)]" />
-              {deal.distance} km
-            </span>
+            {deal.bakeryAddress && (
+              <span className="flex items-center gap-1 truncate">
+                <MapPin size={11} className="text-[var(--accent-orange)]" />
+                {deal.bakeryAddress}
+              </span>
+            )}
           </div>
         </div>
 
@@ -111,7 +113,6 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
         {deal.description}
       </p>
 
-      {/* Details text (no nested box) */}
       <div className="flex items-center justify-between text-xs mb-5 text-[var(--text-secondary)] border-y border-[var(--border-subtle)] py-3">
         <div className="flex items-center gap-1.5">
           <Clock size={13} className="text-[var(--accent-orange)]" />
@@ -119,10 +120,12 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
             {deal.pickupTime && deal.pickupEndTime ? `${deal.pickupTime} – ${deal.pickupEndTime}` : "Pickup time confirmed by bakery"}
           </span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <MapPin size={13} className="text-[var(--accent-orange)]" />
-          <span>{deal.distance} km away</span>
-        </div>
+        {deal.bakeryAddress && (
+          <div className="flex items-center gap-1.5">
+            <MapPin size={13} className="text-[var(--accent-orange)]" />
+            <span>{deal.bakeryAddress}</span>
+          </div>
+        )}
       </div>
 
       {/* Price + Reserve */}
@@ -142,7 +145,7 @@ export default function DealCard({ deal, onReserve, compact = false }: DealCardP
           whileHover={{ translateY: -1 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => onReserve?.(deal)}
-          className="reserve-btn px-6 py-3.5 text-xs font-bold"
+          className="reserve-btn w-full"
         >
           Reserve Now
         </motion.button>

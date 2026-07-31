@@ -202,11 +202,15 @@ function Nav({ authButtonText, authButtonLink }: { authButtonText: string; authB
                 color: "#fff",
                 border: "none",
                 borderRadius: 10,
-                padding: "10px 22px",
+                padding: "11px 28px",
                 fontSize: 13,
                 fontWeight: 600,
                 cursor: "pointer",
                 letterSpacing: "-0.01em",
+                lineHeight: 1,
+                display: "inline-flex",
+                alignItems: "center",
+                minHeight: 40,
                 transition: "background 0.2s, transform 0.15s, box-shadow 0.2s",
                 boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
               }}
@@ -345,11 +349,11 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
     <section
       id="hero"
       style={{
-        minHeight: "100dvh",
+        minHeight: "var(--lp-hero-min-height)",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        padding: "120px 28px 80px",
+        padding: "var(--lp-hero-padding)",
         background: "#FEFCFA",
         position: "relative",
         overflow: "hidden",
@@ -392,7 +396,7 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
           width: "100%",
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
-          gap: 64,
+          gap: "var(--lp-grid-gap)",
           alignItems: "center",
         }}
         className="lp-hero-grid"
@@ -438,14 +442,14 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
           {/* Headline */}
           <h1
             style={{
-              fontSize: "clamp(42px, 6vw, 72px)",
+              fontSize: "clamp(36px, 6vw, 72px)",
               fontWeight: 900,
-              lineHeight: 1.04,
+              lineHeight: 1.06,
               letterSpacing: "-0.04em",
               color: "#1C1917",
               fontFamily: "Outfit, sans-serif",
               margin: 0,
-              marginBottom: 28,
+              marginBottom: "var(--lp-hero-mb-headline)",
               opacity: heroMounted ? 1 : 0,
               transform: heroMounted ? "translateY(0)" : "translateY(16px)",
               transition: "opacity 0.6s ease 0.18s, transform 0.6s ease 0.18s",
@@ -461,12 +465,12 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
           {/* Sub */}
           <p
             style={{
-              fontSize: 18,
+              fontSize: "clamp(15px, 2vw, 18px)",
               lineHeight: 1.7,
               color: "#78716C",
               maxWidth: 460,
               margin: 0,
-              marginBottom: 44,
+              marginBottom: "var(--lp-hero-mb-sub)",
               fontWeight: 400,
               opacity: heroMounted ? 1 : 0,
               transform: heroMounted ? "translateY(0)" : "translateY(14px)",
@@ -480,9 +484,9 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
           <div
             style={{
               display: "flex",
-              alignItems: "center",
-              gap: 16,
-              flexWrap: "wrap",
+              flexDirection: "var(--lp-hero-btn-flex-dir)" as any,
+              alignItems: "var(--lp-hero-btn-align)" as any,
+              gap: "var(--lp-hero-btn-gap)",
               opacity: heroMounted ? 1 : 0,
               transform: heroMounted ? "translateY(0)" : "translateY(14px)",
               transition: "opacity 0.6s ease 0.34s, transform 0.6s ease 0.34s",
@@ -495,12 +499,18 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
                   background: "#1C1917",
                   color: "#fff",
                   border: "none",
-                  borderRadius: 12,
-                  padding: "16px 32px",
-                  fontSize: 15,
-                  fontWeight: 700,
+                  borderRadius: 14,
+                  padding: "17px 52px",
+                  fontSize: 14,
+                  fontWeight: 600,
                   cursor: "pointer",
                   letterSpacing: "-0.01em",
+                  lineHeight: 1,
+                  minHeight: 52,
+                  width: "var(--lp-hero-btn-width)",
+                  display: "inline-flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                   transition: "background 0.2s, transform 0.15s, box-shadow 0.2s",
                   boxShadow: "0 2px 8px rgba(0,0,0,0.14)",
                 }}
@@ -528,12 +538,13 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
                 background: "transparent",
                 color: "#57534E",
                 border: "none",
-                padding: "16px 8px",
+                padding: "17px 12px",
                 fontSize: 14,
                 fontWeight: 500,
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
+                minHeight: 52,
                 gap: 6,
                 transition: "color 0.2s",
               }}
@@ -656,19 +667,12 @@ function TrustBand() {
         background: "#F5F0EA",
         borderTop: "1px solid #EDE9E3",
         borderBottom: "1px solid #EDE9E3",
-        padding: "28px 28px",
+        padding: "var(--lp-trust-padding)",
       }}
     >
       <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "clamp(24px, 5vw, 80px)",
-          flexWrap: "wrap",
-        }}
+        style={{ maxWidth: 1200, margin: "0 auto" }}
+        className="lp-trust-wrapper"
       >
         {[
           { stat: "Zero", label: "food wasted" },
@@ -731,13 +735,13 @@ function HowItWorks() {
       id="how-it-works"
       style={{
         background: "#FEFCFA",
-        padding: "120px 28px",
+        padding: "var(--lp-section-py) var(--lp-section-px)",
         scrollMarginTop: 80,
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <FadeIn>
-          <div style={{ textAlign: "center", marginBottom: 72 }}>
+          <div style={{ textAlign: "center", marginBottom: "var(--lp-title-mb)" }}>
             <SectionLabel>The process</SectionLabel>
             <h2
               style={{
@@ -761,7 +765,7 @@ function HowItWorks() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 40,
+            gap: "var(--lp-grid-gap)",
           }}
           className="lp-steps-grid"
         >
@@ -769,7 +773,7 @@ function HowItWorks() {
             <FadeIn key={num} delay={i * 80}>
               <div
                 style={{
-                  padding: "36px 28px",
+                  padding: "var(--lp-card-padding)",
                   borderRadius: 20,
                   background: "#fff",
                   boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
@@ -831,7 +835,7 @@ function MissionSection() {
       id="mission"
       style={{
         background: "#1C1917",
-        padding: "120px 28px",
+        padding: "var(--lp-section-py) var(--lp-section-px)",
         scrollMarginTop: 80,
       }}
     >
@@ -841,7 +845,7 @@ function MissionSection() {
           margin: "0 auto",
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
-          gap: 80,
+          gap: "var(--lp-mission-gap)",
           alignItems: "center",
         }}
         className="lp-mission-grid"
@@ -997,13 +1001,13 @@ function FoundingClub({ authButtonLink }: { authButtonLink: string }) {
       id="founding-club"
       style={{
         background: "#FEFCFA",
-        padding: "120px 28px",
+        padding: "var(--lp-section-py) var(--lp-section-px)",
         scrollMarginTop: 80,
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <FadeIn>
-          <div style={{ textAlign: "center", marginBottom: 72 }}>
+          <div style={{ textAlign: "center", marginBottom: "var(--lp-title-mb)" }}>
             <SectionLabel>Why join now</SectionLabel>
             <h2
               style={{
@@ -1035,7 +1039,7 @@ function FoundingClub({ authButtonLink }: { authButtonLink: string }) {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 24,
+            gap: "var(--lp-benefits-gap)",
             marginBottom: 64,
           }}
           className="lp-benefits-grid"
@@ -1047,7 +1051,7 @@ function FoundingClub({ authButtonLink }: { authButtonLink: string }) {
                   background: "#fff",
                   border: "1px solid #F3F0EB",
                   borderRadius: 20,
-                  padding: "32px 28px",
+                  padding: "var(--lp-card-padding)",
                   boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
                   transition: "box-shadow 0.25s, transform 0.25s, border-color 0.25s",
                   height: "100%",
@@ -1104,7 +1108,7 @@ function FoundingClub({ authButtonLink }: { authButtonLink: string }) {
             style={{
               background: "linear-gradient(135deg, #1C1917 0%, #292524 100%)",
               borderRadius: 28,
-              padding: "56px 48px",
+              padding: "var(--lp-cta-box-padding)",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
@@ -1142,12 +1146,16 @@ function FoundingClub({ authButtonLink }: { authButtonLink: string }) {
                   background: "#F59E0B",
                   color: "#1C1917",
                   border: "none",
-                  borderRadius: 12,
-                  padding: "18px 36px",
-                  fontSize: 15,
+                  borderRadius: 14,
+                  padding: "17px 56px",
+                  fontSize: 14,
                   fontWeight: 700,
                   cursor: "pointer",
                   letterSpacing: "-0.01em",
+                  lineHeight: 1,
+                  minHeight: 52,
+                  display: "inline-flex",
+                  alignItems: "center",
                   transition: "background 0.2s, transform 0.15s, box-shadow 0.2s",
                   whiteSpace: "nowrap",
                 }}
@@ -1210,13 +1218,13 @@ function FAQ() {
       id="faq"
       style={{
         background: "#F5F0EA",
-        padding: "120px 28px",
+        padding: "var(--lp-section-py) var(--lp-section-px)",
         scrollMarginTop: 80,
       }}
     >
       <div style={{ maxWidth: 760, margin: "0 auto" }}>
         <FadeIn>
-          <div style={{ textAlign: "center", marginBottom: 64 }}>
+          <div style={{ textAlign: "center", marginBottom: "var(--lp-title-mb)" }}>
             <SectionLabel>FAQ</SectionLabel>
             <h2
               style={{
@@ -1244,7 +1252,7 @@ function FAQ() {
                   background: openIndex === i ? "#fff" : "#FEFCFA",
                   border: `1px solid ${openIndex === i ? "#E8D5B7" : "#EDE9E3"}`,
                   borderRadius: 16,
-                  padding: "20px 24px",
+                  padding: "var(--lp-faq-padding)",
                   textAlign: "left",
                   cursor: "pointer",
                   transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s",
@@ -1317,7 +1325,7 @@ function FinalCTA({ authButtonLink }: { authButtonLink: string }) {
       id="final-cta"
       style={{
         background: "#FEFCFA",
-        padding: "120px 28px 100px",
+        padding: "var(--lp-final-cta-padding)",
       }}
     >
       <div style={{ maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
@@ -1358,7 +1366,7 @@ function FinalCTA({ authButtonLink }: { authButtonLink: string }) {
           >
             The Founding Club closes when we hit capacity. Secure your spot, lock in your benefits, and be there when it matters.
           </p>
-          <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", flexDirection: "var(--lp-final-btn-flex-dir)" as any, alignItems: "center", justifyContent: "center", gap: 16 }}>
             <Link href={authButtonLink} style={{ textDecoration: "none" }}>
               <button
                 id="final-cta-btn"
@@ -1367,11 +1375,17 @@ function FinalCTA({ authButtonLink }: { authButtonLink: string }) {
                   color: "#fff",
                   border: "none",
                   borderRadius: 14,
-                  padding: "18px 40px",
-                  fontSize: 16,
+                  padding: "17px 64px",
+                  fontSize: 15,
                   fontWeight: 700,
                   cursor: "pointer",
                   letterSpacing: "-0.01em",
+                  lineHeight: 1,
+                  minHeight: 52,
+                  width: "var(--lp-final-btn-width)",
+                  display: "inline-flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                   transition: "background 0.2s, transform 0.15s, box-shadow 0.2s",
                   boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
                 }}
@@ -1397,11 +1411,17 @@ function FinalCTA({ authButtonLink }: { authButtonLink: string }) {
                   color: "#57534E",
                   border: "1.5px solid #D6D3D1",
                   borderRadius: 14,
-                  padding: "18px 32px",
-                  fontSize: 15,
+                  padding: "17px 52px",
+                  fontSize: 14,
                   fontWeight: 600,
                   cursor: "pointer",
                   letterSpacing: "-0.01em",
+                  lineHeight: 1,
+                  minHeight: 52,
+                  width: "var(--lp-final-btn-width)",
+                  display: "inline-flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                   transition: "border-color 0.2s, color 0.2s, transform 0.15s",
                 }}
                 onMouseEnter={(e) => {
@@ -1441,7 +1461,7 @@ function Footer() {
     <footer
       style={{
         background: "#1C1917",
-        padding: "64px 28px 40px",
+        padding: "var(--lp-footer-padding)",
         borderTop: "1px solid #292524",
       }}
     >

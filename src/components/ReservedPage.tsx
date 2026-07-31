@@ -65,12 +65,13 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, x: -60 }}
               transition={{ delay: i * 0.04, layout: { type: "spring", bounce: 0.2 } }}
-              className="deal-card p-5"
+              className="deal-card p-6"
             >
+              {/* Header row */}
               <div className="flex items-start gap-4">
                 <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0"
-                  style={{ background: deal.bgColor + "20" }}
+                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid var(--border-subtle)" }}
                 >
                   {deal.emoji}
                 </div>
@@ -82,41 +83,39 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
                     >
                       {deal.title}
                     </span>
-                    {deal.status === "collected" ? (
+                    {deal.status === "collected" && (
                       <span className="flex items-center gap-1 text-[11px] font-semibold text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded-md">
                         <CheckCircle2 size={10} />
                         Collected
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-md">
-                        <CheckCircle2 size={10} />
-                        Reserved
                       </span>
                     )}
                   </div>
                   <p className="text-xs" style={{ color: "var(--text-secondary)" }}>
                     {deal.businessName}
                   </p>
-                  <div className="flex flex-col gap-1 mt-2.5 text-xs" style={{ color: "var(--text-muted)" }}>
+                  
+                  <div className="flex flex-col gap-1 mt-2 text-xs" style={{ color: "var(--text-muted)" }}>
+                    {deal.bakeryAddress && (
+                      <div className="flex items-center gap-1.5">
+                        <MapPin size={12} className="text-[var(--accent-orange)] flex-shrink-0" />
+                        <span>{deal.bakeryAddress}</span>
+                      </div>
+                    )}
                     <div className="flex items-center gap-1.5">
-                      <Clock size={11} className="text-[var(--accent-orange)]" />
+                      <Clock size={12} className="text-[var(--accent-orange)] flex-shrink-0" />
                       {deal.pickupTime && deal.pickupEndTime ? (
                         <span>Pickup: {deal.pickupTime} – {deal.pickupEndTime}</span>
                       ) : (
-                        <span className="italic">
-                          Pickup time confirmed by bakery
-                        </span>
+                        <span className="italic">Pickup time confirmed by bakery</span>
                       )}
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <MapPin size={11} className="text-[var(--accent-orange)]" />
-                      <span>{deal.bakeryAddress || "Stellenbosch"} ({deal.distance} km)</span>
                     </div>
                   </div>
                 </div>
-                <div className="text-right flex-shrink-0">
+                
+                {/* Price & Cancel column */}
+                <div className="text-right flex-shrink-0 flex flex-col justify-between items-end min-h-[80px]">
                   <div
-                    className="text-lg font-black"
+                    className="text-xl font-bold"
                     style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
                   >
                     R{deal.discountedPrice}
@@ -124,7 +123,7 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
                   {deal.status !== "collected" && (
                     <button
                       onClick={() => setCancelling(deal.id)}
-                      className="text-xs mt-1 transition-colors hover:text-white"
+                      className="text-xs transition-colors hover:text-white mt-6"
                       style={{ color: "var(--text-muted)" }}
                     >
                       Cancel
@@ -133,51 +132,41 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
                 </div>
               </div>
 
-              {deal.status === "collected" ? (
+              {/* Show at pickup code - centered directly on card background */}
+              {deal.status !== "collected" && (
+                <div className="mt-6 flex flex-col items-center justify-center text-center">
+                  <p 
+                    className="text-[10px] tracking-widest uppercase font-bold mb-1" 
+                    style={{ color: "var(--accent-orange)", opacity: 0.9 }}
+                  >
+                    Show at pickup
+                  </p>
+                  <div
+                    className="text-xl tracking-widest font-black font-mono"
+                    style={{ color: "var(--accent-orange)" }}
+                  >
+                    {deal.pickupCode}
+                  </div>
+                </div>
+              )}
+
+              {/* Collected Status Footer */}
+              {deal.status === "collected" && (
                 <div
-                  className="mt-4 p-3 rounded-xl flex items-center justify-between"
-                  style={{ background: "rgba(59,130,246,0.1)" }}
+                  className="mt-4 px-4 py-3 rounded-xl flex items-center justify-between"
+                  style={{ background: "rgba(59,130,246,0.08)" }}
                 >
                   <span className="text-xs font-semibold text-blue-400">Collected</span>
-                  <span className="text-[11px] text-blue-400/80">
+                  <span className="text-[11px] text-blue-400/70">
                     {deal.collectedAt ? new Date(deal.collectedAt).toLocaleString() : "Recently"}
                   </span>
                 </div>
-              ) : (
-                <>
-                  <div
-                    className="mt-4 p-4 rounded-xl flex flex-col items-center justify-center text-center gap-1"
-                    style={{ background: "var(--bg-secondary)" }}
-                  >
-                    <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-                      Show code to bakery at pickup:
-                    </p>
-                    <div className="text-2xl tracking-widest font-black py-0.5 font-mono" style={{ color: "var(--accent-orange)" }}>
-                      {deal.pickupCode}
-                    </div>
-                  </div>
-                  {/* Progress bar */}
-                  <div
-                    className="mt-3 h-1 rounded-full overflow-hidden"
-                    style={{ background: "var(--bg-surface)" }}
-                  >
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: "65%" }}
-                      transition={{ duration: 1, delay: 0.2 }}
-                      className="h-full rounded-full"
-                      style={{ background: "var(--accent-orange)" }}
-                    />
-                  </div>
-                  <p className="text-[11px] mt-1.5" style={{ color: "var(--text-muted)" }}>
-                    {deal.pickupTime ? "Pickup window open" : "Awaiting bakery confirmation"}
-                  </p>
-                </>
               )}
             </motion.div>
           ))}
         </AnimatePresence>
       </div>
+
 
       {/* Cancel confirm dialog */}
       <AnimatePresence>
@@ -232,5 +221,3 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
     </div>
   );
 }
-
-
