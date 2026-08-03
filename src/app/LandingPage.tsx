@@ -85,7 +85,15 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // NAV
 // ─────────────────────────────────────────────────────────────────────────────
-function Nav({ authButtonText, authButtonLink }: { authButtonText: string; authButtonLink: string }) {
+function Nav({
+  authButtonText,
+  authButtonLink,
+  onWatchDemo,
+}: {
+  authButtonText: string;
+  authButtonLink: string;
+  onWatchDemo: () => void;
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -190,6 +198,27 @@ function Nav({ authButtonText, authButtonLink }: { authButtonText: string; authB
               {label}
             </button>
           ))}
+          <button
+            onClick={onWatchDemo}
+            style={{
+              background: "none",
+              border: "none",
+              padding: "4px 0",
+              fontSize: 14,
+              fontWeight: 600,
+              color: "#B45309",
+              cursor: "pointer",
+              letterSpacing: "-0.01em",
+              display: "flex",
+              alignItems: "center",
+              gap: 5,
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#92400E")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#B45309")}
+          >
+            <span style={{ fontSize: 10 }}>▶</span> Watch Demo
+          </button>
         </nav>
 
         {/* Desktop CTA */}
@@ -286,7 +315,7 @@ function Nav({ authButtonText, authButtonLink }: { authButtonText: string; authB
       <div
         style={{
           overflow: "hidden",
-          maxHeight: mobileOpen ? 320 : 0,
+          maxHeight: mobileOpen ? 370 : 0,
           transition: "max-height 0.35s ease",
           background: "rgba(255,255,255,0.98)",
           borderBottom: mobileOpen ? "1px solid #F3F0EB" : "none",
@@ -312,6 +341,28 @@ function Nav({ authButtonText, authButtonLink }: { authButtonText: string; authB
               {label}
             </button>
           ))}
+          <button
+            onClick={() => {
+              setMobileOpen(false);
+              onWatchDemo();
+            }}
+            style={{
+              background: "none",
+              border: "none",
+              textAlign: "left",
+              padding: "12px 0",
+              fontSize: 16,
+              fontWeight: 600,
+              color: "#B45309",
+              cursor: "pointer",
+              borderBottom: "1px solid #F5F5F4",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+            }}
+          >
+            <span style={{ fontSize: 11 }}>▶</span> Watch Demo Video
+          </button>
           <Link href={authButtonLink} style={{ textDecoration: "none", marginTop: 12 }}>
             <button
               style={{
@@ -338,7 +389,13 @@ function Nav({ authButtonText, authButtonLink }: { authButtonText: string; authB
 // ─────────────────────────────────────────────────────────────────────────────
 // HERO SECTION
 // ─────────────────────────────────────────────────────────────────────────────
-function HeroSection({ authButtonLink }: { authButtonLink: string }) {
+function HeroSection({
+  authButtonLink,
+  onWatchDemo,
+}: {
+  authButtonLink: string;
+  onWatchDemo: () => void;
+}) {
   const [heroMounted, setHeroMounted] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setHeroMounted(true), 80);
@@ -480,16 +537,20 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
             Very Last Bite connects people with bakery food at the end of the day — so nothing good goes to waste, and no one goes without.
           </p>
 
-          {/* Primary CTA */}
+          {/* Primary CTA and Watch Demo */}
           <div
             style={{
               marginBottom: "var(--lp-hero-mb-sub)",
               opacity: heroMounted ? 1 : 0,
               transform: heroMounted ? "translateY(0)" : "translateY(14px)",
               transition: "opacity 0.6s ease 0.34s, transform 0.6s ease 0.34s",
+              display: "flex",
+              flexDirection: "var(--lp-hero-btn-flex-dir)" as any,
+              alignItems: "center",
+              gap: 16,
             }}
           >
-            <Link href={authButtonLink} style={{ textDecoration: "none", display: "block" }}>
+            <Link href={authButtonLink} style={{ textDecoration: "none", display: "var(--lp-hero-btn-width) === '100%' ? 'block' : 'inline-block'", width: "var(--lp-hero-btn-width)" }}>
               <button
                 id="hero-primary-cta"
                 style={{
@@ -504,7 +565,7 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
                   letterSpacing: "-0.01em",
                   lineHeight: 1,
                   minHeight: 52,
-                  width: "var(--lp-hero-btn-width)",
+                  width: "100%",
                   display: "inline-flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -525,6 +586,49 @@ function HeroSection({ authButtonLink }: { authButtonLink: string }) {
                 Join the Founding Club
               </button>
             </Link>
+            <button
+              onClick={onWatchDemo}
+              style={{
+                background: "transparent",
+                color: "#B45309",
+                border: "none",
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: 52,
+                gap: 8,
+                width: "var(--lp-hero-btn-width)",
+                transition: "color 0.2s, transform 0.15s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "#92400E";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "#B45309";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              <div
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: "50%",
+                  background: "rgba(180,83,9,0.08)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 10,
+                  paddingLeft: 2,
+                }}
+              >
+                ▶
+              </div>
+              Watch Demo Video
+            </button>
           </div>
         </div>
 
@@ -1558,13 +1662,11 @@ function Footer() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ROOT COMPONENT
-// ─────────────────────────────────────────────────────────────────────────────
 export default function LandingPage() {
   const { user, isAdminUser } = useAuth();
   const authButtonText = user ? "Open App" : "Join the Founding Club";
   const authButtonLink = user ? (isAdminUser ? "/admin" : "/spin") : "/signup";
+  const [showDemoModal, setShowDemoModal] = useState(false);
 
   return (
     <div
@@ -1578,8 +1680,8 @@ export default function LandingPage() {
         overflowX: "hidden",
       }}
     >
-      <Nav authButtonText={authButtonText} authButtonLink={authButtonLink} />
-      <HeroSection authButtonLink={authButtonLink} />
+      <Nav authButtonText={authButtonText} authButtonLink={authButtonLink} onWatchDemo={() => setShowDemoModal(true)} />
+      <HeroSection authButtonLink={authButtonLink} onWatchDemo={() => setShowDemoModal(true)} />
       <TrustBand />
       <HowItWorks />
       <MissionSection />
@@ -1587,6 +1689,93 @@ export default function LandingPage() {
       <FAQ />
       <FinalCTA authButtonLink={authButtonLink} />
       <Footer />
+
+      {/* Video Demo Modal Overlay */}
+      {showDemoModal && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "rgba(28,25,23,0.85)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 24,
+          }}
+          onClick={() => setShowDemoModal(false)}
+        >
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              maxWidth: 960,
+              background: "#1C1917",
+              borderRadius: 24,
+              overflow: "hidden",
+              boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)",
+              border: "1px solid rgba(255,255,255,0.1)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setShowDemoModal(false)}
+              style={{
+                position: "absolute",
+                top: 16,
+                right: 16,
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                background: "rgba(255,255,255,0.1)",
+                border: "none",
+                color: "#FAFAF9",
+                fontSize: 18,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "background 0.2s, transform 0.2s",
+                zIndex: 10,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.2)";
+                e.currentTarget.style.transform = "scale(1.05)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+                e.currentTarget.style.transform = "scale(1)";
+              }}
+            >
+              ✕
+            </button>
+
+            {/* Video Player */}
+            <div style={{ position: "relative", paddingTop: "56.25%", background: "#000" }}>
+              <video
+                src="/very_last_bite_demo.mp4"
+                controls
+                autoPlay
+                playsInline
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  border: "none",
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
