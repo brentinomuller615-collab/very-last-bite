@@ -104,7 +104,6 @@ function Nav({
   }, []);
 
   const navLinks = [
-    { label: "How It Works", id: "how-it-works" },
     { label: "Mission", id: "mission" },
     { label: "Founding Club", id: "founding-club" },
     { label: "FAQ", id: "faq" },
@@ -177,6 +176,27 @@ function Nav({
           }}
           className="lp-desktop-nav"
         >
+          <button
+            onClick={onWatchDemo}
+            style={{
+              background: "none",
+              border: "none",
+              padding: "4px 0",
+              fontSize: 14,
+              fontWeight: 600,
+              color: "#B45309",
+              cursor: "pointer",
+              letterSpacing: "-0.01em",
+              display: "flex",
+              alignItems: "center",
+              gap: 5,
+              transition: "color 0.2s",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#92400E")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#B45309")}
+          >
+            <span style={{ fontSize: 10 }}>▶</span> How it works
+          </button>
           {navLinks.map(({ label, id }) => (
             <button
               key={id}
@@ -198,27 +218,6 @@ function Nav({
               {label}
             </button>
           ))}
-          <button
-            onClick={onWatchDemo}
-            style={{
-              background: "none",
-              border: "none",
-              padding: "4px 0",
-              fontSize: 14,
-              fontWeight: 600,
-              color: "#B45309",
-              cursor: "pointer",
-              letterSpacing: "-0.01em",
-              display: "flex",
-              alignItems: "center",
-              gap: 5,
-              transition: "color 0.2s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#92400E")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#B45309")}
-          >
-            <span style={{ fontSize: 10 }}>▶</span> Watch Demo
-          </button>
         </nav>
 
         {/* Desktop CTA */}
@@ -322,25 +321,6 @@ function Nav({
         }}
       >
         <div style={{ padding: "16px 28px 24px", display: "flex", flexDirection: "column", gap: 4 }}>
-          {navLinks.map(({ label, id }) => (
-            <button
-              key={id}
-              onClick={() => scrollTo(id)}
-              style={{
-                background: "none",
-                border: "none",
-                textAlign: "left",
-                padding: "12px 0",
-                fontSize: 16,
-                fontWeight: 500,
-                color: "#1C1917",
-                cursor: "pointer",
-                borderBottom: "1px solid #F5F5F4",
-              }}
-            >
-              {label}
-            </button>
-          ))}
           <button
             onClick={() => {
               setMobileOpen(false);
@@ -361,8 +341,27 @@ function Nav({
               gap: 8,
             }}
           >
-            <span style={{ fontSize: 11 }}>▶</span> Watch Demo Video
+            <span style={{ fontSize: 11 }}>▶</span> How it works
           </button>
+          {navLinks.map(({ label, id }) => (
+            <button
+              key={id}
+              onClick={() => scrollTo(id)}
+              style={{
+                background: "none",
+                border: "none",
+                textAlign: "left",
+                padding: "12px 0",
+                fontSize: 16,
+                fontWeight: 500,
+                color: "#1C1917",
+                cursor: "pointer",
+                borderBottom: "1px solid #F5F5F4",
+              }}
+            >
+              {label}
+            </button>
+          ))}
           <Link href={authButtonLink} style={{ textDecoration: "none", marginTop: 12 }}>
             <button
               style={{
