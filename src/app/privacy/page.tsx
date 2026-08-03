@@ -74,10 +74,10 @@ export default function PrivacyPage() {
                   <li>Email address</li>
                   <li>Account login information</li>
                   <li>User activity within the app</li>
-                  <li>Bakery business information (for approved vendors)</li>
+                  <li>Business information (for approved partner vendors)</li>
                 </ul>
                 <p className="italic text-[var(--text-muted)] mt-2">
-                  We do NOT collect or store payment information, as all transactions occur directly between customers and bakeries.
+                  We do NOT collect or store payment information, as all transactions occur directly between customers and partner businesses.
                 </p>
               </div>
 
@@ -86,8 +86,8 @@ export default function PrivacyPage() {
                 <p>We use data to:</p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Create and manage accounts</li>
-                  <li>Display bakery listings</li>
-                  <li>Manage bakery approvals</li>
+                  <li>Display food business listings</li>
+                  <li>Manage partner approvals</li>
                   <li>Improve platform functionality</li>
                   <li>Communicate important updates</li>
                 </ul>
@@ -98,7 +98,7 @@ export default function PrivacyPage() {
                 <p>We do not sell personal data.</p>
                 <p>We may share information only:</p>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Between users and approved bakeries (as part of platform functionality)</li>
+                  <li>Between users and approved partner businesses (as part of platform functionality)</li>
                   <li>If required by law</li>
                 </ul>
               </div>
@@ -154,13 +154,13 @@ export default function PrivacyPage() {
                 <h3 className="font-bold text-sm text-[var(--text-primary)]">2. Account Types</h3>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Customers may register freely</li>
-                  <li>Bakeries must be approved before appearing on the platform</li>
+                  <li>Food businesses must be approved before appearing on the platform</li>
                 </ul>
               </div>
 
               <div className="space-y-2 mt-4">
-                <h3 className="font-bold text-sm text-[var(--text-primary)]">3. Bakery Responsibility</h3>
-                <p>Approved bakeries are solely responsible for:</p>
+                <h3 className="font-bold text-sm text-[var(--text-primary)]">3. Partner Business Responsibility</h3>
+                <p>Approved partner businesses are solely responsible for:</p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Food quality</li>
                   <li>Food safety</li>
@@ -183,7 +183,7 @@ export default function PrivacyPage() {
                 <h3 className="font-bold text-sm text-[var(--text-primary)]">5. Platform Rights</h3>
                 <p>We may:</p>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Approve or reject bakeries</li>
+                  <li>Approve or reject partner businesses</li>
                   <li>Remove listings at any time</li>
                   <li>Suspend accounts for violations</li>
                 </ul>
@@ -194,8 +194,8 @@ export default function PrivacyPage() {
                 <p>We are not responsible for:</p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Food quality or safety</li>
-                  <li>Customer-bakery disputes</li>
-                  <li>Financial transactions between users and bakeries</li>
+                  <li>Customer-partner disputes</li>
+                  <li>Financial transactions between users and partner businesses</li>
                 </ul>
               </div>
 
@@ -219,17 +219,17 @@ export default function PrivacyPage() {
                 className="text-lg font-black font-display"
                 style={{ color: "var(--accent-orange)" }}
               >
-                3. BAKERY PARTNER AGREEMENT
+                3. PARTNER BUSINESS AGREEMENT
               </h2>
             </div>
             
             <div className="text-xs space-y-3" style={{ color: "var(--text-secondary)", lineHeight: "1.6" }}>
-              <p>By joining Very Last Bite, the bakery agrees:</p>
+              <p>By joining Very Last Bite, the partner business agrees:</p>
 
               <div className="space-y-2 mt-4">
                 <h3 className="font-bold text-sm text-[var(--text-primary)]">1. Listing Rights</h3>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Bakery may list surplus food items via the platform system</li>
+                  <li>The business may list surplus food items via the platform system</li>
                   <li>All listings must be accurate and truthful</li>
                 </ul>
               </div>
@@ -237,7 +237,7 @@ export default function PrivacyPage() {
               <div className="space-y-2 mt-4">
                 <h3 className="font-bold text-sm text-[var(--text-primary)]">2. Food Responsibility</h3>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Bakery is fully responsible for food safety, handling, and quality</li>
+                  <li>The business is fully responsible for food safety, handling, and quality</li>
                 </ul>
               </div>
 
@@ -251,7 +251,7 @@ export default function PrivacyPage() {
               <div className="space-y-2 mt-4">
                 <h3 className="font-bold text-sm text-[var(--text-primary)]">4. Subscription Fee</h3>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>Bakery agrees to pay a monthly subscription fee to remain active on the platform</li>
+                  <li>The business agrees to pay a monthly subscription fee to remain active on the platform</li>
                 </ul>
               </div>
 
@@ -295,13 +295,13 @@ export default function PrivacyPage() {
               </div>
 
               <div className="space-y-2 mt-4">
-                <h3 className="font-bold text-sm text-[var(--text-primary)]">2. Bakery Transactions</h3>
-                <p>All payments are handled directly between customers and bakeries.</p>
+                <h3 className="font-bold text-sm text-[var(--text-primary)]">2. Partner Transactions</h3>
+                <p>All payments are handled directly between customers and partner businesses.</p>
               </div>
 
               <div className="space-y-2 mt-4">
                 <h3 className="font-bold text-sm text-[var(--text-primary)]">3. Disputes</h3>
-                <p>Any refund requests or disputes must be handled directly with the bakery.</p>
+                <p>Any refund requests or disputes must be handled directly with the business.</p>
               </div>
             </div>
           </motion.section>
@@ -331,7 +331,7 @@ export default function PrivacyPage() {
                 <p>Users acknowledge:</p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Food may contain allergens (gluten, dairy, nuts, etc.)</li>
-                  <li>It is the user’s responsibility to check with the bakery before consumption</li>
+                  <li>It is the user's responsibility to check with the business before consumption</li>
                   <li>The platform is not liable for allergic reactions or food-related health issues</li>
                 </ul>
               </div>

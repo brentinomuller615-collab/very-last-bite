@@ -289,7 +289,7 @@ export default function SpinMachine({ onSpinComplete, onAddToHistory, onReserve 
           Spin For <span style={{ color: "var(--accent-orange)" }}>Today&apos;s Bite</span>
         </h2>
         <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>
-          Discover available bakery surplus bundles near you.
+          Discover surplus food from participating businesses near you.
         </p>
       </div>
 

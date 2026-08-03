@@ -533,7 +533,7 @@ function HeroSection({
               transition: "opacity 0.6s ease 0.26s, transform 0.6s ease 0.26s",
             }}
           >
-            Very Last Bite connects people with bakery food at the end of the day — so nothing good goes to waste, and no one goes without.
+            Very Last Bite connects people with surplus food from local cafés, bakeries, restaurants and delis at the end of each day — so nothing good goes to waste, and no one goes without.
           </p>
 
           {/* Primary CTA and Watch Demo */}
@@ -671,7 +671,7 @@ function HeroSection({
                 Up to <span style={{ color: "#B45309" }}>70% off</span>
               </div>
               <div style={{ fontSize: 11, color: "#A8A29E", marginTop: 2 }}>
-                on surplus bakery bundles
+                on surplus food bundles
               </div>
             </div>
           </div>
@@ -974,10 +974,10 @@ function MissionSection() {
                 marginBottom: 24,
               }}
             >
-              Food prices rise. Wages don&apos;t always keep up. And at the end of every bakery day, good food that should have fed someone gets discarded.
+              Food prices rise. Wages don&apos;t always keep up. And at the end of every day, quality surplus food that should have fed someone gets discarded.
             </p>
             <p style={{ fontSize: 16, color: "#78716C", lineHeight: 1.75, marginBottom: 48 }}>
-              Very Last Bite isn&apos;t about finding scraps. It&apos;s about creating a system where quality food stays accessible — where people can feed their families with pride, and local bakeries can recover real value instead of throwing it away.
+              Very Last Bite isn&apos;t about finding scraps. It&apos;s about creating a system where quality food stays accessible — where people can feed their families with pride, and local food businesses can recover real value instead of throwing it away.
             </p>
 
             {/* Pillars */}
@@ -985,7 +985,7 @@ function MissionSection() {
               {[
                 { title: "Access", body: "Everyone deserves quality food, regardless of budget." },
                 { title: "Sustainability", body: "Good food should reach mouths, not bins." },
-                { title: "Community", body: "When bakeries and people connect, everyone wins." },
+                { title: "Community", body: "When food businesses and people connect, everyone wins." },
               ].map(({ title, body }) => (
                 <div
                   key={title}
@@ -1041,7 +1041,7 @@ function MissionSection() {
           >
             <Image
               src="/community-warmth.png"
-              alt="A bakery worker handing a paper bag of food to a customer, representing community and dignity"
+              alt="A food business worker handing a paper bag of food to a customer, representing community and dignity"
               fill
               style={{ objectFit: "cover", opacity: 0.9 }}
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -1285,19 +1285,19 @@ function FAQ() {
     },
     {
       q: "What kind of food will be available?",
-      a: "Surplus baked goods from local bakeries — bread, rolls, pastries, cakes, and more. Everything is freshly made that day and available at end-of-day prices.",
+      a: "Surplus items from local cafés, bakeries, restaurants, and other food businesses — prepared meals, bread, pastries, delis, and more. Everything is fresh that day and available at end-of-day prices.",
     },
     {
       q: "When will you launch?",
-      a: "We&apos;re in the final stages of onboarding bakeries. Founding Club members will be the first to know and the first to get access when we go live.",
+      a: "We&apos;re in the final stages of onboarding local cafés, bakeries, and restaurants. Founding Club members will be the first to know and the first to get access when we go live.",
     },
     {
       q: "How is this different from a discount food app?",
       a: "We&apos;re not about deals or discounts as a marketing gimmick. This is a food rescue mission. Every bundle claimed prevents waste and helps someone eat well.",
     },
     {
-      q: "Can bakeries join as partners?",
-      a: "Absolutely. If you run a bakery and want to turn surplus into income while reducing waste, visit our bakery portal or reach out directly.",
+      q: "Can food businesses join as partners?",
+      a: "Absolutely. If you run a café, bakery, restaurant or deli and want to turn surplus into income while reducing waste, visit our partner portal or reach out directly.",
     },
     {
       q: "What happens to my founding status?",
@@ -1529,7 +1529,7 @@ function FinalCTA({ authButtonLink }: { authButtonLink: string }) {
                   e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
-                I own a bakery →
+                I own a food business →
               </button>
             </Link>
           </div>
@@ -1596,7 +1596,7 @@ function Footer() {
               </span>
             </div>
             <p style={{ fontSize: 14, color: "#57534E", lineHeight: 1.65 }}>
-              Connecting surplus bakery food with people who need it. No waste. No compromise. Just good food.
+              Connecting surplus food from cafés, bakeries and restaurants with people who need it. No waste. No compromise. Just good food.
             </p>
           </div>
 
@@ -1647,7 +1647,7 @@ function Footer() {
                   Sign in
                 </Link>
                 <Link href="/bakery" style={{ fontSize: 14, color: "#F59E0B", textDecoration: "none", fontWeight: 600 }}>
-                  Bakery portal
+                  Partner portal
                 </Link>
                 <Link href="/privacy" style={{ fontSize: 14, color: "#78716C", textDecoration: "none", transition: "color 0.2s" }}>
                   Privacy

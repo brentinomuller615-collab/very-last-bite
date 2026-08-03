@@ -34,7 +34,7 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
             No active reservations
           </h2>
           <p className="text-xs leading-relaxed max-w-xs" style={{ color: "var(--text-secondary)" }}>
-            Spin to discover available bakery food bundles and make your first reservation.
+            Spin to discover surplus food from participating businesses and make your first reservation.
           </p>
         </motion.div>
       </div>
@@ -106,7 +106,7 @@ export default function ReservedPage({ reservations, onCancel }: ReservedPagePro
                       {deal.pickupTime && deal.pickupEndTime ? (
                         <span>Pickup: {deal.pickupTime} – {deal.pickupEndTime}</span>
                       ) : (
-                        <span className="italic">Pickup time confirmed by bakery</span>
+                        <span className="italic">Pickup time confirmed by the business</span>
                       )}
                     </div>
                   </div>

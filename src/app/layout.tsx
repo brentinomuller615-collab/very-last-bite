@@ -3,23 +3,23 @@ import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 
 export const metadata: Metadata = {
-  title: "Very Last Bite — Quality Bakery Food. Within Reach.",
+  title: "Very Last Bite — Quality Surplus Food. Within Reach.",
   description:
-    "Very Last Bite connects people with surplus bakery food at the end of each day. Save up to 70% on quality baked goods. Reduce waste. Join the Founding Club today.",
+    "Very Last Bite connects people with surplus food from cafés, bakeries, restaurants and delis at the end of each day. Save up to 70% on quality surplus food. Reduce waste. Join the Founding Club today.",
   keywords: [
     "surplus food",
-    "bakery deals",
+    "food deals",
     "food rescue",
     "affordable food",
     "food waste",
     "founding club",
-    "bakery surplus",
+    "cafe surplus",
   ],
   authors: [{ name: "Very Last Bite" }],
   openGraph: {
-    title: "Very Last Bite — Quality Bakery Food. Within Reach.",
+    title: "Very Last Bite — Quality Surplus Food. Within Reach.",
     description:
-      "Quality bakery food at end-of-day prices. Join the Founding Club and be first in line when we launch.",
+      "Quality surplus food at end-of-day prices. Join the Founding Club and be first in line when we launch.",
     type: "website",
   },
 };
