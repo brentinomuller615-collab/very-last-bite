@@ -89,51 +89,54 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] flex flex-col items-center justify-center p-6 bg-[#FEFCFA]">
+    <div className="min-h-[100dvh] flex flex-col items-center justify-center px-6 py-16 sm:py-24 bg-[#FEFCFA]">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-sm space-y-8"
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className="w-full max-w-[380px] flex flex-col items-stretch"
       >
-        <div className="text-center space-y-3">
+        {/* Header Section */}
+        <div className="text-center flex flex-col items-center mb-9">
           <Link
             href="/"
-            className="inline-block text-2xl font-black tracking-tight mb-2"
+            className="inline-block text-2xl font-black tracking-tight mb-8 hover:opacity-90 transition-opacity"
             style={{ fontFamily: "var(--font-display)", color: "#1C1917" }}
           >
             Very Last Bite
           </Link>
           <h1
-            className="text-3xl font-black tracking-tight"
+            className="text-3xl sm:text-[34px] font-black tracking-tight leading-tight mb-3"
             style={{ fontFamily: "var(--font-display)", color: "#1C1917" }}
           >
             Welcome Back
           </h1>
-          <p className="text-xs leading-relaxed" style={{ color: "#78716C" }}>
+          <p className="text-xs sm:text-sm text-[#78716C] leading-relaxed max-w-[310px] mx-auto">
             Sign in to access your Founding Club Dashboard
           </p>
         </div>
 
+        {/* Alerts */}
         {error && (
-          <div className="p-4 text-xs text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl text-center">
+          <div className="p-4 text-xs text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl text-center mb-6">
             {error}
           </div>
         )}
         {resetMessage && (
-          <div className="p-4 text-xs text-green-600 bg-green-500/10 border border-green-500/20 rounded-xl text-center">
+          <div className="p-4 text-xs text-green-600 bg-green-500/10 border border-green-500/20 rounded-xl text-center mb-6">
             {resetMessage}
           </div>
         )}
 
         {/* Continue with Google */}
         <motion.button
-          whileTap={{ scale: 0.98 }}
+          whileTap={{ scale: 0.985 }}
           disabled={googleLoading || loading}
           onClick={handleGoogleSignIn}
           type="button"
-          className="w-full py-3.5 px-4 rounded-xl font-semibold text-sm text-[#1C1917] bg-white border border-[#E7E5E4] flex items-center justify-center gap-3 shadow-sm hover:border-[#D6D3D1] transition-all disabled:opacity-50"
+          className="w-full py-3.5 px-4 rounded-xl font-semibold text-sm text-[#1C1917] bg-white border border-[#E7E5E4] flex items-center justify-center gap-3 shadow-xs hover:border-[#D6D3D1] hover:bg-[#FAF8F5] transition-all disabled:opacity-50 mb-7"
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
             <path
               fill="#4285F4"
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -154,15 +157,17 @@ export default function LoginPage() {
           <span>{googleLoading ? "Connecting..." : "Continue with Google"}</span>
         </motion.button>
 
-        <div className="relative flex items-center justify-center my-4">
+        {/* Divider */}
+        <div className="relative flex items-center justify-center mb-7">
           <div className="border-t border-[#E7E5E4] w-full" />
-          <span className="bg-[#FEFCFA] px-3 text-[11px] uppercase tracking-wider text-[#A8A29E] font-semibold absolute">
+          <span className="bg-[#FEFCFA] px-3.5 text-[10px] font-bold uppercase tracking-widest text-[#A8A29E] absolute">
             or with email
           </span>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div className="space-y-3">
+        {/* Form */}
+        <form onSubmit={handleLogin} className="flex flex-col">
+          <div className="space-y-3.5 mb-3">
             <div>
               <input
                 type="email"
@@ -199,7 +204,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="flex justify-end">
+          <div className="flex justify-end mb-6">
             <button
               type="button"
               onClick={handleResetPassword}
@@ -210,10 +215,10 @@ export default function LoginPage() {
           </div>
 
           <motion.button
-            whileTap={{ scale: 0.98 }}
+            whileTap={{ scale: 0.985 }}
             disabled={loading || googleLoading}
             type="submit"
-            className="w-full py-3.5 rounded-xl font-bold text-sm text-[#1C1917] transition-opacity disabled:opacity-50"
+            className="w-full py-3.5 rounded-xl font-bold text-sm text-[#1C1917] transition-all disabled:opacity-50 shadow-sm hover:brightness-105"
             style={{
               background: "#F59E0B",
             }}
@@ -222,7 +227,8 @@ export default function LoginPage() {
           </motion.button>
         </form>
 
-        <p className="text-center text-xs text-[#78716C]">
+        {/* Footer Links */}
+        <p className="text-center text-xs text-[#78716C] mt-8">
           Don&apos;t have an account?{" "}
           <Link
             href="/signup"
@@ -232,7 +238,7 @@ export default function LoginPage() {
           </Link>
         </p>
 
-        <div className="text-center pt-4 border-t border-[#E7E5E4]">
+        <div className="text-center pt-6 mt-6 border-t border-[#E7E5E4]">
           <Link
             href="/bakery"
             className="text-xs font-semibold text-[#78716C] hover:text-[#1C1917] transition-colors"
