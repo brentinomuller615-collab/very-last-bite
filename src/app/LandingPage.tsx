@@ -1696,8 +1696,8 @@ function Footer() {
 
 export default function LandingPage() {
   const { user, isAdminUser } = useAuth();
-  const authButtonText = user ? "Open App" : "Join the Founding Club";
-  const authButtonLink = user ? (isAdminUser ? "/admin" : "/spin") : "/signup";
+  const authButtonText = user ? "Founding Club Dashboard" : "Join the Founding Club";
+  const authButtonLink = user ? (isAdminUser ? "/admin" : "/dashboard") : "/signup";
   const [showDemoModal, setShowDemoModal] = useState(false);
 
   return (

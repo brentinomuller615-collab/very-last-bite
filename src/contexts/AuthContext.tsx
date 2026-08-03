@@ -17,6 +17,8 @@ import {
   updateProfile,
   AuthError,
   IdTokenResult,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import {
@@ -36,6 +38,7 @@ interface AuthContextValue {
   idTokenResult: IdTokenResult | null;
   signUp: (email: string, password: string, displayName: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   /** Force-refresh the ID token and re-resolve the role. Call after setting a custom claim. */
@@ -234,6 +237,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // onAuthStateChanged fires after this and triggers loadRole automatically
   }
 
+  async function signInWithGoogle() {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+  }
+
   async function signOut() {
     await firebaseSignOut(auth);
   }
@@ -257,6 +265,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         idTokenResult,
         signUp,
         signIn,
+        signInWithGoogle,
         signOut,
         resetPassword,
         refreshRole,
