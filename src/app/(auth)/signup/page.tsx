@@ -61,7 +61,7 @@ export default function SignupPage() {
       {/* Left Column — Sign Up Form Container */}
       <div className="w-full lg:w-[54%] flex flex-col justify-between p-6 sm:p-12 lg:p-16 min-h-[100dvh]">
         {/* Logo */}
-        <div className="mb-8 lg:mb-0">
+        <div className="mb-6 sm:mb-10 lg:mb-0">
           <Link
             href="/"
             className="inline-block text-2xl sm:text-3xl font-black tracking-tight hover:opacity-90 transition-opacity"
@@ -71,16 +71,16 @@ export default function SignupPage() {
           </Link>
         </div>
 
-        {/* Form Container Stack */}
+        {/* Form Container Stack — Positioned slightly higher on mobile (pt-2 sm:pt-0 my-auto) */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="w-full max-w-[460px] mx-auto my-auto py-8 sm:py-12 flex flex-col items-stretch"
+          className="w-full max-w-[460px] mx-auto pt-2 pb-6 sm:py-12 lg:my-auto flex flex-col items-stretch"
         >
           {/* Group 1: Badge & Title */}
-          <div className="mb-9 sm:mb-11">
-            <div className="inline-flex items-center text-xs font-bold tracking-wider uppercase text-[#B45309] bg-[#B45309]/10 rounded-full px-4 py-1.5 mb-4 sm:mb-5">
+          <div className="mb-7 sm:mb-11">
+            <div className="inline-flex items-center text-[11px] sm:text-xs font-bold tracking-wider uppercase text-[#B45309] bg-[#B45309]/10 rounded-full px-4 py-1.5 mb-3.5 sm:mb-5">
               Founding Club Member
             </div>
 
@@ -98,7 +98,7 @@ export default function SignupPage() {
 
           {/* Error Alert */}
           {error && (
-            <div className="p-4 text-xs sm:text-sm text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl text-center mb-8">
+            <div className="p-4 text-xs sm:text-sm text-red-600 bg-red-500/10 border border-red-500/20 rounded-xl text-center mb-7">
               {error}
             </div>
           )}
@@ -109,7 +109,7 @@ export default function SignupPage() {
             disabled={googleLoading || loading}
             onClick={handleGoogleSignIn}
             type="button"
-            className="w-full py-4 px-5 rounded-xl font-semibold text-sm sm:text-base text-[#1C1917] bg-white border border-[#E7E5E4] flex items-center justify-center gap-3.5 shadow-xs hover:border-[#D6D3D1] hover:bg-[#FAF8F5] transition-all disabled:opacity-50 mb-8 sm:mb-10"
+            className="w-full py-4 px-5 min-h-[52px] rounded-xl font-semibold text-sm sm:text-base text-[#1C1917] bg-white border border-[#E7E5E4] flex items-center justify-center gap-3.5 shadow-xs hover:border-[#D6D3D1] hover:bg-[#FAF8F5] transition-all disabled:opacity-50 mb-7 sm:mb-10"
           >
             <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
               <path
@@ -133,7 +133,7 @@ export default function SignupPage() {
           </motion.button>
 
           {/* Group 3: Divider */}
-          <div className="relative flex items-center justify-center mb-8 sm:mb-10">
+          <div className="relative flex items-center justify-center mb-7 sm:mb-10">
             <div className="border-t border-[#E7E5E4] w-full" />
             <span className="bg-[#FEFCFA] px-4 text-xs font-bold uppercase tracking-widest text-[#A8A29E] absolute">
               or with email
@@ -142,7 +142,7 @@ export default function SignupPage() {
 
           {/* Group 4: Email Form */}
           <form onSubmit={handleSignup} className="flex flex-col">
-            <div className="space-y-4 mb-8">
+            <div className="space-y-4 mb-7 sm:mb-8">
               <div>
                 <input
                   type="text"
@@ -150,7 +150,7 @@ export default function SignupPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Full Name"
-                  className="w-full px-4.5 py-4 rounded-xl outline-none text-sm sm:text-base transition-all duration-200"
+                  className="w-full px-4.5 py-4 min-h-[52px] rounded-xl outline-none text-base transition-all duration-200"
                   style={{
                     background: "#FFFFFF",
                     color: "#1C1917",
@@ -167,7 +167,7 @@ export default function SignupPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email address"
-                  className="w-full px-4.5 py-4 rounded-xl outline-none text-sm sm:text-base transition-all duration-200"
+                  className="w-full px-4.5 py-4 min-h-[52px] rounded-xl outline-none text-base transition-all duration-200"
                   style={{
                     background: "#FFFFFF",
                     color: "#1C1917",
@@ -184,7 +184,7 @@ export default function SignupPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password (min 6 chars)"
-                  className="w-full px-4.5 py-4 rounded-xl outline-none text-sm sm:text-base transition-all duration-200"
+                  className="w-full px-4.5 py-4 min-h-[52px] rounded-xl outline-none text-base transition-all duration-200"
                   style={{
                     background: "#FFFFFF",
                     color: "#1C1917",
@@ -201,7 +201,7 @@ export default function SignupPage() {
               whileTap={{ scale: 0.985 }}
               disabled={loading || googleLoading}
               type="submit"
-              className="w-full py-4 px-5 rounded-xl font-bold text-sm sm:text-base text-[#1C1917] transition-all disabled:opacity-50 shadow-sm hover:brightness-105"
+              className="w-full py-4 px-5 min-h-[52px] rounded-xl font-bold text-base text-[#1C1917] transition-all disabled:opacity-50 shadow-sm hover:brightness-105"
               style={{
                 background: "#F59E0B",
               }}
@@ -211,7 +211,7 @@ export default function SignupPage() {
           </form>
 
           {/* Group 6: Footer Link */}
-          <p className="text-center text-xs sm:text-sm text-[#78716C] mt-8 sm:mt-10">
+          <p className="text-center text-sm text-[#78716C] mt-7 sm:mt-10">
             Already have an account?{" "}
             <Link
               href="/login"
@@ -223,7 +223,7 @@ export default function SignupPage() {
         </motion.div>
 
         {/* Footer Info */}
-        <div className="text-xs text-[#A8A29E] text-center lg:text-left pt-6">
+        <div className="text-xs text-[#A8A29E] text-center lg:text-left pt-4">
           © {new Date().getFullYear()} Very Last Bite. Built with purpose.
         </div>
       </div>
