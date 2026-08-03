@@ -728,20 +728,34 @@ function HeroSection({
 function TrustBand() {
   const cards = [
     {
+      emoji: "🎲",
       title: "Spin to Discover",
-      desc: "Discover available surplus food through our unique daily spin.",
+      desc: "Discover available food bundles with a single spin.",
     },
     {
+      emoji: "⚡",
       title: "Reserve in Seconds",
       desc: "Secure your bundle before someone else does.",
     },
     {
+      emoji: "📍",
       title: "Collect Locally",
-      desc: "Pick up directly from participating food businesses at the scheduled collection time.",
+      desc: "Pick up from participating cafés, bakeries, restaurants and other food businesses.",
     },
     {
-      title: "Launching in Stellenbosch",
-      desc: "Be among the first to experience Very Last Bite during our pilot launch.",
+      emoji: "🍽️",
+      title: "Freshly Prepared",
+      desc: "Enjoy quality food prepared by trusted local businesses at great value.",
+    },
+    {
+      emoji: "🤝",
+      title: "Join the Founding Club",
+      desc: "Become part of the first community helping shape Very Last Bite before launch.",
+    },
+    {
+      emoji: "✨",
+      title: "Simple & Seamless",
+      desc: "From discovery to collection, everything happens in just a few taps.",
     },
   ];
 
@@ -760,12 +774,13 @@ function TrustBand() {
           maxWidth: 1200,
           margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: 32,
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gap: "32px 40px",
         }}
       >
-        {cards.map(({ title, desc }) => (
-          <div key={title} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {cards.map(({ emoji, title, desc }) => (
+          <div key={title} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ fontSize: 24, lineHeight: 1, marginBottom: 2 }}>{emoji}</div>
             <h3
               style={{
                 fontSize: 15,
@@ -778,7 +793,7 @@ function TrustBand() {
             >
               {title}
             </h3>
-            <p style={{ fontSize: 13, color: "#78716C", lineHeight: 1.5, margin: 0 }}>
+            <p style={{ fontSize: 13, color: "#78716C", lineHeight: 1.55, margin: 0 }}>
               {desc}
             </p>
           </div>
@@ -787,6 +802,7 @@ function TrustBand() {
     </section>
   );
 }
+
 
 function HowItWorks() {
   const [isPlaying, setIsPlaying] = useState(false);
