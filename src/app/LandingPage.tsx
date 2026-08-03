@@ -780,32 +780,8 @@ function TrustBand() {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// HOW IT WORKS
-// ─────────────────────────────────────────────────────────────────────────────
 function HowItWorks() {
-  const steps = [
-    {
-      num: "01",
-      title: "Bakeries list surplus",
-      desc: "At the end of each day, local bakeries bundle their remaining bread, pastries, and baked goods into discounted rescue packs.",
-    },
-    {
-      num: "02",
-      title: "You browse & claim",
-      desc: "Open the app, see what's available nearby, and secure a bundle in seconds. No queue, no guesswork.",
-    },
-    {
-      num: "03",
-      title: "Collect with dignity",
-      desc: "Show your unique pickup code at the bakery and walk out with a bag full of quality food at a fraction of the price.",
-    },
-    {
-      num: "04",
-      title: "Good food, less waste",
-      desc: "You save money. The bakery recovers value. And perfectly good food doesn't end up in a bin.",
-    },
-  ];
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <section
@@ -816,10 +792,10 @@ function HowItWorks() {
         scrollMarginTop: 80,
       }}
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+      <div style={{ maxWidth: 840, margin: "0 auto" }}>
         <FadeIn>
-          <div style={{ textAlign: "center", marginBottom: "var(--lp-title-mb)" }}>
-            <SectionLabel>The process</SectionLabel>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <SectionLabel>How It Works</SectionLabel>
             <h2
               style={{
                 fontSize: "clamp(32px, 4.5vw, 52px)",
@@ -830,74 +806,106 @@ function HowItWorks() {
                 margin: "20px 0 16px",
               }}
             >
-              Simple as it should be
+              See how it works
             </h2>
-            <p style={{ fontSize: 17, color: "#78716C", lineHeight: 1.65, maxWidth: 480, margin: "0 auto" }}>
-              From surplus bakery shelf to your table. No complexity, no compromise.
+            <p style={{ fontSize: 17, color: "#78716C", lineHeight: 1.65, maxWidth: 540, margin: "0 auto" }}>
+              See how reserving surplus food with Very Last Bite takes less than 30 seconds.
             </p>
           </div>
         </FadeIn>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "var(--lp-grid-gap)",
-          }}
-          className="lp-steps-grid"
-        >
-          {steps.map(({ num, title, desc }, i) => (
-            <FadeIn key={num} delay={i * 80}>
-              <div
+        {/* Video Player Box */}
+        <FadeIn>
+          <div
+            style={{
+              position: "relative",
+              paddingTop: "56.25%", /* 16:9 Aspect Ratio */
+              borderRadius: 24,
+              overflow: "hidden",
+              boxShadow: "0 20px 40px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.02)",
+              background: "#F5F0EA",
+              border: "1px solid #EDE9E3",
+              cursor: isPlaying ? "default" : "pointer",
+            }}
+            onClick={() => {
+              if (!isPlaying) {
+                setIsPlaying(true);
+              }
+            }}
+          >
+            {/* Native Video Element */}
+            {isPlaying ? (
+              <video
+                src="/very last bite demo.mp4"
+                controls
+                autoPlay
+                playsInline
                 style={{
-                  padding: "var(--lp-card-padding)",
-                  borderRadius: 20,
-                  background: "#fff",
-                  boxShadow: "0 2px 12px rgba(0,0,0,0.05)",
-                  border: "1px solid #F3F0EB",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
                   height: "100%",
-                  transition: "box-shadow 0.25s, transform 0.25s",
+                  border: "none",
                 }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(0,0,0,0.10)";
-                  (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 12px rgba(0,0,0,0.05)";
-                  (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                }}
-              >
+              />
+            ) : (
+              <>
+                {/* Poster / First Frame Wrapper */}
+                <video
+                  src="/very last bite demo.mp4"
+                  preload="metadata"
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+                
+                {/* Dimming overlay on hover */}
                 <div
+                  className="lp-video-overlay"
                   style={{
-                    fontSize: 13,
-                    fontWeight: 800,
-                    color: "#B45309",
-                    letterSpacing: "0.06em",
-                    marginBottom: 20,
-                    fontFamily: "Outfit, sans-serif",
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    background: "rgba(28,25,23,0.15)",
+                    transition: "background 0.3s ease",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  {num}
+                  {/* Clean Play Button */}
+                  <div
+                    style={{
+                      width: 72,
+                      height: 72,
+                      borderRadius: "50%",
+                      background: "#1C1917",
+                      color: "#fff",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 20,
+                      paddingLeft: 4,
+                      boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
+                      transition: "transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+                    }}
+                    className="lp-play-btn"
+                  >
+                    ▶
+                  </div>
                 </div>
-                <h3
-                  style={{
-                    fontSize: 17,
-                    fontWeight: 700,
-                    color: "#1C1917",
-                    letterSpacing: "-0.02em",
-                    marginBottom: 12,
-                    fontFamily: "Outfit, sans-serif",
-                  }}
-                >
-                  {title}
-                </h3>
-                <p style={{ fontSize: 14, color: "#78716C", lineHeight: 1.7 }}>
-                  {desc}
-                </p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
+              </>
+            )}
+          </div>
+        </FadeIn>
       </div>
     </section>
   );
