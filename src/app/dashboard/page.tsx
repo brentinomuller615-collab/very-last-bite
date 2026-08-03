@@ -10,13 +10,6 @@ export default function DashboardPage() {
   const { user, signOut } = useAuth();
   const router = useRouter();
 
-  const joinDate = user?.metadata?.creationTime
-    ? new Date(user.metadata.creationTime).toLocaleDateString("en-ZA", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })
-    : null;
 
   return (
     <AuthGuard>
@@ -84,14 +77,6 @@ export default function DashboardPage() {
               Thank you for joining the Very Last Bite Founding Club.
             </p>
 
-            {/* Member since — quiet metadata */}
-            {joinDate && (
-              <div style={{ marginBottom: "48px" }}>
-                <p className="text-sm text-[#A8A29E]">
-                  Member since {joinDate}
-                </p>
-              </div>
-            )}
 
             {/* Final sentence */}
             <p
