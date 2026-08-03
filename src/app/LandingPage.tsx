@@ -1759,7 +1759,7 @@ export default function LandingPage() {
             {/* Video Player */}
             <div style={{ position: "relative", paddingTop: "56.25%", background: "#000" }}>
               <video
-                src="/very_last_bite_demo.mp4"
+                src="/very last bite demo.mp4"
                 controls
                 autoPlay
                 playsInline
