@@ -1300,8 +1300,8 @@ function FAQ() {
       a: "Yes. Joining the Founding Club and creating an account is completely free. You only pay when you claim a food bundle.",
     },
     {
-      q: "What kind of food will be available?",
-      a: "Surplus items from local cafés, bakeries, restaurants, and other food businesses — prepared meals, bread, pastries, delis, and more. Everything is fresh that day and available at end-of-day prices.",
+      q: "What kind of food can I expect?",
+      a: "Every bundle is a surprise. One day you might discover artisan pastries and handcrafted desserts, the next a gourmet meal, café favourite, specialty drink or another freshly prepared creation from a participating food business. Every spin brings a new opportunity to discover something delicious.",
     },
     {
       q: "When will you launch?",
