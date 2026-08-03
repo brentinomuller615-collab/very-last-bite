@@ -730,32 +730,32 @@ function TrustBand() {
     {
       emoji: "🎲",
       title: "Spin to Discover",
-      desc: "Discover available food bundles with a single spin.",
+      desc: "Tap spin and instantly see what quality food is available from participating businesses near you today.",
     },
     {
       emoji: "⚡",
       title: "Reserve in Seconds",
-      desc: "Secure your bundle before someone else does.",
+      desc: "See something you love? Tap to reserve it before someone else does. No queuing, no waiting.",
     },
     {
       emoji: "📍",
-      title: "Collect Locally",
-      desc: "Pick up from participating cafés, bakeries, restaurants and other food businesses.",
+      title: "Collect at Your Convenience",
+      desc: "Head to the participating café, bakery, restaurant or food business and collect at the confirmed time.",
     },
     {
       emoji: "🍽️",
-      title: "Freshly Prepared",
-      desc: "Enjoy quality food prepared by trusted local businesses at great value.",
+      title: "Quality You Can Count On",
+      desc: "Every bundle is freshly prepared by a participating local food business — never compromised, always good.",
     },
     {
       emoji: "🤝",
-      title: "Join the Founding Club",
-      desc: "Become part of the first community helping shape Very Last Bite before launch.",
+      title: "Be a Founding Member",
+      desc: "Join the Founding Club now and secure your place before we open to the public. Spots are limited.",
     },
     {
       emoji: "✨",
-      title: "Simple & Seamless",
-      desc: "From discovery to collection, everything happens in just a few taps.",
+      title: "Designed to Be Simple",
+      desc: "Spin, reserve and collect. The entire experience is designed to take less than a minute from start to finish.",
     },
   ];
 
@@ -1075,34 +1075,34 @@ function MissionSection() {
 function FoundingClub({ authButtonLink }: { authButtonLink: string }) {
   const benefits = [
     {
-      icon: "🎯",
-      title: "First access",
-      desc: "Be among the first to use the platform when we go live in your area.",
+      icon: "🌱",
+      title: "Be Here from Day One",
+      desc: "You&apos;re not joining a waitlist. You&apos;re becoming part of the very first Very Last Bite community — before we open to the public.",
     },
     {
-      icon: "🔒",
-      title: "Locked-in pricing",
-      desc: "Founding members get exclusive rates that stay with you permanently.",
+      icon: "🏙️",
+      title: "Help Shape the Experience",
+      desc: "Your feedback, ideas and real-world experience as an early member will directly influence how the platform grows. Your voice matters here.",
+    },
+    {
+      icon: "🍽️",
+      title: "Support Local Food Businesses",
+      desc: "Every time you discover and collect a bundle, you&apos;re supporting a real local business and the people behind it.",
     },
     {
       icon: "🤝",
-      title: "Shape the product",
-      desc: "Your feedback directly influences what we build next. You have a seat at the table.",
-    },
-    {
-      icon: "📍",
-      title: "Local expansion vote",
-      desc: "Help decide which neighbourhood gets access first.",
-    },
-    {
-      icon: "🏷️",
-      title: "Founding member badge",
-      desc: "A permanent marker of being part of building something meaningful from the start.",
+      title: "Build Something Together",
+      desc: "Very Last Bite is being built with its members, not just for them. Founding Club members are part of that process from the beginning.",
     },
     {
       icon: "💬",
-      title: "Direct access",
-      desc: "Communicate directly with the founders. No support tickets. Real humans.",
+      title: "A Direct Line to the Founders",
+      desc: "No support tickets. No automated replies. Founding members can reach us directly and we genuinely listen.",
+    },
+    {
+      icon: "📍",
+      title: "Part of the Pilot Journey",
+      desc: "As we launch in Stellenbosch and grow from there, Founding Club members will experience each milestone alongside us.",
     },
   ];
 
@@ -1118,7 +1118,7 @@ function FoundingClub({ authButtonLink }: { authButtonLink: string }) {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <FadeIn>
           <div style={{ textAlign: "center", marginBottom: "var(--lp-title-mb)" }}>
-            <SectionLabel>Why join now</SectionLabel>
+            <SectionLabel>The Founding Club</SectionLabel>
             <h2
               style={{
                 fontSize: "clamp(32px, 4.5vw, 52px)",
@@ -1129,18 +1129,18 @@ function FoundingClub({ authButtonLink }: { authButtonLink: string }) {
                 margin: "20px 0 16px",
               }}
             >
-              The Founding Club
+              The beginning of something real
             </h2>
             <p
               style={{
                 fontSize: 17,
                 color: "#78716C",
                 lineHeight: 1.65,
-                maxWidth: 480,
+                maxWidth: 520,
                 margin: "0 auto",
               }}
             >
-              We&apos;re not open yet. But the people who join now get something the rest won&apos;t: permanence.
+              Very Last Bite is being built right now. The people who join at this stage aren&apos;t just early adopters — they&apos;re the founding community. This is your invitation to be part of that.
             </p>
           </div>
         </FadeIn>
@@ -1230,7 +1230,7 @@ function FoundingClub({ authButtonLink }: { authButtonLink: string }) {
           >
             <div style={{ maxWidth: 520 }}>
               <div style={{ fontSize: 11, fontWeight: 700, color: "#F59E0B", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
-                Limited availability
+                Founding Club
               </div>
               <h3
                 style={{
@@ -1243,10 +1243,10 @@ function FoundingClub({ authButtonLink }: { authButtonLink: string }) {
                   margin: "0 0 16px",
                 }}
               >
-                Claim your founding spot before we launch
+                Join the community that&apos;s building this.
               </h3>
               <p style={{ fontSize: 15, color: "#A8A29E", lineHeight: 1.65 }}>
-                Spots are finite. Once we hit capacity, the Founding Club closes. Join the waitlist today.
+                We&apos;re launching in Stellenbosch and we want the right people with us from the start. Joining the Founding Club means being part of the journey, not just the destination.
               </p>
             </div>
             <Link href={authButtonLink} style={{ textDecoration: "none", flexShrink: 0 }}>
@@ -1296,28 +1296,28 @@ function FoundingClub({ authButtonLink }: { authButtonLink: string }) {
 function FAQ() {
   const faqs = [
     {
-      q: "Is Very Last Bite free to join?",
-      a: "Yes. Joining the Founding Club and creating an account is completely free. You only pay when you claim a food bundle.",
+      q: "How does Very Last Bite work?",
+      a: "Spin once a day to discover what&apos;s available from participating local food businesses. If you see something you&apos;d like, tap to reserve it. Then collect it directly from the business at the confirmed time. That&apos;s it.",
     },
     {
-      q: "What kind of food can I expect?",
-      a: "Every bundle is a surprise. One day you might discover artisan pastries and handcrafted desserts, the next a gourmet meal, café favourite, specialty drink or another freshly prepared creation from a participating food business. Every spin brings a new opportunity to discover something delicious.",
+      q: "Why do I spin instead of browsing?",
+      a: "The spin is what makes Very Last Bite different. Instead of scrolling through endless listings, you get one curated moment of discovery each day — making the experience more exciting, more personal and far simpler to use.",
     },
     {
-      q: "When will you launch?",
-      a: "We&apos;re in the final stages of onboarding local cafés, bakeries, and restaurants. Founding Club members will be the first to know and the first to get access when we go live.",
+      q: "What could I discover?",
+      a: "Every bundle is a surprise. You might find artisan pastries, a gourmet meal, a café favourite, a specialty drink or something else entirely — all freshly prepared that day by a participating food business. Every spin is a new opportunity.",
     },
     {
-      q: "How is this different from a discount food app?",
-      a: "We&apos;re not about deals or discounts as a marketing gimmick. This is a food rescue mission. Every bundle claimed prevents waste and helps someone eat well.",
+      q: "Why should I join the Founding Club?",
+      a: "Founding Club members get first access when we launch, along with exclusive benefits that stay with them permanently. Spots are limited and the Founding Club closes when we reach capacity — so joining now means securing your place before it&apos;s open to everyone.",
     },
     {
-      q: "Can food businesses join as partners?",
-      a: "Absolutely. If you run a café, bakery, restaurant or deli and want to turn surplus into income while reducing waste, visit our partner portal or reach out directly.",
+      q: "Will there be a membership fee?",
+      a: "Creating an account and joining the Founding Club is completely free. You only pay when you reserve a bundle. Founding Club members will receive exclusive pricing details ahead of our public launch.",
     },
     {
-      q: "What happens to my founding status?",
-      a: "It&apos;s permanent. Your founding member pricing, badge, and benefits stay with you for as long as you use the platform.",
+      q: "Which businesses are available on Very Last Bite?",
+      a: "We partner with a range of local food businesses including cafés, bakeries, restaurants, delis and more. All partners are reviewed before joining the platform so you can expect a consistently quality experience every time.",
     },
   ];
 
