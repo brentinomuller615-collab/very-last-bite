@@ -589,44 +589,34 @@ function HeroSection({
               onClick={onWatchDemo}
               style={{
                 background: "transparent",
-                color: "#B45309",
-                border: "none",
+                color: "#1C1917",
+                border: "1.5px solid #D6D3D1",
+                borderRadius: 14,
+                padding: "17px 52px",
                 fontSize: 14,
                 fontWeight: 600,
                 cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                letterSpacing: "-0.01em",
+                lineHeight: 1,
                 minHeight: 52,
-                gap: 8,
                 width: "var(--lp-hero-btn-width)",
-                transition: "color 0.2s, transform 0.15s",
+                display: "inline-flex",
+                justifyContent: "center",
+                alignItems: "center",
+                transition: "border-color 0.2s, background 0.2s, transform 0.15s",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.color = "#92400E";
-                e.currentTarget.style.transform = "translateY(-1px)";
+                e.currentTarget.style.borderColor = "#A8A29E";
+                e.currentTarget.style.background = "rgba(0,0,0,0.02)";
+                e.currentTarget.style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = "#B45309";
+                e.currentTarget.style.borderColor = "#D6D3D1";
+                e.currentTarget.style.background = "transparent";
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              <div
-                style={{
-                  width: 28,
-                  height: 28,
-                  borderRadius: "50%",
-                  background: "rgba(180,83,9,0.08)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 10,
-                  paddingLeft: 2,
-                }}
-              >
-                ▶
-              </div>
-              Watch Demo Video
+              How it works
             </button>
           </div>
         </div>
@@ -733,9 +723,28 @@ function HeroSection({
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// TRUST BAND
+// TRUST BAND / VALUE CARDS
 // ─────────────────────────────────────────────────────────────────────────────
 function TrustBand() {
+  const cards = [
+    {
+      title: "Spin to Discover",
+      desc: "Discover available surplus food through our unique daily spin.",
+    },
+    {
+      title: "Reserve in Seconds",
+      desc: "Secure your bundle before someone else does.",
+    },
+    {
+      title: "Collect Locally",
+      desc: "Pick up directly from participating food businesses at the scheduled collection time.",
+    },
+    {
+      title: "Launching in Stellenbosch",
+      desc: "Be among the first to experience Very Last Bite during our pilot launch.",
+    },
+  ];
+
   return (
     <section
       id="trust"
@@ -747,31 +756,31 @@ function TrustBand() {
       }}
     >
       <div
-        style={{ maxWidth: 1200, margin: "0 auto" }}
-        className="lp-trust-wrapper"
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: 32,
+        }}
       >
-        {[
-          { stat: "Zero", label: "food wasted" },
-          { stat: "R0", label: "sign-up cost" },
-          { stat: "70%", label: "avg. savings" },
-          { stat: "Local", label: "bakeries only" },
-        ].map(({ stat, label }) => (
-          <div key={label} style={{ textAlign: "center" }}>
-            <div
+        {cards.map(({ title, desc }) => (
+          <div key={title} style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <h3
               style={{
-                fontSize: 22,
-                fontWeight: 900,
+                fontSize: 15,
+                fontWeight: 800,
                 color: "#1C1917",
                 fontFamily: "Outfit, sans-serif",
-                letterSpacing: "-0.04em",
-                lineHeight: 1,
+                letterSpacing: "-0.02em",
+                margin: 0,
               }}
             >
-              {stat}
-            </div>
-            <div style={{ fontSize: 12, color: "#A8A29E", fontWeight: 500, marginTop: 4 }}>
-              {label}
-            </div>
+              {title}
+            </h3>
+            <p style={{ fontSize: 13, color: "#78716C", lineHeight: 1.5, margin: 0 }}>
+              {desc}
+            </p>
           </div>
         ))}
       </div>
