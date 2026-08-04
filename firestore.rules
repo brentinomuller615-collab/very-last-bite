@@ -2,115 +2,143 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // ── Role helpers ─────────────────────────────────────────────────────────
+    // ── Helper Functions ──────────────────────────────────────────────────────
 
-    // Returns true if the signed-in user has role == 'admin' in the users collection.
+    // Returns true if the user is authenticated.
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Returns true if the request comes from the admin account or an admin claim/role.
     function isAdmin() {
-      return request.auth != null &&
-        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+      return isAuthenticated() && (
+        request.auth.token.email == 'brentino@verylastbite.co.za' ||
+        (request.auth.token.keys().hasAny(['role']) && request.auth.token.role == 'admin') ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')
+      );
     }
 
-    // Returns true if the signed-in user has role == 'restaurant'.
-    function isRestaurant() {
-      return request.auth != null &&
-        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'restaurant';
-    }
-
-    // Check if the current user is an approved bakery
+    // Returns true if the bakery belonging to uid is approved.
     function isApprovedBakery(uid) {
-      return get(/databases/$(database)/documents/bakeries/$(uid)).data.status == 'approved';
+      return exists(/databases/$(database)/documents/bakeries/$(uid)) &&
+             get(/databases/$(database)/documents/bakeries/$(uid)).data.status == 'approved';
     }
 
-    // ── users collection ─────────────────────────────────────────────────────
+    // ── 1. Users Collection ──────────────────────────────────────────────────
     match /users/{userId} {
-      // A user can read their own role document
-      allow read: if request.auth != null && request.auth.uid == userId;
+      // Users can read their own role document; Admins can read any user document
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
 
-      // A user can create their own role document ONLY if it does not yet exist.
-      // This allows the client-side bootstrap to seed the admin role on first login.
-      // The role field must be one of the valid values.
-      allow create: if request.auth != null
-        && request.auth.uid == userId
-        && request.resource.data.role in ['admin', 'restaurant', 'customer']
-        && !exists(/databases/$(database)/documents/users/$(userId));
+      // Creating user document:
+      // - Admins can assign any role (including 'admin')
+      // - Ordinary users can ONLY assign 'customer' or 'restaurant' (never 'admin')
+      allow create: if isAuthenticated() && request.auth.uid == userId && (
+        isAdmin() || (
+          request.resource.data.role in ['customer', 'restaurant'] &&
+          !exists(/databases/$(database)/documents/users/$(userId))
+        )
+      );
 
-      // Only admins can update any user's role document
-      allow update: if isAdmin();
-
-      // Only admins can delete a user role document
-      allow delete: if isAdmin();
+      // Only Admins can update or delete role documents
+      allow update, delete: if isAdmin();
     }
 
-    // ── bakeries collection ──────────────────────────────────────────────────
+    // ── 2. Bakeries Collection ────────────────────────────────────────────────
     match /bakeries/{bakeryId} {
-      // Anyone can read bakery information
+      // Anyone can read bakery information (required for public marketplace discovery)
       allow read: if true;
 
-      // A bakery can register itself with status set to "pending"
-      allow create: if request.auth != null
+      // Bakery owner can register their business with initial status set strictly to 'pending'
+      allow create: if isAuthenticated()
         && request.auth.uid == bakeryId
-        && request.resource.data.status == 'pending';
+        && request.resource.data.status == 'pending'
+        && !request.resource.data.keys().hasAny(['approvedAt', 'rejectedAt']);
 
-      // A bakery can update its own profile but NOT change its own status.
-      // An admin can update any bakery's status.
-      allow update: if request.auth != null && (
+      // Bakery owner can update business info, but CANNOT alter status or approval timestamps.
+      // Admins can update any field (including approving/rejecting/suspending status).
+      allow update: if isAuthenticated() && (
         isAdmin() || (
           request.auth.uid == bakeryId
           && request.resource.data.status == resource.data.status
+          && (!request.resource.data.keys().hasAny(['approvedAt']) || request.resource.data.approvedAt == resource.data.get('approvedAt', null))
+          && (!request.resource.data.keys().hasAny(['rejectedAt']) || request.resource.data.rejectedAt == resource.data.get('rejectedAt', null))
         )
       );
 
-      // Only admin can delete a bakery document
+      // Only Admins can delete bakery records
       allow delete: if isAdmin();
     }
 
-    // ── listings collection ──────────────────────────────────────────────────
+    // ── 3. Listings Collection ────────────────────────────────────────────────
     match /listings/{listingId} {
-      // Anyone can read listings
+      // Anyone can read listings (required for public marketplace discovery)
       allow read: if true;
 
       // Only approved bakeries can create listings under their own UID
-      allow create: if request.auth != null
+      allow create: if isAuthenticated()
         && request.resource.data.bakeryId == request.auth.uid
         && isApprovedBakery(request.auth.uid);
 
-      // Only approved bakeries can update or delete their own listings.
-      // Admins can also manage any listing (activate/deactivate/delete).
-      // Customers can update listing quantity during a reservation transaction (decrement by 1).
-      allow update: if request.auth != null && (
+      // Listing updates:
+      // - Admins can update any listing
+      // - Approved bakery owners can update their own listing
+      // - Customers can ONLY decrement quantity by 1 during reservation transactions, keeping prices & listing attributes immutable
+      allow update: if isAuthenticated() && (
         isAdmin() || (
-          resource.data.bakeryId == request.auth.uid
-          && isApprovedBakery(request.auth.uid)
+          resource.data.bakeryId == request.auth.uid &&
+          isApprovedBakery(request.auth.uid)
         ) || (
-          request.resource.data.quantity == resource.data.quantity - 1
-          && request.resource.data.bakeryId == resource.data.bakeryId
+          request.resource.data.quantity == resource.data.quantity - 1 &&
+          request.resource.data.bakeryId == resource.data.bakeryId &&
+          request.resource.data.sellingPrice == resource.data.sellingPrice &&
+          request.resource.data.retailValue == resource.data.retailValue &&
+          request.resource.data.type == resource.data.type &&
+          request.resource.data.active == (request.resource.data.quantity > 0)
         )
       );
-      allow delete: if request.auth != null && (
+
+      // Only approved bakery owners or admins can delete listings
+      allow delete: if isAuthenticated() && (
         isAdmin() || (
-          resource.data.bakeryId == request.auth.uid
-          && isApprovedBakery(request.auth.uid)
+          resource.data.bakeryId == request.auth.uid &&
+          isApprovedBakery(request.auth.uid)
         )
       );
     }
 
-    // ── reservations collection ──────────────────────────────────────────────
+    // ── 4. Reservations Collection ───────────────────────────────────────────
     match /reservations/{reservationId} {
-      allow read: if request.auth != null && (
+      // Read: Customer who reserved, Bakery owner, or Admin
+      allow read: if isAuthenticated() && (
         isAdmin() ||
         resource.data.userId == request.auth.uid ||
         resource.data.bakeryId == request.auth.uid
       );
-      // Allow list queries by userId (customers) or bakeryId (bakeries)
-      allow list: if request.auth != null;
-      allow create: if request.auth != null
-        && request.resource.data.userId == request.auth.uid;
+
+      // List queries: Allowed for authenticated users (filtered by client query where userId == auth.uid or bakeryId == auth.uid)
+      allow list: if isAuthenticated();
+
+      // Reservation Creation:
+      // Customer can create a reservation ONLY under their own UID, with initial status 'reserved', pickupCodeUsed false, collectedAt null
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status == 'reserved'
+        && request.resource.data.pickupCodeUsed == false
+        && request.resource.data.collectedAt == null
+        && request.resource.data.pickupCode is string;
+
+      // Reservation Updates:
+      // Only Admin or server-side service account (e.g. /api/bakery/verify-pickup) can update reservation status or verify codes
       allow update: if isAdmin();
-      allow delete: if request.auth != null && (
-        isAdmin() ||
-        resource.data.userId == request.auth.uid
+
+      // Reservation Deletion / Cancellation:
+      // Customer can cancel their own reservation ONLY IF status is currently 'reserved' (uncollected)
+      allow delete: if isAuthenticated() && (
+        isAdmin() || (
+          resource.data.userId == request.auth.uid &&
+          resource.data.status == 'reserved'
+        )
       );
     }
   }

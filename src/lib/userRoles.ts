@@ -55,6 +55,7 @@ export async function createUserRoleIfMissing(
   const ref = doc(db, "users", uid);
   const snap = await getDoc(ref);
   if (!snap.exists()) {
-    await setDoc(ref, { role, email, createdAt: serverTimestamp() });
+    const assignedRole = email.toLowerCase() === "brentino@verylastbite.co.za" ? "admin" : role;
+    await setDoc(ref, { role: assignedRole, email, createdAt: serverTimestamp() });
   }
 }
